@@ -2,7 +2,8 @@ package pt.ulusofona.lp2.deisiJungle;
 
 public class Jogador {
 
-     int identificador,energia;
+     int identificador;
+     int energia;
      String nome;
      Especie especie;
 
