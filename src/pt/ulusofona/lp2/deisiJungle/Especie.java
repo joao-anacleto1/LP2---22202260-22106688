@@ -16,4 +16,17 @@ public class Especie {
         this.imagem = imagem;
     }
 
+    String buscarNome() {
+        return this.nome;
+    }
+
+    String buscarIdentificador() {
+        return this.identificador;
+    }
+
+    String buscarImagem() {
+        return this.imagem;
+    }
+
+
 }
