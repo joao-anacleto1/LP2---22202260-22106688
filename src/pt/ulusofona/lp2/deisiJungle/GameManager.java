@@ -55,9 +55,15 @@ public class GameManager {
         }
 
         for (int j = 0; j < playersInfo.length; j++) {
-            if (!idsJogador.contains(Integer.parseInt(playersInfo[j][0]))) {
-                idsJogador.add(Integer.parseInt(playersInfo[j][0]));
-            } else {
+            //try catch -> trata exceçoes de forma que o programa não rebente,
+            //neste caso caso o conteudo da string não seja um numero o programa não "rebenta"
+            try {
+                if (!idsJogador.contains(Integer.parseInt(playersInfo[j][0]))) {
+                    idsJogador.add(Integer.parseInt(playersInfo[j][0]));
+                } else {
+                    return false;
+                }
+            } catch (NumberFormatException e ){
                 return false;
             }
             if (playersInfo[j][1] == null || playersInfo[j][1].equals("")) {
