@@ -13,4 +13,24 @@ public class Casa {
         this.tipoCasa = tipoCasa;
     }
 
+    boolean adicionarJogador(Jogador j) {
+        if (jogadores.contains(j)) {
+            return false;
+        } else {
+            jogadores.add(j);
+            return true;
+        }
+    }
+
+    boolean removerJogador(Jogador j) {
+        if (jogadores.contains(j)) {
+            return false;
+        } else {
+            jogadores.remove(j);
+            return true;
+        }
+    }
+
+
+
 }

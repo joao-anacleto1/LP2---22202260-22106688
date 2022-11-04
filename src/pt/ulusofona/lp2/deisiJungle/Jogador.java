@@ -8,8 +8,6 @@ public class Jogador {
     int energia; // indicada na hora do jogo
     String nome;
     Especie especie;
-    ArrayList<Jogador> jogadores = new ArrayList();
-
 
     public Jogador() {
 
@@ -28,8 +26,6 @@ public class Jogador {
         return nome.length() > 0;
     }
 
-    int numeroJogadores(){
-        return jogadores.size();
-    }
+
 
 }

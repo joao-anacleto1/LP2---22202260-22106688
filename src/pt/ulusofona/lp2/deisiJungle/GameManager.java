@@ -85,9 +85,12 @@ public class GameManager {
     }
 
     public int[] getPlayerIds(int squareNr){
+        int[] ids = new int[jogadores.size()];
 
+        for(int k = 0 ; k < jogadores.size() ; k++){
+
+        }
         return null;
-
     }
 
     public String[] getSquareInfo(int squareNr){
