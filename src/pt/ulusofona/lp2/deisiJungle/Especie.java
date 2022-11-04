@@ -3,14 +3,14 @@ package pt.ulusofona.lp2.deisiJungle;
 public class Especie {
 
     String nome;
-    String identificador;
+    char identificador;
     String imagem;
 
     public Especie() {
 
     }
 
-    public Especie(String nome, String identificador, String imagem) {
+    public Especie(String nome, char identificador, String imagem) {
         this.nome = nome;
         this.identificador = identificador;
         this.imagem = imagem;
@@ -20,7 +20,7 @@ public class Especie {
         return this.nome;
     }
 
-    String buscarIdentificador() {
+    char buscarIdentificador() {
         return this.identificador;
     }
 
