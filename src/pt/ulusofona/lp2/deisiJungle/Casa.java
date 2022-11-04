@@ -6,7 +6,7 @@ public class Casa {
 
     int indexCasa;
     String tipoCasa;
-    ArrayList<Jogador> jogadores;
+    ArrayList<Jogador> jogadores = new ArrayList<>();
 
     public Casa(int indexCasa, String tipoCasa) {
         this.indexCasa = indexCasa;

@@ -1,11 +1,14 @@
 package pt.ulusofona.lp2.deisiJungle;
 
+import java.util.ArrayList;
+
 public class Jogador {
 
     int id;
     int energia; // indicada na hora do jogo
     String nome;
     Especie especie;
+    ArrayList<Jogador> jogadores = new ArrayList();
 
 
     public Jogador() {
@@ -19,12 +22,13 @@ public class Jogador {
     }
 
     boolean validarNome(){
-        if (this.nome == null){
+        if (nome == null){
             return false;
         }
-        if (this.nome.length() <= 0){
-            return false;
-        }
-        return true;
+        return nome.length() > 0;
+    }
+
+    int numeroJogadores(){
+        return jogadores.size();
     }
 }
