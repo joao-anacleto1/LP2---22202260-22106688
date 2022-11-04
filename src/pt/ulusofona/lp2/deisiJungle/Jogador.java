@@ -22,6 +22,9 @@ public class Jogador {
         if (this.nome == null){
             return false;
         }
-        return this.nome.length() != 0;
+        if (this.nome.length() <= 0){
+            return false;
+        }
+        return true;
     }
 }
