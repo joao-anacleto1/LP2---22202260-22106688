@@ -83,7 +83,7 @@ public class GameManager {
     }
 
     public String whoIsTaborda(){
-        return "Wrestling";
+        return "Athletics";
     }
 
 }
