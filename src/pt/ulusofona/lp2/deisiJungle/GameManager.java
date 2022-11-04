@@ -21,21 +21,24 @@ public class GameManager {
         }
     };
 
+    ArrayList<Jogador> jogadores = new ArrayList<>();
+
 
     public GameManager() {
+
     }
 
     public String[][] getSpecies() {
 
-        String[][] specie = new String[especies.size()][];
+        String[][] result = new String[especies.size()][];
 
         for (int i = 0; i < especies.size(); i++) {
-            specie[i] = new String[]{
+            result[i] = new String[]{
                     especies.get(i).buscarIdentificador(),
                     especies.get(i).buscarNome(),
                     especies.get(i).buscarImagem()};
         }
-        return specie;
+        return result;
     }
 
     public boolean createInitialJungle(int jungleSize, int initialEnergy, String[][] playersInfo){
@@ -71,6 +74,7 @@ public class GameManager {
     }
 
     public ArrayList<String> getGameResults(){
+        //#1 <NOME>, <ESPÉCIE>, <posição do primeiro classificado>
         return new ArrayList<>();
     }
 
@@ -79,7 +83,7 @@ public class GameManager {
     }
 
     public String whoIsTaborda(){
-        return null;
+        return "Wrestling";
     }
 
 }
