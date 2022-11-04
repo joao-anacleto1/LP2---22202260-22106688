@@ -46,7 +46,9 @@ public class GameManager {
     }
 
     public int[] getPlayerIds(int squareNr){
+
         return null;
+
     }
 
     public String[] getSquareInfo(int squareNr){

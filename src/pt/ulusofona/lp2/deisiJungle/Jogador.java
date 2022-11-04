@@ -3,7 +3,7 @@ package pt.ulusofona.lp2.deisiJungle;
 public class Jogador {
 
     int id;
-    int energia;
+    int energia; // indicada na hora do jogo
     String nome;
     Especie especie;
 
@@ -16,5 +16,12 @@ public class Jogador {
         this.id = identificador;
         this.nome = nome;
         this.especie = especie;
+    }
+
+    boolean validarNome(){
+        if (this.nome == null){
+            return false;
+        }
+        return this.nome.length() != 0;
     }
 }
