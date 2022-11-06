@@ -9,10 +9,6 @@ public class Jogador {
     String nome;
     Especie especie;
 
-    public Jogador() {
-
-    }
-
     public Jogador(int identificador, String nome, Especie especie) {
         this.id = identificador;
         this.nome = nome;

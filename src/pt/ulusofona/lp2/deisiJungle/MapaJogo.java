@@ -36,6 +36,6 @@ public class MapaJogo {
     }
 
     Casa buscarJogadoresCasa(int indexNrCasa) {
-        return casas.get(indexNrCasa + 1);
+        return casas.get(indexNrCasa - 1);
     }
 }

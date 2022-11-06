@@ -131,4 +131,9 @@ public class GameManager {
         return "Wrestling";
     }
 
+    public void reset(){
+        mapa = null;
+        jogadores = new ArrayList<>();
+    }
+
 }

@@ -6,9 +6,6 @@ public class Especie {
     char identificador;
     String imagem;
 
-    public Especie() {
-    }
-
     public Especie(String nome, char identificador, String imagem) {
         this.nome = nome;
         this.identificador = identificador;
