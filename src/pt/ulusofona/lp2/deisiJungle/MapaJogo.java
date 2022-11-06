@@ -18,7 +18,7 @@ public class MapaJogo {
         for (int j = 0; j < tamanho; j++) {
 
             Casa novaCasa;
-            if(j == tamanho - 1) {
+            if (j == tamanho - 1) {
                 novaCasa = new Casa(j + 1, "Meta");
             } else {
                 novaCasa = new Casa(j + 1, "Vazio");
@@ -28,4 +28,14 @@ public class MapaJogo {
         return mapa;
     }
 
+    boolean verificaCasa(int l) {
+        if (l > casas.size()) {
+            return false;
+        }
+        return true;
+    }
+
+    Casa buscarJogadoresCasa(int indexNrCasa) {
+        return casas.get(indexNrCasa + 1);
+    }
 }

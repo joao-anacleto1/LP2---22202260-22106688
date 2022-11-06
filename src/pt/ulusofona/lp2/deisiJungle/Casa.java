@@ -31,6 +31,13 @@ public class Casa {
         }
     }
 
+    int[] buscaJogadoresIds() {
+        int[] ids = new int[jogadores.size()];
+        for (int l = 0; l < jogadores.size(); l++) {
+            ids[l] = jogadores.get(l).id;
+        }
+        return ids;
+    }
 
 
 }

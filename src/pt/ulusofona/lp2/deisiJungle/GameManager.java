@@ -21,7 +21,7 @@ public class GameManager {
         }
     };
 
-    ArrayList<Jogador> jogadores = new ArrayList<>();
+    ArrayList<Jogador> jogadores = new ArrayList<>(); // jogadores que estao a jogar
 
     MapaJogo mapa;
 
@@ -46,11 +46,11 @@ public class GameManager {
     public boolean createInitialJungle(int jungleSize, int initialEnergy, String[][] playersInfo) {
         ArrayList<Integer> idsJogador = new ArrayList<>();
 
-        if(!(playersInfo.length >= 2 && playersInfo.length <= 4)){
+        if (!(playersInfo.length >= 2 && playersInfo.length <= 4)) {
             return false;
         }
 
-        if(!(jungleSize >= 2 * playersInfo.length)){
+        if (!(jungleSize >= 2 * playersInfo.length)) {
             return false;
         }
 
@@ -63,7 +63,7 @@ public class GameManager {
                 } else {
                     return false;
                 }
-            } catch (NumberFormatException e ){
+            } catch (NumberFormatException e) {
                 return false;
             }
             if (playersInfo[j][1] == null || playersInfo[j][1].equals("")) {
@@ -76,57 +76,58 @@ public class GameManager {
                     break;
                 }
             }
-            if(!existeEspecie){
+            if (!existeEspecie) {
                 return false;
             }
         }
-        mapa =  new MapaJogo(jungleSize);
+        mapa = new MapaJogo(jungleSize);
         return true;
     }
 
-    public int[] getPlayerIds(int squareNr){
-        int[] ids = new int[jogadores.size()];
-
-        for(int k = 0 ; k < jogadores.size() ; k++){
-
+    public int[] getPlayerIds(int squareNr) {
+        Casa casa ;
+        if (mapa.verificaCasa(squareNr)) {
+            casa = mapa.buscarJogadoresCasa(squareNr);
+            return casa.buscaJogadoresIds();
+        }else {
+            return new int[0];
         }
+    }
+
+    public String[] getSquareInfo(int squareNr) {
         return null;
     }
 
-    public String[] getSquareInfo(int squareNr){
+    public String[] getPlayerInfo(int playerId) {
         return null;
     }
 
-    public String[] getPlayerInfo(int playerId){
+    public String[] getCurrentPlayerInfo() {
         return null;
     }
 
-    public String[] getCurrentPlayerInfo(){
+    public String[][] getPlayersInfo() {
         return null;
     }
 
-    public String[][] getPlayersInfo(){
-        return null;
-    }
-
-    public boolean moveCurrentPlayer(int nrSquares, boolean bypassValidations){
+    public boolean moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
         return false;
     }
 
-    public String[] getWinnerInfo(){
+    public String[] getWinnerInfo() {
         return null;
     }
 
-    public ArrayList<String> getGameResults(){
+    public ArrayList<String> getGameResults() {
         //#1 <NOME>, <ESPÉCIE>, <posição do primeiro classificado>
         return new ArrayList<>();
     }
 
-    public JPanel getAuthorsPanel(){
+    public JPanel getAuthorsPanel() {
         return null;
     }
 
-    public String whoIsTaborda(){
+    public String whoIsTaborda() {
         return "Wrestling";
     }
 

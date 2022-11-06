@@ -7,7 +7,6 @@ public class Especie {
     String imagem;
 
     public Especie() {
-
     }
 
     public Especie(String nome, char identificador, String imagem) {
