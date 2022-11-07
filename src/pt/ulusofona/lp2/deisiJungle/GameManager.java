@@ -114,9 +114,7 @@ public class GameManager {
     }
 
     public String[] getPlayerInfo(int playerId) {
-        String[] resultado = new String[1];
-        resultado[0] = "teste";
-        return resultado;
+        return null;
     }
 
     public String[] getCurrentPlayerInfo() { //com turnos
