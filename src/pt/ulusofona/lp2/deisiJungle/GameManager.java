@@ -133,7 +133,7 @@ public class GameManager {
         }
     }
 
-
+  
     public String[] getCurrentPlayerInfo() { //com turnos
         return null;
     }
