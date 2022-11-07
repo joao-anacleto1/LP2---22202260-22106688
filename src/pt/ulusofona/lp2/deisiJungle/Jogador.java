@@ -22,6 +22,8 @@ public class Jogador {
         return nome.length() > 0;
     }
 
-
+    int buscarId(){
+        return id;
+    }
 
 }

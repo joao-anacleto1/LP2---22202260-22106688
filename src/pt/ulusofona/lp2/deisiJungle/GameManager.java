@@ -87,7 +87,7 @@ public class GameManager {
     public int[] getPlayerIds(int squareNr) {
         Casa casa ;
         if (mapa.verificaCasa(squareNr)) {
-            casa = mapa.buscarJogadoresCasa(squareNr);
+            casa = mapa.buscarCasa(squareNr);
             return casa.buscaJogadoresIds();
         }else {
             return new int[0];
@@ -95,7 +95,16 @@ public class GameManager {
     }
 
     public String[] getSquareInfo(int squareNr) {
-        return null;
+        String[] casas = new String[3];
+        if(!(mapa.verificaCasa(squareNr))){
+            return null;
+        } else{
+            Casa casa = mapa.buscarCasa(squareNr);
+            casas[0] = casa.buscarImagemCasa();
+            casas[1] = casa.buscarTipoCasa();
+            casas[2] = casa.buscaIds().toString();
+        }
+        return casas;
     }
 
     public String[] getPlayerInfo(int playerId) {

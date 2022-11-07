@@ -19,9 +19,9 @@ public class MapaJogo {
 
             Casa novaCasa;
             if (j == tamanho - 1) {
-                novaCasa = new Casa(j + 1, "Meta");
+                novaCasa = new Casa(j + 1, "Meta","finish.png");
             } else {
-                novaCasa = new Casa(j + 1, "Vazio");
+                novaCasa = new Casa(j + 1, "Vazio","blank.png");
             }
             mapa.add(novaCasa);
         }
@@ -35,7 +35,7 @@ public class MapaJogo {
         return true;
     }
 
-    Casa buscarJogadoresCasa(int indexNrCasa) {
+    Casa buscarCasa(int indexNrCasa) {
         return casas.get(indexNrCasa - 1);
     }
 }
