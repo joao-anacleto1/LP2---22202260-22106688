@@ -45,7 +45,7 @@ public class GameManager {
     }
 
     public boolean createInitialJungle(int jungleSize, int initialEnergy, String[][] playersInfo) {
-        ArrayList<Integer> idsJogador = new ArrayList<>();
+        ArrayList<Integer> resultado = new ArrayList<>();
 
         if (!(playersInfo.length >= 2 && playersInfo.length <= 4)) {
             return false;
@@ -59,8 +59,8 @@ public class GameManager {
             //try catch -> trata exceçoes de forma que o programa não rebente,
             //neste caso caso o conteudo da string não seja um numero o programa não "rebenta"
             try {
-                if (!idsJogador.contains(Integer.parseInt(playersInfo[j][0]))) {
-                    idsJogador.add(Integer.parseInt(playersInfo[j][0]));
+                if (!resultado.contains(Integer.parseInt(playersInfo[j][0]))) {
+                    resultado.add(Integer.parseInt(playersInfo[j][0]));
                 } else {
                     return false;
                 }
@@ -101,28 +101,28 @@ public class GameManager {
     }
 
     public String[] getSquareInfo(int squareNr) {
-        String[] casas = new String[3];
+        String[] resultado = new String[3];
         if (!(mapa.verificaCasa(squareNr))) {
             return null;
         } else {
             Casa casa = mapa.buscarCasa(squareNr);
-            casas[0] = casa.buscarImagemCasa();
-            casas[1] = casa.buscarTipoCasa();
-            casas[2] = casa.buscaIds().toString();
+            resultado[0] = casa.buscarImagemCasa();
+            resultado[1] = casa.buscarTipoCasa();
+            resultado[2] = casa.buscaIds().toString();
         }
-        return casas;
+        return resultado;
     }
 
     public String[] getPlayerInfo(int playerId) {
         return null;
     }
 
-    public String[] getCurrentPlayerInfo() {
+    public String[] getCurrentPlayerInfo() { //com turnos
         return null;
     }
 
     public String[][] getPlayersInfo() {
-        return null;
+       return null;
     }
 
     public boolean moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
