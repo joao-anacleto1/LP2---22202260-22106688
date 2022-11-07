@@ -9,10 +9,11 @@ public class Jogador {
     String nome;
     Especie especie;
 
-    public Jogador(int identificador, String nome, Especie especie) {
+    public Jogador(int identificador, String nome, Especie especie, int energia) {
         this.id = identificador;
         this.nome = nome;
         this.especie = especie;
+        this.energia = energia;
     }
 
     boolean validarNome(){

@@ -38,4 +38,8 @@ public class MapaJogo {
     Casa buscarCasa(int indexNrCasa) {
         return casas.get(indexNrCasa - 1);
     }
+
+    void adicionaJogadorInicio(Jogador jogador){
+        casas.get(0).adicionarJogador(jogador);
+    }
 }

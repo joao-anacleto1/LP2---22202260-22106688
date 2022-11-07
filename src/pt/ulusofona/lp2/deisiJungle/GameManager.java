@@ -21,6 +21,7 @@ public class GameManager {
         }
     };
 
+
     ArrayList<Jogador> jogadores = new ArrayList<>(); // jogadores que estao a jogar
 
     MapaJogo mapa;
@@ -79,26 +80,31 @@ public class GameManager {
             if (!existeEspecie) {
                 return false;
             }
+            jogadores.add(new Jogador(Integer.parseInt(playersInfo[j][0]), playersInfo[j][1],
+                    buscarEspecieAtravesDoId(playersInfo[j][2].charAt(0)),initialEnergy));
         }
         mapa = new MapaJogo(jungleSize);
+        for (int i = 0; i < jogadores.size(); i++) {
+            mapa.adicionaJogadorInicio(jogadores.get(i));
+        }
         return true;
     }
 
     public int[] getPlayerIds(int squareNr) {
-        Casa casa ;
+        Casa casa;
         if (mapa.verificaCasa(squareNr)) {
             casa = mapa.buscarCasa(squareNr);
             return casa.buscaJogadoresIds();
-        }else {
+        } else {
             return new int[]{};
         }
     }
 
     public String[] getSquareInfo(int squareNr) {
         String[] casas = new String[3];
-        if(!(mapa.verificaCasa(squareNr))){
+        if (!(mapa.verificaCasa(squareNr))) {
             return null;
-        } else{
+        } else {
             Casa casa = mapa.buscarCasa(squareNr);
             casas[0] = casa.buscarImagemCasa();
             casas[1] = casa.buscarTipoCasa();
@@ -140,9 +146,18 @@ public class GameManager {
         return "Wrestling";
     }
 
-    public void reset(){
+    public void reset() {
         mapa = null;
         jogadores = new ArrayList<>();
+    }
+
+    public Especie buscarEspecieAtravesDoId(char id) {
+        for (Especie especie : this.especies) {
+            if (especie.buscarIdentificador() == id) {
+                return especie;
+            }
+        }
+        return null;
     }
 
 }
