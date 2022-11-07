@@ -139,7 +139,22 @@ public class GameManager {
     }
 
     public String[][] getPlayersInfo() {
-       return null;
+        String [][] resultado = new String[jogadores.size()][];
+
+        if (jogadores.size() <= 0){
+            return null;
+        } else {
+            for (Jogador j: jogadores) {
+                for (int i = 0; i <= jogadores.size(); i++){
+                    resultado[i][0] = String.valueOf(j.id);
+                    resultado[i][1] = j.nome;
+                    resultado[i][2] = String.valueOf(j.especie);
+                    resultado[i][3] = String.valueOf(j.energia);
+                }
+            }
+            return resultado;
+        }
+
     }
 
     public boolean moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
