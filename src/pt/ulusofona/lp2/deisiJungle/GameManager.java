@@ -3,6 +3,7 @@ package pt.ulusofona.lp2.deisiJungle;
 import javax.swing.*;
 import java.util.ArrayList;
 
+
 public class GameManager {
 
     Especie elefante = new Especie("Elefante", 'E', "elephant.png");
@@ -114,8 +115,24 @@ public class GameManager {
     }
 
     public String[] getPlayerInfo(int playerId) {
-        return null;
+        String[] resultado = new String[4];
+
+        if (jogadores.size() <= 0){
+            return null;
+        } else {
+            for (Jogador j: jogadores){
+                j.buscarId();
+                if (j.id == playerId){
+                    resultado[0] = String.valueOf(j.id);
+                    resultado[1] = j.nome;
+                    resultado[2] = String.valueOf(j.especie);
+                    resultado[3] = String.valueOf(j.energia);
+                }
+            }
+            return resultado;
+        }
     }
+
 
     public String[] getCurrentPlayerInfo() { //com turnos
         return null;
