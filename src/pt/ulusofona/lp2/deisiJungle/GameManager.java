@@ -90,7 +90,7 @@ public class GameManager {
             casa = mapa.buscarCasa(squareNr);
             return casa.buscaJogadoresIds();
         }else {
-            return new int[0];
+            return new int[]{};
         }
     }
 

@@ -29,7 +29,7 @@ public class MapaJogo {
     }
 
     boolean verificaCasa(int l) {
-        if (l > casas.size()) {
+        if (l > casas.size() || l < 1) {
             return false;
         }
         return true;
