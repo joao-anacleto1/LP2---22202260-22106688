@@ -8,12 +8,14 @@ public class Jogador {
     int energia; // indicada na hora do jogo
     String nome;
     Especie especie;
+    int posicaoAtual;
 
-    public Jogador(int identificador, String nome, Especie especie, int energia) {
+    public Jogador(int identificador, String nome, Especie especie, int energia, int posicaoAtual) {
         this.id = identificador;
         this.nome = nome;
         this.especie = especie;
         this.energia = energia;
+        this.posicaoAtual = posicaoAtual;
     }
 
     boolean validarNome(){

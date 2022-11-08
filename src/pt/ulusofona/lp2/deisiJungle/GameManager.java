@@ -24,8 +24,8 @@ public class GameManager {
 
 
     ArrayList<Jogador> jogadores = new ArrayList<>(); // jogadores que estao a jogar
-
     MapaJogo mapa;
+    int turno = 0;
 
 
     public GameManager() {
@@ -82,7 +82,8 @@ public class GameManager {
                 return false;
             }
             jogadores.add(new Jogador(Integer.parseInt(playersInfo[j][0]), playersInfo[j][1],
-                    buscarEspecieAtravesDoId(playersInfo[j][2].charAt(0)),initialEnergy));
+                    buscarEspecieAtravesDoId(playersInfo[j][2].charAt(0)),initialEnergy,
+                     buscarJogadorAtual().posicaoAtual));
         }
         mapa = new MapaJogo(jungleSize);
         for (int i = 0; i < jogadores.size(); i++) {
@@ -144,7 +145,7 @@ public class GameManager {
             return null;
         } else {
             for (Jogador j: jogadores) {
-                for (int i = 0; i < jogadores.size(); i++){ // ver o pq de null pointer exception
+                for (int i = 0; i < jogadores.size(); i++){
                     resultado[i][0] = String.valueOf(j.id);
                     resultado[i][1] = j.nome;
                     resultado[i][2] = String.valueOf(j.especie);
@@ -189,6 +190,12 @@ public class GameManager {
             }
         }
         return null;
+    }
+
+    public Jogador buscarJogadorAtual(){
+
+        return null;
+
     }
 
 }
