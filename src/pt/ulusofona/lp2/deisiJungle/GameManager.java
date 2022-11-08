@@ -167,7 +167,15 @@ public class GameManager {
     }
 
     public boolean moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
-        return false;
+
+        if (!bypassValidations){
+            // condições do dado
+            return nrSquares >= 1 && nrSquares <= 6;
+        }
+        else {
+            turno += nrSquares;
+        }
+        return true;
     }
 
     public String[] getWinnerInfo() {
