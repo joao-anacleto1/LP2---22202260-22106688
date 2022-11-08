@@ -180,7 +180,15 @@ public class GameManager {
     }
 
     public JPanel getAuthorsPanel() {
-        return null;
+        JFrame janela = new JFrame("Créditos");
+        JPanel painelCreditos = new JPanel();
+
+        janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        janela.add(painelCreditos);
+        painelCreditos.setSize(300, 300);
+        painelCreditos.setVisible(true);
+
+        return painelCreditos;
     }
 
     public String whoIsTaborda() {

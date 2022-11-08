@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestGameManager {
+/* public class TestGameManager {
 
     @Test
     public void testGetPlayerIds() {
@@ -25,5 +25,6 @@ public class TestGameManager {
         int resultadoReal = jogo.getPlayerIds(1)[0];
         assertEquals(resultadoEsperado,resultadoReal);
     }
-
 }
+
+ */
