@@ -165,8 +165,13 @@ public class GameManager {
     }
 
     public boolean moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
-        return false;
+        if (!bypassValidations) {
+                return nrSquares < 1 || nrSquares > 6;
+            }
+        return true;
     }
+
+
 
     public String[] getWinnerInfo() {
        return null;
