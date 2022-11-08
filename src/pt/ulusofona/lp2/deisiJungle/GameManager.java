@@ -133,19 +133,18 @@ public class GameManager {
         }
     }
 
-  
     public String[] getCurrentPlayerInfo() { //com turnos
         return null;
     }
 
     public String[][] getPlayersInfo() {
-        String [][] resultado = new String[jogadores.size()][];
+        String [][] resultado = new String[jogadores.size()][4];
 
-        if (jogadores.size() <= 0){
+        if (jogadores.size() <= 0 ){
             return null;
         } else {
             for (Jogador j: jogadores) {
-                for (int i = 0; i <= jogadores.size(); i++){
+                for (int i = 0; i <= jogadores.size(); i++){ // ver o pq de null pointer exception
                     resultado[i][0] = String.valueOf(j.id);
                     resultado[i][1] = j.nome;
                     resultado[i][2] = String.valueOf(j.especie);
@@ -166,7 +165,7 @@ public class GameManager {
     }
 
     public ArrayList<String> getGameResults() {
-        //#1 <NOME>, <ESPÉCIE>, <posição do primeiro classificado>
+        //#1 <NOME>, <ESPÉCIE>, <posição do primeiro classificado>...u
         return new ArrayList<>();
     }
 
