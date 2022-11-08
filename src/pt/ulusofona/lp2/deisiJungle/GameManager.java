@@ -144,7 +144,7 @@ public class GameManager {
             return null;
         } else {
             for (Jogador j: jogadores) {
-                for (int i = 0; i <= jogadores.size(); i++){ // ver o pq de null pointer exception
+                for (int i = 0; i < jogadores.size(); i++){ // ver o pq de null pointer exception
                     resultado[i][0] = String.valueOf(j.id);
                     resultado[i][1] = j.nome;
                     resultado[i][2] = String.valueOf(j.especie);
