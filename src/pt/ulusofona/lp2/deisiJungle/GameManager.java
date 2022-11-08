@@ -153,16 +153,14 @@ public class GameManager {
         if (jogadores.isEmpty()){
             return null;
         } else {
-            for (Jogador j: jogadores) {
                 for (int i = 0; i < jogadores.size(); i++){
-                    resultado[i][0] = String.valueOf(j.id);
-                    resultado[i][1] = j.nome;
-                    resultado[i][2] = String.valueOf(j.especie.buscarIdentificador());
-                    resultado[i][3] = String.valueOf(j.energia);
+                    resultado[i][0] = String.valueOf(jogadores.get(i).id);
+                    resultado[i][1] = jogadores.get(i).nome;
+                    resultado[i][2] = String.valueOf(jogadores.get(i).especie.buscarIdentificador());
+                    resultado[i][3] = String.valueOf(jogadores.get(i).energia);
                 }
             }
 
-        }
         return resultado;
     }
 
