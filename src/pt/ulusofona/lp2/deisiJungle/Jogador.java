@@ -10,6 +10,9 @@ public class Jogador {
     Especie especie;
     int posicaoAtual;
 
+    public Jogador() {
+    }
+
     public Jogador(int identificador, String nome, Especie especie, int energia, int posicaoAtual) {
         this.id = identificador;
         this.nome = nome;
@@ -27,6 +30,10 @@ public class Jogador {
 
     int buscarId(){
         return id;
+    }
+
+    int buscarPosicaoAtual(){
+        return posicaoAtual;
     }
 
 }

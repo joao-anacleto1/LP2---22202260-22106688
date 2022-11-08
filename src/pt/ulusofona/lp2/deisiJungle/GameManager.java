@@ -83,8 +83,7 @@ public class GameManager {
                 return false;
             }
             jogadores.add(new Jogador(Integer.parseInt(playersInfo[j][0]), playersInfo[j][1],
-                    buscarEspecieAtravesDoId(playersInfo[j][2].charAt(0)),initialEnergy,
-                     buscarJogadorAtual().posicaoAtual));
+                    buscarEspecieAtravesDoId(playersInfo[j][2].charAt(0)),initialEnergy, 0));
         }
         mapa = new MapaJogo(jungleSize);
         for (int i = 0; i < jogadores.size(); i++) {
@@ -119,7 +118,7 @@ public class GameManager {
     public String[] getPlayerInfo(int playerId) {
         String[] resultado = new String[4];
 
-        if (jogadores.size() <= 0){
+        if (jogadores.isEmpty()){
             return null;
         } else {
             for (Jogador j: jogadores){
@@ -187,6 +186,9 @@ public class GameManager {
     public String whoIsTaborda() {
         return "Wrestling";
     }
+
+
+    // FUNÇÕES AUXILIARES
 
     public void reset() {
         mapa = null;
