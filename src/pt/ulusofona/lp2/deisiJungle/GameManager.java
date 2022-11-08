@@ -25,7 +25,7 @@ public class GameManager {
 
     ArrayList<Jogador> jogadores = new ArrayList<>(); // jogadores que estao a jogar
     MapaJogo mapa;
-    int turno = 0;
+    int turno;
 
 
     public GameManager() {
@@ -47,6 +47,7 @@ public class GameManager {
 
     public boolean createInitialJungle(int jungleSize, int initialEnergy, String[][] playersInfo) {
         ArrayList<Integer> resultado = new ArrayList<>();
+        turno = 0;
 
         if (!(playersInfo.length >= 2 && playersInfo.length <= 4)) {
             return false;
@@ -135,13 +136,22 @@ public class GameManager {
     }
 
     public String[] getCurrentPlayerInfo() { //com turnos
-        return null;
+        Jogador jogadorAtual = jogadores.get(turno);
+        String [] resultado = new String[4];
+
+        resultado[0] = String.valueOf(jogadorAtual.id);
+        resultado[1] = jogadorAtual.nome;
+        resultado[2] = String.valueOf(jogadorAtual.especie);
+        resultado[3] = String.valueOf(jogadorAtual.energia);
+
+        return resultado;
+
     }
 
     public String[][] getPlayersInfo() {
         String [][] resultado = new String[jogadores.size()][4];
 
-        if (jogadores.size() <= 0 ){
+        if (jogadores.isEmpty()){
             return null;
         } else {
             for (Jogador j: jogadores) {
@@ -191,11 +201,4 @@ public class GameManager {
         }
         return null;
     }
-
-    public Jogador buscarJogadorAtual(){
-
-        return null;
-
-    }
-
 }
