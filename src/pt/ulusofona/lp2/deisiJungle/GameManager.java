@@ -57,24 +57,24 @@ public class GameManager {
             return false;
         }
 
-        for (int j = 0; j < playersInfo.length; j++) {
+        for (String[] strings : playersInfo) {
             //try catch -> trata exceçoes de forma que o programa não rebente,
             //neste caso caso o conteudo da string não seja um numero o programa não "rebenta"
             try {
-                if (!resultado.contains(Integer.parseInt(playersInfo[j][0]))) {
-                    resultado.add(Integer.parseInt(playersInfo[j][0]));
+                if (!resultado.contains(Integer.parseInt(strings[0]))) {
+                    resultado.add(Integer.parseInt(strings[0]));
                 } else {
                     return false;
                 }
             } catch (NumberFormatException e) {
                 return false;
             }
-            if (playersInfo[j][1] == null || playersInfo[j][1].equals("")) {
+            if (strings[1] == null || strings[1].equals("")) {
                 return false;
             }
             boolean existeEspecie = false; //verificação final para ver se tem ou não uma especie válida
             for (int i = 0; i < especies.size(); i++) {
-                if (playersInfo[j][2].charAt(0) == especies.get(i).buscarIdentificador()) {
+                if (strings[2].charAt(0) == especies.get(i).buscarIdentificador()) {
                     existeEspecie = true;
                     break;
                 }
@@ -82,8 +82,8 @@ public class GameManager {
             if (!existeEspecie) {
                 return false;
             }
-            jogadores.add(new Jogador(Integer.parseInt(playersInfo[j][0]), playersInfo[j][1],
-                    buscarEspecieAtravesDoId(playersInfo[j][2].charAt(0)),initialEnergy, 0));
+            jogadores.add(new Jogador(Integer.parseInt(strings[0]), strings[1],
+                    buscarEspecieAtravesDoId(strings[2].charAt(0)), initialEnergy, 0));
         }
         mapa = new MapaJogo(jungleSize);
         for (int i = 0; i < jogadores.size(); i++) {
@@ -126,7 +126,7 @@ public class GameManager {
                 if (j.id == playerId){
                     resultado[0] = String.valueOf(j.id);
                     resultado[1] = j.nome;
-                    resultado[2] = String.valueOf(j.especie);
+                    resultado[2] = String.valueOf(j.especie.buscarIdentificador());
                     resultado[3] = String.valueOf(j.energia);
                 }
             }
@@ -140,7 +140,7 @@ public class GameManager {
 
         resultado[0] = String.valueOf(jogadorAtual.id);
         resultado[1] = jogadorAtual.nome;
-        resultado[2] = String.valueOf(jogadorAtual.especie);
+        resultado[2] = String.valueOf(jogadorAtual.especie.buscarIdentificador());
         resultado[3] = String.valueOf(jogadorAtual.energia);
 
         return resultado;
@@ -157,29 +157,21 @@ public class GameManager {
                 for (int i = 0; i < jogadores.size(); i++){
                     resultado[i][0] = String.valueOf(j.id);
                     resultado[i][1] = j.nome;
-                    resultado[i][2] = String.valueOf(j.especie);
+                    resultado[i][2] = String.valueOf(j.especie.buscarIdentificador());
                     resultado[i][3] = String.valueOf(j.energia);
                 }
             }
-            return resultado;
-        }
 
+        }
+        return resultado;
     }
 
     public boolean moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
-
-        if (!bypassValidations){
-            // condições do dado
-            return nrSquares >= 1 && nrSquares <= 6;
-        }
-        else {
-            turno += nrSquares;
-        }
-        return true;
+        return false;
     }
 
     public String[] getWinnerInfo() {
-        return null;
+       return null;
     }
 
     public ArrayList<String> getGameResults() {
