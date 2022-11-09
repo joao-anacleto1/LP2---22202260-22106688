@@ -83,7 +83,7 @@ public class GameManager {
                 return false;
             }
             jogadores.add(new Jogador(Integer.parseInt(strings[0]), strings[1],
-                    buscarEspecieAtravesDoId(strings[2].charAt(0)), initialEnergy, 0));
+                    buscarEspecieAtravesDoId(strings[2].charAt(0)), initialEnergy, 1));
         }
         mapa = new MapaJogo(jungleSize);
         for (int i = 0; i < jogadores.size(); i++) {
@@ -166,8 +166,25 @@ public class GameManager {
 
     public boolean moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
         if (!bypassValidations) {
-                return nrSquares < 1 || nrSquares > 6;
+            if (nrSquares < 1 || nrSquares > 6) {
+                return false;
             }
+        }
+
+        if (jogadores.get(turno).buscarEnergia() > 2) {
+            if (!mapa.moverJogadores(jogadores.get(turno) , nrSquares, 2)) {
+                System.out.println("SHIT!");
+            } else {
+                System.out.println("Worked!");
+            }
+        }
+
+
+        if(turno == jogadores.size() - 1){
+            turno = 0;
+        }else{
+            turno += 1;
+        }
         return true;
     }
 
@@ -185,7 +202,6 @@ public class GameManager {
     public JPanel getAuthorsPanel() {
         JFrame janela = new JFrame("Créditos");
         JPanel painelCreditos = new JPanel();
-
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         janela.add(painelCreditos);
         painelCreditos.setSize(300, 300);

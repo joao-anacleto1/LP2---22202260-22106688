@@ -16,21 +16,24 @@ public class Casa {
     }
 
     boolean adicionarJogador(Jogador j) {
-        if (jogadores.contains(j)) {
-            return false;
-        } else {
-            jogadores.add(j);
-            return true;
+        for (Jogador jogador : this.jogadores) {
+            if (jogador.buscarId() == j.buscarId()) {
+                return false;
+            }
         }
+        this.jogadores.add(j);
+        return true;
     }
 
+
     boolean removerJogador(Jogador j) {
-        if (jogadores.contains(j)) {
-            return false;
-        } else {
-            jogadores.remove(j);
-            return true;
+        for (int i = 0; i < this.jogadores.size(); i++) {
+            if (this.jogadores.get(i).buscarId() == j.buscarId()) {
+                this.jogadores.remove(i);
+                return true;
+            }
         }
+        return false;
     }
 
     int[] buscaJogadoresIds() {

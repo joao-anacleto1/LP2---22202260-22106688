@@ -1,6 +1,7 @@
 package pt.ulusofona.lp2.deisiJungle;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Jogador {
 
@@ -34,6 +35,16 @@ public class Jogador {
 
     int buscarPosicaoAtual(){
         return posicaoAtual;
+    }
+
+    int buscarEnergia() { return energia; }
+
+    void removeEnergia(int valor) {
+        this.energia -= valor;
+    }
+
+    void atualizarPosicao(int casaPretendida) {
+        this.posicaoAtual = casaPretendida;
     }
 
 }
