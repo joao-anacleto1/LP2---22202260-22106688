@@ -46,6 +46,7 @@ public class GameManager {
     }
 
     public boolean createInitialJungle(int jungleSize, int initialEnergy, String[][] playersInfo) {
+        reset();
         ArrayList<Integer> resultado = new ArrayList<>();
         turno = 0;
 
@@ -171,11 +172,13 @@ public class GameManager {
             }
         }
 
-        if (jogadores.get(turno).buscarEnergia() > 2) {
+        if (jogadores.get(turno).buscarEnergia() >= 2) {
             int proximaPosicao = jogadores.get(turno).buscarPosicaoAtual() + nrSquares;
+            if (proximaPosicao > mapa.tamanhoMapa()) {
+                proximaPosicao = mapa.tamanhoMapa();
+            }
             mapa.moverJogadores(jogadores.get(turno), proximaPosicao, 2);
         }
-
 
         if (turno == jogadores.size() - 1) {
             turno = 0;

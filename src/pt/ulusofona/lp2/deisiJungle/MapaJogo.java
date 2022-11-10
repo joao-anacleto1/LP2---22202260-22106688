@@ -28,6 +28,10 @@ public class MapaJogo {
         return mapa;
     }
 
+    int tamanhoMapa(){
+        return casas.size();
+    }
+
     boolean verificaCasa(int l) {
         if (l > casas.size() || l < 1) {
             return false;
@@ -64,7 +68,8 @@ public class MapaJogo {
     }
 
 
-    void adicionaJogadorInicio(Jogador jogador) {
+
+    void adicionaJogadorInicio(Jogador jogador){
         casas.get(0).adicionarJogador(jogador);
     }
 
