@@ -118,12 +118,12 @@ public class GameManager {
     public String[] getPlayerInfo(int playerId) {
         String[] resultado = new String[4];
 
-        if (jogadores.isEmpty()){
+        if (jogadores.isEmpty()) {
             return null;
         } else {
-            for (Jogador j: jogadores){
+            for (Jogador j : jogadores) {
                 j.buscarId();
-                if (j.id == playerId){
+                if (j.id == playerId) {
                     resultado[0] = String.valueOf(j.id);
                     resultado[1] = j.nome;
                     resultado[2] = String.valueOf(j.especie.buscarIdentificador());
@@ -136,7 +136,7 @@ public class GameManager {
 
     public String[] getCurrentPlayerInfo() { //com turnos
         Jogador jogadorAtual = jogadores.get(turno);
-        String [] resultado = new String[4];
+        String[] resultado = new String[4];
 
         resultado[0] = String.valueOf(jogadorAtual.id);
         resultado[1] = jogadorAtual.nome;
@@ -148,18 +148,18 @@ public class GameManager {
     }
 
     public String[][] getPlayersInfo() {
-        String [][] resultado = new String[jogadores.size()][4];
+        String[][] resultado = new String[jogadores.size()][4];
 
-        if (jogadores.isEmpty()){
+        if (jogadores.isEmpty()) {
             return null;
         } else {
-                for (int i = 0; i < jogadores.size(); i++){
-                    resultado[i][0] = String.valueOf(jogadores.get(i).id);
-                    resultado[i][1] = jogadores.get(i).nome;
-                    resultado[i][2] = String.valueOf(jogadores.get(i).especie.buscarIdentificador());
-                    resultado[i][3] = String.valueOf(jogadores.get(i).energia);
-                }
+            for (int i = 0; i < jogadores.size(); i++) {
+                resultado[i][0] = String.valueOf(jogadores.get(i).id);
+                resultado[i][1] = jogadores.get(i).nome;
+                resultado[i][2] = String.valueOf(jogadores.get(i).especie.buscarIdentificador());
+                resultado[i][3] = String.valueOf(jogadores.get(i).energia);
             }
+        }
 
         return resultado;
     }
@@ -172,26 +172,22 @@ public class GameManager {
         }
 
         if (jogadores.get(turno).buscarEnergia() > 2) {
-            if (!mapa.moverJogadores(jogadores.get(turno) , nrSquares, 2)) {
-                System.out.println("SHIT!");
-            } else {
-                System.out.println("Worked!");
-            }
+            int proximaPosicao = jogadores.get(turno).buscarPosicaoAtual() + nrSquares;
+            mapa.moverJogadores(jogadores.get(turno), proximaPosicao, 2);
         }
 
 
-        if(turno == jogadores.size() - 1){
+        if (turno == jogadores.size() - 1) {
             turno = 0;
-        }else{
+        } else {
             turno += 1;
         }
         return true;
     }
 
 
-
     public String[] getWinnerInfo() {
-       return null;
+        return null;
     }
 
     public ArrayList<String> getGameResults() {

@@ -64,8 +64,7 @@ public class MapaJogo {
     }
 
 
-
-    void adicionaJogadorInicio(Jogador jogador){
+    void adicionaJogadorInicio(Jogador jogador) {
         casas.get(0).adicionarJogador(jogador);
     }
 

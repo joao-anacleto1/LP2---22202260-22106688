@@ -44,26 +44,25 @@ public class Casa {
         return ids;
     }
 
-    int buscarIndexCasa(){
+    int buscarIndexCasa() {
         return indexCasa;
     }
 
-    String buscarTipoCasa(){
+    String buscarTipoCasa() {
         return tipoCasa;
     }
 
-    String buscarImagemCasa(){
+    String buscarImagemCasa() {
         return imagemCasa;
     }
 
-    ArrayList<Integer> buscaIds(){
+    ArrayList<Integer> buscaIds() {
         ArrayList<Integer> guardarIds = new ArrayList<>();
-        for(int k = 0 ; k < jogadores.size() ; k++){
+        for (int k = 0; k < jogadores.size(); k++) {
             guardarIds.add(jogadores.get(k).buscarId());
         }
         return guardarIds;
     }
-
 
 
 }

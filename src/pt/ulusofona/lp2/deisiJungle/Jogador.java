@@ -22,22 +22,24 @@ public class Jogador {
         this.posicaoAtual = posicaoAtual;
     }
 
-    boolean validarNome(){
-        if (nome == null){
+    boolean validarNome() {
+        if (nome == null) {
             return false;
         }
         return nome.length() > 0;
     }
 
-    int buscarId(){
+    int buscarId() {
         return id;
     }
 
-    int buscarPosicaoAtual(){
+    int buscarPosicaoAtual() {
         return posicaoAtual;
     }
 
-    int buscarEnergia() { return energia; }
+    int buscarEnergia() {
+        return energia;
+    }
 
     void removeEnergia(int valor) {
         this.energia -= valor;
