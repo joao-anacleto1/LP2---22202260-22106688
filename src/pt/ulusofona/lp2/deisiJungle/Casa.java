@@ -76,5 +76,9 @@ public class Casa {
         return resultado;
     }
 
+    boolean casaVazia(){
+        return jogadores.size() == 0;
+    }
+
 
 }

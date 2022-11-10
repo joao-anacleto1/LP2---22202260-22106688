@@ -106,13 +106,13 @@ public class GameManager {
     public String[] getSquareInfo(int squareNr) {
         String[] resultado = new String[3];
         if (!(mapa.verificaCasa(squareNr))) {
-            return null ;
+            return null;
         }
-            Casa casa = mapa.buscarCasa(squareNr);
-            resultado[0] = casa.buscarImagemCasa();
-            resultado[1] = casa.buscarTipoCasa();
-            resultado[2] = casa.buscaIdsString();
-            return resultado;
+        Casa casa = mapa.buscarCasa(squareNr);
+        resultado[0] = casa.buscarImagemCasa();
+        resultado[1] = casa.buscarTipoCasa();
+        resultado[2] = casa.buscaIdsString();
+        return resultado;
     }
 
     public String[] getPlayerInfo(int playerId) {
@@ -189,7 +189,28 @@ public class GameManager {
 
 
     public String[] getWinnerInfo() {
-        return null;
+        String[] resultado = new String[4];
+        Jogador jogador = jogadores.get(0);
+        if (jogoAcabado()) {
+            int maisLonge = jogadores.get(0).buscarPosicaoAtual();
+            for (int i = 1; i < jogadores.size(); i++) {
+                if (jogadores.get(i).buscarPosicaoAtual() >= maisLonge) {
+                    if (jogadores.get(i).buscarPosicaoAtual() == maisLonge
+                            && jogadores.get(i).buscarId() < jogador.buscarId()) {
+                        maisLonge = jogadores.get(i).buscarPosicaoAtual();
+                        jogador = jogadores.get(i);
+                    } else {
+                        maisLonge = jogadores.get(i).buscarPosicaoAtual();
+                        jogador = jogadores.get(i);
+                    }
+                }
+            }
+        }
+        resultado[0] = String.valueOf(jogador.id);
+        resultado[1] = jogador.nome;
+        resultado[2] = String.valueOf(jogador.especie.buscarIdentificador());
+        resultado[3] = String.valueOf(jogador.energia);
+        return resultado;
     }
 
     public ArrayList<String> getGameResults() {
@@ -227,5 +248,19 @@ public class GameManager {
             }
         }
         return null;
+    }
+
+    boolean jogoAcabado() {
+        if (!mapa.buscarCasa(mapa.casas.size()).casaVazia()) {
+            return true;
+        }
+        boolean temEnergia = false;
+
+        for (int j = 0; j < jogadores.size(); j++) {
+            if (jogadores.get(j).buscarEnergia() >= 2) {
+                temEnergia = true;
+            }
+        }
+        return temEnergia;
     }
 }
