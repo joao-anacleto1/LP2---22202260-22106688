@@ -46,6 +46,7 @@ public class GameManager {
     }
 
     public boolean createInitialJungle(int jungleSize, int initialEnergy, String[][] playersInfo) {
+        reset();
         ArrayList<Integer> resultado = new ArrayList<>();
         turno = 0;
 
@@ -83,7 +84,7 @@ public class GameManager {
                 return false;
             }
             jogadores.add(new Jogador(Integer.parseInt(strings[0]), strings[1],
-                    buscarEspecieAtravesDoId(strings[2].charAt(0)), initialEnergy, 0));
+                    buscarEspecieAtravesDoId(strings[2].charAt(0)), initialEnergy, 1));
         }
         mapa = new MapaJogo(jungleSize);
         for (int i = 0; i < jogadores.size(); i++) {
@@ -118,12 +119,12 @@ public class GameManager {
     public String[] getPlayerInfo(int playerId) {
         String[] resultado = new String[4];
 
-        if (jogadores.isEmpty()){
+        if (jogadores.isEmpty()) {
             return null;
         } else {
-            for (Jogador j: jogadores){
+            for (Jogador j : jogadores) {
                 j.buscarId();
-                if (j.id == playerId){
+                if (j.id == playerId) {
                     resultado[0] = String.valueOf(j.id);
                     resultado[1] = j.nome;
                     resultado[2] = String.valueOf(j.especie.buscarIdentificador());
@@ -136,7 +137,7 @@ public class GameManager {
 
     public String[] getCurrentPlayerInfo() { //com turnos
         Jogador jogadorAtual = jogadores.get(turno);
-        String [] resultado = new String[4];
+        String[] resultado = new String[4];
 
         resultado[0] = String.valueOf(jogadorAtual.id);
         resultado[1] = jogadorAtual.nome;
@@ -148,33 +149,48 @@ public class GameManager {
     }
 
     public String[][] getPlayersInfo() {
-        String [][] resultado = new String[jogadores.size()][4];
+        String[][] resultado = new String[jogadores.size()][4];
 
-        if (jogadores.isEmpty()){
+        if (jogadores.isEmpty()) {
             return null;
         } else {
-                for (int i = 0; i < jogadores.size(); i++){
-                    resultado[i][0] = String.valueOf(jogadores.get(i).id);
-                    resultado[i][1] = jogadores.get(i).nome;
-                    resultado[i][2] = String.valueOf(jogadores.get(i).especie.buscarIdentificador());
-                    resultado[i][3] = String.valueOf(jogadores.get(i).energia);
-                }
+            for (int i = 0; i < jogadores.size(); i++) {
+                resultado[i][0] = String.valueOf(jogadores.get(i).id);
+                resultado[i][1] = jogadores.get(i).nome;
+                resultado[i][2] = String.valueOf(jogadores.get(i).especie.buscarIdentificador());
+                resultado[i][3] = String.valueOf(jogadores.get(i).energia);
             }
+        }
 
         return resultado;
     }
 
     public boolean moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
         if (!bypassValidations) {
-                return nrSquares < 1 || nrSquares > 6;
+            if (nrSquares < 1 || nrSquares > 6) {
+                return false;
             }
+        }
+
+        if (jogadores.get(turno).buscarEnergia() >= 2) {
+            int proximaPosicao = jogadores.get(turno).buscarPosicaoAtual() + nrSquares;
+            if (proximaPosicao > mapa.tamanhoMapa()) {
+                proximaPosicao = mapa.tamanhoMapa();
+            }
+            mapa.moverJogadores(jogadores.get(turno), proximaPosicao, 2);
+        }
+
+        if (turno == jogadores.size() - 1) {
+            turno = 0;
+        } else {
+            turno += 1;
+        }
         return true;
     }
 
 
-
     public String[] getWinnerInfo() {
-       return null;
+        return null;
     }
 
     public ArrayList<String> getGameResults() {
@@ -185,7 +201,6 @@ public class GameManager {
     public JPanel getAuthorsPanel() {
         JFrame janela = new JFrame("Créditos");
         JPanel painelCreditos = new JPanel();
-
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         janela.add(painelCreditos);
         painelCreditos.setSize(300, 300);

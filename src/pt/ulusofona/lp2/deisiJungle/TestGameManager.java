@@ -4,9 +4,9 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-/* public class TestGameManager {
+public class TestGameManager {
 
     @Test
     public void testGetPlayerIds() {
@@ -25,6 +25,25 @@ import static org.junit.Assert.assertEquals;
         int resultadoReal = jogo.getPlayerIds(1)[0];
         assertEquals(resultadoEsperado,resultadoReal);
     }
+
+     @Test
+     public void test01MovePlayer() {
+         GameManager jogo = new GameManager();
+         jogo.reset();
+         jogo.createInitialJungle(10, 20, new String[][]
+                 {
+                         {"38" , "David Neres" , "Z"} ,
+                         {"13" , "Enzo Fernandez" , "T"}
+                 }
+         );
+
+         // Move primeiro jogador
+         assertTrue(jogo.mapa.casas.get(0).jogadores.contains(jogo.jogadores.get(0)));
+         assertFalse(jogo.mapa.casas.get(3).jogadores.contains(jogo.jogadores.get(0)));
+         jogo.moveCurrentPlayer(3, false);
+         assertFalse(jogo.mapa.casas.get(0).jogadores.contains(jogo.jogadores.get(0)));
+         assertTrue(jogo.mapa.casas.get(3).jogadores.contains(jogo.jogadores.get(0)));
+     }
 }
 
- */
+

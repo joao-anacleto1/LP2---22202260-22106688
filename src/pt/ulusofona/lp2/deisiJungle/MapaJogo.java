@@ -7,7 +7,7 @@ public class MapaJogo {
     ArrayList<Casa> casas;
 
     public MapaJogo(int tamanho) {
-        casas = criadorMapa(tamanho);
+        this.casas = criadorMapa(tamanho);
     }
 
 
@@ -19,13 +19,17 @@ public class MapaJogo {
 
             Casa novaCasa;
             if (j == tamanho - 1) {
-                novaCasa = new Casa(j + 1, "Meta","finish.png");
+                novaCasa = new Casa(j + 1, "Meta", "finish.png");
             } else {
-                novaCasa = new Casa(j + 1, "Vazio","blank.png");
+                novaCasa = new Casa(j + 1, "Vazio", "blank.png");
             }
             mapa.add(novaCasa);
         }
         return mapa;
+    }
+
+    int tamanhoMapa(){
+        return casas.size();
     }
 
     boolean verificaCasa(int l) {
@@ -36,10 +40,37 @@ public class MapaJogo {
     }
 
     Casa buscarCasa(int indexNrCasa) {
-        return casas.get(indexNrCasa - 1);
+        for (Casa casa : this.casas) {
+            if (casa.buscarIndexCasa() == indexNrCasa) {
+                return casa;
+            }
+        }
+        return null;
     }
+
+    boolean moverJogadores(Jogador jogador, int posicaoCasaEsperada, int energiaPorJogada) {
+        Casa casaAtual = buscarCasa(jogador.buscarPosicaoAtual());
+        if (casaAtual == null || !casaAtual.removerJogador(jogador)) {
+            return false;
+        }
+
+        Casa casaEsperada = buscarCasa(posicaoCasaEsperada);
+
+        if (casaEsperada == null || !casaEsperada.adicionarJogador(jogador)) {
+            return false;
+        }
+
+        // Atualiza posição atual do jogador
+        jogador.atualizarPosicao(posicaoCasaEsperada);
+        // Atualiza energia do jogador
+        jogador.removeEnergia(energiaPorJogada);
+        return true;
+    }
+
+
 
     void adicionaJogadorInicio(Jogador jogador){
         casas.get(0).adicionarJogador(jogador);
     }
+
 }
