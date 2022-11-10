@@ -205,6 +205,8 @@ public class GameManager {
                     }
                 }
             }
+        }else{
+            return null;
         }
         resultado[0] = String.valueOf(jogador.id);
         resultado[1] = jogador.nome;
