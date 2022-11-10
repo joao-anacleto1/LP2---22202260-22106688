@@ -64,5 +64,17 @@ public class Casa {
         return guardarIds;
     }
 
+    String buscaIdsString(){
+        String resultado = "";
+        for(int j = 0 ; j < jogadores.size() ; j++){
+            if(j == jogadores.size() - 1){
+                resultado += "" + jogadores.get(j).buscarId();
+            }else{
+                resultado += "" + jogadores.get(j).buscarId() + ",";
+            }
+        }
+        return resultado;
+    }
+
 
 }

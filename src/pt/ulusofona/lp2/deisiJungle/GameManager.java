@@ -106,14 +106,13 @@ public class GameManager {
     public String[] getSquareInfo(int squareNr) {
         String[] resultado = new String[3];
         if (!(mapa.verificaCasa(squareNr))) {
-            return null;
-        } else {
+            return null ;
+        }
             Casa casa = mapa.buscarCasa(squareNr);
             resultado[0] = casa.buscarImagemCasa();
             resultado[1] = casa.buscarTipoCasa();
-            resultado[2] = casa.buscaIds().toString();
-        }
-        return resultado;
+            resultado[2] = casa.buscaIdsString();
+            return resultado;
     }
 
     public String[] getPlayerInfo(int playerId) {
