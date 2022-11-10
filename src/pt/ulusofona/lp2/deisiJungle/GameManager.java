@@ -263,6 +263,6 @@ public class GameManager {
                 temEnergia = true;
             }
         }
-        return temEnergia;
+        return !temEnergia;
     }
 }
