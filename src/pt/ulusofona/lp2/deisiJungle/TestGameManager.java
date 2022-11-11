@@ -56,6 +56,21 @@ public class TestGameManager {
         assertTrue(jogo.mapa.casas.get(0).jogadores.contains(jogo.jogadores.get(1)));
 
     }
+
+    @Test
+    public void test03MovePlayer() {
+        GameManager jogo = new GameManager();
+        jogo.reset();
+        jogo.createInitialJungle(10, 20, new String[][]
+                {
+                        {"9", "Gabi", "Z"},
+                        {"14", "Arrascaeta", "T"}
+                }
+        );
+        jogo.moveCurrentPlayer(3, false);
+        assertFalse(jogo.mapa.casas.get(1).jogadores.contains(jogo.jogadores.get(1)));
+
+    }
     @Test
     public void test01GetWinnerInfo() {
         GameManager jogo = new GameManager();
