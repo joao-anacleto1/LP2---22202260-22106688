@@ -18,8 +18,7 @@ public class TestGameManager {
                         {"13", "Enzo Fernandez", "T"}
                 }
         );
-        jogo.mapa.casas.get(1).jogadores.add(new Jogador(13, "Enzo Fernandez", jogo.tartaruga, 20, 1));
-        int resultadoEsperado = 13;
+        int resultadoEsperado = 38;
         int resultadoReal = jogo.getPlayerIds(1)[1];
         assertEquals(resultadoEsperado, resultadoReal);
     }
@@ -55,6 +54,23 @@ public class TestGameManager {
         );
         jogo.moveCurrentPlayer(3, false);
         assertTrue(jogo.mapa.casas.get(0).jogadores.contains(jogo.jogadores.get(1)));
+
+    }
+    @Test
+    public void test01GetWinnerInfo() {
+        GameManager jogo = new GameManager();
+        jogo.reset();
+        jogo.createInitialJungle(10, 4, new String[][]
+                {
+                        {"38", "David Neres", "Z"},
+                        {"13", "Enzo Fernandez", "T"}
+                }
+        );
+        jogo.moveCurrentPlayer(3, false);
+        jogo.moveCurrentPlayer(3, false);
+        jogo.moveCurrentPlayer(3, false);
+        jogo.moveCurrentPlayer(3, false);
+        assertEquals("13",jogo.getWinnerInfo()[0]);
 
     }
 }

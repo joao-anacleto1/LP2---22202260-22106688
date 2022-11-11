@@ -228,17 +228,16 @@ public class GameManager {
 
             for (int i = 1; i < jogadores.size(); i++) {
 
-                if (jogadores.get(i).buscarPosicaoAtual() >= maisLonge) {
                     if (jogadores.get(i).buscarPosicaoAtual() == maisLonge
                             && jogadores.get(i).buscarId() < jogador.buscarId()) {
-                        maisLonge = jogadores.get(i).buscarPosicaoAtual();
                         jogador = jogadores.get(i);
-                    } else {
+                    }
+                    if(jogadores.get(i).buscarPosicaoAtual() > maisLonge) {
                         maisLonge = jogadores.get(i).buscarPosicaoAtual();
                         jogador = jogadores.get(i);
                     }
                 }
-            }
+
         } else {
             return null;
         }
