@@ -170,7 +170,7 @@ public class GameManager {
                 if (turno == jogadores.size() - 1) {
                     turno = 0;
                 } else {
-                    turno += 1;
+                    turno ++;
                 }
                 return false;
             }else{
@@ -184,7 +184,7 @@ public class GameManager {
                 if (turno == jogadores.size() - 1) {
                     turno = 0;
                 } else {
-                    turno += 1;
+                    turno ++;
                 }
                 return true;
             }
@@ -194,7 +194,7 @@ public class GameManager {
                 if (turno == jogadores.size() - 1) {
                     turno = 0;
                 } else {
-                    turno += 1;
+                    turno ++;
                 }
 
                 return false;
@@ -203,7 +203,7 @@ public class GameManager {
                 if (turno == jogadores.size() - 1) {
                     turno = 0;
                 } else {
-                    turno += 1;
+                    turno ++;
                 }
                 return false;
             }else {
@@ -217,7 +217,7 @@ public class GameManager {
                 if (turno == jogadores.size() - 1) {
                     turno = 0;
                 } else {
-                    turno += 1;
+                    turno ++;
                 }
                 return true;
             }
