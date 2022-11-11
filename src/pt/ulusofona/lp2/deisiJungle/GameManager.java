@@ -165,64 +165,55 @@ public class GameManager {
     }
 
     public boolean moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
-        if(bypassValidations){
-            if(jogadores.get(turno).buscarEnergia() < 2){
-                if (turno == jogadores.size() - 1) {
-                    turno = 0;
-                } else {
-                    turno ++;
-                }
-                return false;
-            }else{
-                int proximaPosicao = jogadores.get(turno).buscarPosicaoAtual() + nrSquares;
-
-                if (proximaPosicao >= mapa.tamanhoMapa()) {
-                    proximaPosicao = mapa.tamanhoMapa();
-                }
-                mapa.moverJogadores(jogadores.get(turno), proximaPosicao, 2);
-
-                if (turno == jogadores.size() - 1) {
-                    turno = 0;
-                } else {
-                    turno ++;
-                }
-                return true;
-            }
-        }else{
+        if (!bypassValidations) {
             if (nrSquares < 1 || nrSquares > 6) {
 
                 if (turno == jogadores.size() - 1) {
                     turno = 0;
                 } else {
-                    turno ++;
+                    turno += 1;
                 }
 
                 return false;
-            }
-            if(jogadores.get(turno).buscarEnergia() < 2){
-                if (turno == jogadores.size() - 1) {
-                    turno = 0;
-                } else {
-                    turno ++;
-                }
-                return false;
-            }else {
-                int proximaPosicao = jogadores.get(turno).buscarPosicaoAtual() + nrSquares;
-
-                if (proximaPosicao >= mapa.tamanhoMapa()) {
-                    proximaPosicao = mapa.tamanhoMapa();
-                }
-                mapa.moverJogadores(jogadores.get(turno), proximaPosicao, 2);
-
-                if (turno == jogadores.size() - 1) {
-                    turno = 0;
-                } else {
-                    turno ++;
-                }
-                return true;
             }
         }
+
+        if (jogadores.get(turno).buscarEnergia() >= 2) {
+            int proximaPosicao = jogadores.get(turno).buscarPosicaoAtual() + nrSquares;
+            mapa.moverJogadores(jogadores.get(turno), proximaPosicao, 2);
+
+            if (turno == jogadores.size() - 1) {
+                turno = 0;
+            } else {
+                turno += 1;
+            }
+            return true;
+
+
+        }else if(jogadores.get(turno).buscarPosicaoAtual() + nrSquares >= mapa.tamanhoMapa()){
+            int proximaPosicao = mapa.tamanhoMapa();
+            mapa.moverJogadores(jogadores.get(turno), proximaPosicao, 2);
+            
+            if (turno == jogadores.size() - 1) {
+                turno = 0;
+            } else {
+                turno += 1;
+            }
+            return true;
+
+        }else {
+
+            if (turno == jogadores.size() - 1) {
+                turno = 0;
+            } else {
+                turno += 1;
+            }
+            return false;
+        }
+
     }
+
+
 
 
 
