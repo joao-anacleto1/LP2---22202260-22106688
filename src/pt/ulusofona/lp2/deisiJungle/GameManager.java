@@ -192,8 +192,9 @@ public class GameManager {
 
         }else if(jogadores.get(turno).buscarPosicaoAtual() + nrSquares >= mapa.tamanhoMapa()){
             int proximaPosicao = mapa.tamanhoMapa();
-            mapa.moverJogadores(jogadores.get(turno), proximaPosicao, 2);
             
+            mapa.moverJogadores(jogadores.get(turno), proximaPosicao, 2);
+
             if (turno == jogadores.size() - 1) {
                 turno = 0;
             } else {
