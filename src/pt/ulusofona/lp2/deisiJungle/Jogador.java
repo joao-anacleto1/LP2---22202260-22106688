@@ -11,11 +11,8 @@ public class Jogador {
     Especie especie;
     int posicaoAtual;
 
-    public Jogador() {
-    }
-
-    public Jogador(int identificador, String nome, Especie especie, int energia, int posicaoAtual) {
-        this.id = identificador;
+    public Jogador(int id, String nome, Especie especie, int energia, int posicaoAtual) {
+        this.id = id;
         this.nome = nome;
         this.especie = especie;
         this.energia = energia;
