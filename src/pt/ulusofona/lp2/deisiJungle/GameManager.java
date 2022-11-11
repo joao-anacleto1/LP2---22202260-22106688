@@ -2,6 +2,7 @@ package pt.ulusofona.lp2.deisiJungle;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class GameManager {
@@ -86,6 +87,10 @@ public class GameManager {
             jogadores.add(new Jogador(Integer.parseInt(strings[0]), strings[1],
                     buscarEspecieAtravesDoId(strings[2].charAt(0)), initialEnergy, 1));
         }
+
+
+        jogadores = ordenarJogadoresPorID();
+
         mapa = new MapaJogo(jungleSize);
         for (int i = 0; i < jogadores.size(); i++) {
             mapa.adicionaJogadorInicio(jogadores.get(i));
@@ -165,6 +170,7 @@ public class GameManager {
     }
 
     public boolean moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
+
         if (!bypassValidations) {
             if (nrSquares < 1 || nrSquares > 6) {
 
@@ -177,7 +183,6 @@ public class GameManager {
                 return false;
             }
         }
-
         if (jogadores.get(turno).buscarEnergia() >= 2) {
             int proximaPosicao = jogadores.get(turno).buscarPosicaoAtual() + nrSquares;
             mapa.moverJogadores(jogadores.get(turno), proximaPosicao, 2);
@@ -189,10 +194,9 @@ public class GameManager {
             }
             return true;
 
-
-        }else if(jogadores.get(turno).buscarPosicaoAtual() + nrSquares >= mapa.tamanhoMapa()){
+        } else if (jogadores.get(turno).buscarPosicaoAtual() + nrSquares >= mapa.tamanhoMapa()) {
             int proximaPosicao = mapa.tamanhoMapa();
-            
+
             mapa.moverJogadores(jogadores.get(turno), proximaPosicao, 2);
 
             if (turno == jogadores.size() - 1) {
@@ -202,7 +206,7 @@ public class GameManager {
             }
             return true;
 
-        }else {
+        } else {
 
             if (turno == jogadores.size() - 1) {
                 turno = 0;
@@ -213,10 +217,6 @@ public class GameManager {
         }
 
     }
-
-
-
-
 
 
     public String[] getWinnerInfo() {
@@ -254,17 +254,17 @@ public class GameManager {
         int posicaoChegada = 1;
 
         for (int i = mapa.tamanhoMapa(); i > 0; i--) {
-                ArrayList<Jogador> jogadores = mapa.buscarCasa(i).ordernarIds();
+            ArrayList<Jogador> jogadores = mapa.buscarCasa(i).ordernarIds();
 
-                for (int j = 0; j < jogadores.size(); j++) {
-                    String nomeJogador = jogadores.get(j).buscarNomeJogador();
-                    String nomeEspecie = jogadores.get(j).buscarNomeEspecie();
-                    int posicaoNoMapa = jogadores.get(j).buscarPosicaoAtual();
-                    String res = "#" + posicaoChegada + " " + nomeJogador + ", " + nomeEspecie + ", " + posicaoNoMapa;
-                    resultado.add(res);
-                    posicaoChegada += 1;
-                }
+            for (int j = 0; j < jogadores.size(); j++) {
+                String nomeJogador = jogadores.get(j).buscarNomeJogador();
+                String nomeEspecie = jogadores.get(j).buscarNomeEspecie();
+                int posicaoNoMapa = jogadores.get(j).buscarPosicaoAtual();
+                String res = "#" + posicaoChegada + " " + nomeJogador + ", " + nomeEspecie + ", " + posicaoNoMapa;
+                resultado.add(res);
+                posicaoChegada += 1;
             }
+        }
 
         return resultado;
     }
@@ -292,26 +292,52 @@ public class GameManager {
         jogadores = new ArrayList<>();
     }
 
-    public Especie buscarEspecieAtravesDoId(char id) {
-        for (Especie especie : this.especies) {
-            if (especie.buscarIdentificador() == id) {
-                return especie;
+    public ArrayList<Jogador> ordenarJogadoresPorID() {
+
+        ArrayList<Jogador> resultado = jogadores;
+
+        for (int i = 0; i < resultado.size(); i++) {
+
+            // Inner nested loop pointing 1 index ahead
+            for (int j = i + 1; j < resultado.size(); j++) {
+
+                // Checking elements
+                Jogador temp;
+                if (resultado.get(j).buscarId() < resultado.get(i).buscarId()) {
+
+                    // Swapping
+                    temp = resultado.get(i);
+                    resultado.set(i,resultado.get(j));
+                    resultado.set(j,temp);
+                }
             }
         }
-        return null;
+        return resultado;
     }
 
-    boolean jogoAcabado() {
-        if (!mapa.buscarCasa(mapa.casas.size()).casaVazia()) {
-            return true;
-        }
-        boolean temEnergia = false;
-
-        for (int j = 0; j < jogadores.size(); j++) {
-            if (jogadores.get(j).buscarEnergia() >= 2) {
-                temEnergia = true;
+        public Especie buscarEspecieAtravesDoId ( char id){
+            for (Especie especie : this.especies) {
+                if (especie.buscarIdentificador() == id) {
+                    return especie;
+                }
             }
+            return null;
         }
-        return !temEnergia;
+
+        boolean jogoAcabado () {
+            if (!mapa.buscarCasa(mapa.casas.size()).casaVazia()) {
+                return true;
+            }
+            boolean temEnergia = false;
+
+            for (int j = 0; j < jogadores.size(); j++) {
+                if (jogadores.get(j).buscarEnergia() >= 2) {
+                    temEnergia = true;
+                }
+            }
+            return !temEnergia;
+        }
     }
-}
+
+
+
