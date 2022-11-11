@@ -32,7 +32,7 @@ public class TestGameManager {
                         {"38", "David Neres", "Z"},
                         {"13", "Enzo Fernandez", "T"}
                 }
-        );  
+        );
 
         // Move primeiro jogador
         assertTrue(jogo.mapa.casas.get(0).jogadores.contains(jogo.jogadores.get(0)));
@@ -71,6 +71,7 @@ public class TestGameManager {
         assertFalse(jogo.mapa.casas.get(1).jogadores.contains(jogo.jogadores.get(1)));
 
     }
+    
     @Test
     public void test01GetWinnerInfo() {
         GameManager jogo = new GameManager();
