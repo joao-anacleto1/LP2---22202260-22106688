@@ -82,6 +82,7 @@ public class Casa {
 
     ArrayList<Jogador> ordernarIds() {
         ArrayList<Jogador> jogadoresIds = new ArrayList<>();
+        jogadoresIds = jogadores;
         int n = jogadoresIds.size();
         Jogador temp = null;
         for (int i = 0; i < n; i++) {
@@ -98,4 +99,6 @@ public class Casa {
 
         return jogadoresIds;
     }
+
+
 }

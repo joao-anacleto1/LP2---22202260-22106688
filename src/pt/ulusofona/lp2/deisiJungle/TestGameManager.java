@@ -19,8 +19,6 @@ public class TestGameManager {
                 }
         );
         jogo.mapa.casas.get(1).jogadores.add(new Jogador(13, "Enzo Fernandez", jogo.tartaruga,20,1));
-        //System.out.println(Arrays.toString(jogo.getPlayerIds(1)));
-        //System.out.println(Arrays.toString(jogo.getPlayerIds(2)));
         int resultadoEsperado = 13;
         int resultadoReal = jogo.getPlayerIds(1)[1];
         assertEquals(resultadoEsperado,resultadoReal);
