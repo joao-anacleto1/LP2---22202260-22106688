@@ -167,22 +167,27 @@ public class GameManager {
     public boolean moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
         if (!bypassValidations) {
             if (nrSquares < 1 || nrSquares > 6) {
+
                 if (turno == jogadores.size() - 1) {
                     turno = 0;
                 } else {
                     turno += 1;
                 }
+
                 return false;
             }
         }
 
         if (jogadores.get(turno).buscarEnergia() >= 2) {
             int proximaPosicao = jogadores.get(turno).buscarPosicaoAtual() + nrSquares;
+
             if (proximaPosicao > mapa.tamanhoMapa()) {
                 proximaPosicao = mapa.tamanhoMapa();
             }
             mapa.moverJogadores(jogadores.get(turno), proximaPosicao, 2);
+            jogadores.get(turno).posicaoAtual = proximaPosicao;
         } else {
+
             if (turno == jogadores.size() - 1) {
                 turno = 0;
             } else {
