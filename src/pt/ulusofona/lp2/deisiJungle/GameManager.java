@@ -167,6 +167,11 @@ public class GameManager {
     public boolean moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
         if (!bypassValidations) {
             if (nrSquares < 1 || nrSquares > 6) {
+                if (turno == jogadores.size() - 1) {
+                    turno = 0;
+                } else {
+                    turno += 1;
+                }
                 return false;
             }
         }
@@ -177,6 +182,13 @@ public class GameManager {
                 proximaPosicao = mapa.tamanhoMapa();
             }
             mapa.moverJogadores(jogadores.get(turno), proximaPosicao, 2);
+        }else{
+            if (turno == jogadores.size() - 1) {
+                turno = 0;
+            } else {
+                turno += 1;
+            }
+            return false;
         }
 
         if (turno == jogadores.size() - 1) {
