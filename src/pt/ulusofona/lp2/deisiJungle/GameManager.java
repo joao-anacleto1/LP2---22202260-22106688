@@ -165,7 +165,30 @@ public class GameManager {
     }
 
     public boolean moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
-        if (!bypassValidations) {
+        if(bypassValidations){
+            if(jogadores.get(turno).buscarEnergia() < 2){
+                if (turno == jogadores.size() - 1) {
+                    turno = 0;
+                } else {
+                    turno += 1;
+                }
+                return false;
+            }else{
+                int proximaPosicao = jogadores.get(turno).buscarPosicaoAtual() + nrSquares;
+
+                if (proximaPosicao >= mapa.tamanhoMapa()) {
+                    proximaPosicao = mapa.tamanhoMapa();
+                }
+                mapa.moverJogadores(jogadores.get(turno), proximaPosicao, 2);
+
+                if (turno == jogadores.size() - 1) {
+                    turno = 0;
+                } else {
+                    turno += 1;
+                }
+                return true;
+            }
+        }else{
             if (nrSquares < 1 || nrSquares > 6) {
 
                 if (turno == jogadores.size() - 1) {
@@ -176,33 +199,32 @@ public class GameManager {
 
                 return false;
             }
-        }
+            if(jogadores.get(turno).buscarEnergia() < 2){
+                if (turno == jogadores.size() - 1) {
+                    turno = 0;
+                } else {
+                    turno += 1;
+                }
+                return false;
+            }else {
+                int proximaPosicao = jogadores.get(turno).buscarPosicaoAtual() + nrSquares;
 
-        if (jogadores.get(turno).buscarEnergia() >= 2) {
-            int proximaPosicao = jogadores.get(turno).buscarPosicaoAtual() + nrSquares;
+                if (proximaPosicao >= mapa.tamanhoMapa()) {
+                    proximaPosicao = mapa.tamanhoMapa();
+                }
+                mapa.moverJogadores(jogadores.get(turno), proximaPosicao, 2);
 
-            if (proximaPosicao >= mapa.tamanhoMapa()) {
-                proximaPosicao = mapa.tamanhoMapa();
+                if (turno == jogadores.size() - 1) {
+                    turno = 0;
+                } else {
+                    turno += 1;
+                }
+                return true;
             }
-            mapa.moverJogadores(jogadores.get(turno), proximaPosicao, 2);
-
-        } else {
-
-            if (turno == jogadores.size() - 1) {
-                turno = 0;
-            } else {
-                turno += 1;
-            }
-            return false;
         }
-
-        if (turno == jogadores.size() - 1) {
-            turno = 0;
-        } else {
-            turno += 1;
-        }
-        return true;
     }
+
+
 
 
     public String[] getWinnerInfo() {
