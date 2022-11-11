@@ -49,4 +49,12 @@ public class Jogador {
         this.posicaoAtual = casaPretendida;
     }
 
+    String buscarNomeJogador(){
+        return nome;
+    }
+
+    String buscarNomeEspecie(){
+        return especie.buscarNome();
+    }
+
 }

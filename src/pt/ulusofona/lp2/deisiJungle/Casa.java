@@ -64,21 +64,38 @@ public class Casa {
         return guardarIds;
     }
 
-    String buscaIdsString(){
+    String buscaIdsString() {
         String resultado = "";
-        for(int j = 0 ; j < jogadores.size() ; j++){
-            if(j == jogadores.size() - 1){
+        for (int j = 0; j < jogadores.size(); j++) {
+            if (j == jogadores.size() - 1) {
                 resultado += "" + jogadores.get(j).buscarId();
-            }else{
+            } else {
                 resultado += "" + jogadores.get(j).buscarId() + ",";
             }
         }
         return resultado;
     }
 
-    boolean casaVazia(){
+    boolean casaVazia() {
         return jogadores.size() == 0;
     }
 
+    ArrayList<Jogador> ordernarIds() {
+        ArrayList<Jogador> jogadoresIds = new ArrayList<>();
+        int n = jogadoresIds.size();
+        Jogador temp = null;
+        for (int i = 0; i < n; i++) {
+            for (int j = 1; j < (n - i); j++) {
+                if (jogadoresIds.get(j - 1).buscarId() > jogadoresIds.get(j).buscarId()) {
+                    //swap elements
+                    temp = jogadoresIds.get(j - 1);
+                    jogadoresIds.set(j - 1, jogadoresIds.get(j));
+                    jogadoresIds.set(j, temp);
+                }
 
+            }
+        }
+
+        return jogadoresIds;
+    }
 }

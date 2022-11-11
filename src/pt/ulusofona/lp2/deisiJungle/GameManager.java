@@ -203,9 +203,12 @@ public class GameManager {
     public String[] getWinnerInfo() {
         String[] resultado = new String[4];
         Jogador jogador = jogadores.get(0);
+
         if (jogoAcabado()) {
             int maisLonge = jogadores.get(0).buscarPosicaoAtual();
+
             for (int i = 1; i < jogadores.size(); i++) {
+
                 if (jogadores.get(i).buscarPosicaoAtual() >= maisLonge) {
                     if (jogadores.get(i).buscarPosicaoAtual() == maisLonge
                             && jogadores.get(i).buscarId() < jogador.buscarId()) {
@@ -228,8 +231,23 @@ public class GameManager {
     }
 
     public ArrayList<String> getGameResults() {
-        //#1 <NOME>, <ESPÉCIE>, <posição do primeiro classificado>...u
-        return new ArrayList<>();
+        ArrayList<String> resultado = new ArrayList<>();
+        String res = "";
+        int posicaoChegada = 1;
+
+        for(int i = mapa.tamanhoMapa() ; i > 0 ; i--){
+          ArrayList<Jogador> jogadores =  mapa.buscarCasa(i).ordernarIds();
+            for(int j = 0 ; j < jogadores.size() ; j++){
+                String nomeJogador = jogadores.get(j).buscarNomeJogador();
+                String nomeEspecie = jogadores.get(j).buscarNomeEspecie();
+                int posicaoNoMapa =jogadores.get(j).buscarPosicaoAtual();
+                res += "#" + posicaoChegada + " " + nomeJogador + ", " + nomeEspecie + ", " + posicaoNoMapa;
+                resultado.add(res);
+                posicaoChegada += 1;
+            }
+        }
+
+        return resultado;
     }
 
     public JPanel getAuthorsPanel() {
