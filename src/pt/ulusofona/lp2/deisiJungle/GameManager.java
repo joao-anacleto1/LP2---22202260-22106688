@@ -228,17 +228,16 @@ public class GameManager {
 
             for (int i = 1; i < jogadores.size(); i++) {
 
-                if (jogadores.get(i).buscarPosicaoAtual() >= maisLonge) {
-                    if (jogadores.get(i).buscarPosicaoAtual() == maisLonge
-                            && jogadores.get(i).buscarId() < jogador.buscarId()) {
-                        maisLonge = jogadores.get(i).buscarPosicaoAtual();
-                        jogador = jogadores.get(i);
-                    } else {
-                        maisLonge = jogadores.get(i).buscarPosicaoAtual();
-                        jogador = jogadores.get(i);
-                    }
+                if (jogadores.get(i).buscarPosicaoAtual() == maisLonge
+                        && jogadores.get(i).buscarId() < jogador.buscarId()) {
+                    jogador = jogadores.get(i);
+                }
+                if(jogadores.get(i).buscarPosicaoAtual() > maisLonge) {
+                    maisLonge = jogadores.get(i).buscarPosicaoAtual();
+                    jogador = jogadores.get(i);
                 }
             }
+
         } else {
             return null;
         }
@@ -315,29 +314,26 @@ public class GameManager {
         return resultado;
     }
 
-        public Especie buscarEspecieAtravesDoId ( char id){
-            for (Especie especie : this.especies) {
-                if (especie.buscarIdentificador() == id) {
-                    return especie;
-                }
+    public Especie buscarEspecieAtravesDoId ( char id){
+        for (Especie especie : this.especies) {
+            if (especie.buscarIdentificador() == id) {
+                return especie;
             }
-            return null;
         }
-
-        boolean jogoAcabado () {
-            if (!mapa.buscarCasa(mapa.casas.size()).casaVazia()) {
-                return true;
-            }
-            boolean temEnergia = false;
-
-            for (int j = 0; j < jogadores.size(); j++) {
-                if (jogadores.get(j).buscarEnergia() >= 2) {
-                    temEnergia = true;
-                }
-            }
-            return !temEnergia;
-        }
+        return null;
     }
 
+    boolean jogoAcabado () {
+        if (!mapa.buscarCasa(mapa.casas.size()).casaVazia()) {
+            return true;
+        }
+        boolean temEnergia = false;
 
-
+        for (int j = 0; j < jogadores.size(); j++) {
+            if (jogadores.get(j).buscarEnergia() >= 2) {
+                temEnergia = true;
+            }
+        }
+        return !temEnergia;
+    }
+}
