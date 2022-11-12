@@ -71,7 +71,7 @@ public class TestGameManager {
         assertFalse(jogo.mapa.casas.get(1).jogadores.contains(jogo.jogadores.get(1)));
 
     }
-    
+
     @Test
     public void test01GetWinnerInfo() {
         GameManager jogo = new GameManager();

@@ -1,6 +1,7 @@
 package pt.ulusofona.lp2.deisiJungle;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -269,14 +270,17 @@ public class GameManager {
     }
 
     public JPanel getAuthorsPanel() {
-        JFrame janela = new JFrame("Créditos");
-        JPanel painelCreditos = new JPanel();
-        janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        janela.add(painelCreditos);
-        painelCreditos.setSize(300, 300);
-        painelCreditos.setVisible(true);
 
-        return painelCreditos;
+
+        JPanel painel = new JPanel();
+        JFrame frame = new JFrame("Créditos");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // fechar a janela ao clicar no X
+        frame.add(painel); // adiciona o painel na jframe
+        painel.setSize(300, 300); // definir tamanho do painel
+        painel.setLayout(null);
+        painel.setVisible(true); // fazer o painel visivel
+
+        return painel;
     }
 
     public String whoIsTaborda() {
