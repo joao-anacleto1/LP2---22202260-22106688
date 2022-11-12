@@ -271,14 +271,18 @@ public class GameManager {
 
     public JPanel getAuthorsPanel() {
 
+        Color c1 = new Color(0x9fb4c7); // cor de fundo para o painel
+       
+        JLabel labelTexto = new JLabel("<html>Projeto realizado por:<br/>- João Anacleto<br/>- " +
+                "Luiza Vidal<br/><br/>Universidade Lusófona - Engenharia Informática<br/><br/>Linguagens " +
+                "de Programação II<br/><br/><br/><br/><br/><br/><img src=\"logoULHT.jpg\"></html>");
 
         JPanel painel = new JPanel();
-        JFrame frame = new JFrame("Créditos");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // fechar a janela ao clicar no X
-        frame.add(painel); // adiciona o painel na jframe
         painel.setSize(300, 300); // definir tamanho do painel
-        painel.setLayout(null);
         painel.setVisible(true); // fazer o painel visivel
+        painel.setBackground(c1); // colorir o fundo
+        painel.add(labelTexto);
+
 
         return painel;
     }
