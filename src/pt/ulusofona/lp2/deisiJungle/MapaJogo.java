@@ -60,9 +60,9 @@ public class MapaJogo {
             return false;
         }
 
-        // Atualiza posição atual do jogador
+        // atualiza posição atual do jogador
         jogador.atualizarPosicao(posicaoCasaEsperada);
-        // Atualiza energia do jogador
+        // atualiza energia do jogador
         jogador.removeEnergia(energiaPorJogada);
         return true;
     }

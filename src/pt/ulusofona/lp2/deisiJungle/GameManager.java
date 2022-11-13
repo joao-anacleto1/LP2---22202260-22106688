@@ -36,15 +36,15 @@ public class GameManager {
 
     public String[][] getSpecies() {
 
-        String[][] result = new String[especies.size()][];
+        String[][] resultado = new String[especies.size()][];
 
         for (int i = 0; i < especies.size(); i++) {
-            result[i] = new String[]{
+            resultado[i] = new String[]{
                     String.valueOf(especies.get(i).buscarIdentificador()),
                     especies.get(i).buscarNome(),
                     especies.get(i).buscarImagem()};
         }
-        return result;
+        return resultado;
     }
 
     public boolean createInitialJungle(int jungleSize, int initialEnergy, String[][] playersInfo) {
@@ -61,8 +61,8 @@ public class GameManager {
         }
 
         for (String[] strings : playersInfo) {
-            //try catch -> trata exceçoes de forma que o programa não rebente,
-            //neste caso caso o conteudo da string não seja um numero o programa não "rebenta"
+            // try catch -> trata exceçoes de forma que o programa não rebente,
+            // neste caso caso o conteudo da string não seja um numero o programa não "rebenta"
             try {
                 if (!resultado.contains(Integer.parseInt(strings[0]))) {
                     resultado.add(Integer.parseInt(strings[0]));
@@ -75,7 +75,7 @@ public class GameManager {
             if (strings[1] == null || strings[1].equals("")) {
                 return false;
             }
-            boolean existeEspecie = false; //verificação final para ver se tem ou não uma especie válida
+            boolean existeEspecie = false; // verificação final para ver se tem ou não uma especie válida
             for (int i = 0; i < especies.size(); i++) {
                 if (strings[2].charAt(0) == especies.get(i).buscarIdentificador()) {
                     existeEspecie = true;
@@ -111,6 +111,7 @@ public class GameManager {
 
     public String[] getSquareInfo(int squareNr) {
         String[] resultado = new String[3];
+
         if (!(mapa.verificaCasa(squareNr))) {
             return null;
         }
@@ -275,7 +276,7 @@ public class GameManager {
 
         JLabel labelTexto = new JLabel("<html>Projeto realizado por:<br/>- João Anacleto<br/>- " +
                 "Luiza Vidal<br/><br/>Universidade Lusófona - Engenharia Informática<br/><br/>Linguagens " +
-                "de Programação II<br/><br/><br/><br/><br/><br/><img src=\"logoULHT.jpg\"></html>");
+                "de Programação II</html>");
 
         JPanel painel = new JPanel();
         painel.setSize(300, 300); // definir tamanho do painel
@@ -283,12 +284,11 @@ public class GameManager {
         painel.setBackground(c1); // colorir o fundo
         painel.add(labelTexto);
 
-
         return painel;
     }
 
     public String whoIsTaborda() {
-        return "Wrestling";
+        return "Wrestling"; // luta livre :D
     }
 
 
