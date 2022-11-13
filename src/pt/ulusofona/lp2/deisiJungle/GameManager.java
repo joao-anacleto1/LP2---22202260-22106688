@@ -279,10 +279,10 @@ public class GameManager {
                 "de Programação II</html>");
 
         JPanel painel = new JPanel();
-        painel.setSize(300, 300); // definir tamanho do painel
-        painel.setVisible(true); // fazer o painel visivel
-        painel.setBackground(c1); // colorir o fundo
-        painel.add(labelTexto);
+        painel.setSize(300, 300); // define tamanho do painel
+        painel.setVisible(true); // torna o painel visivel
+        painel.setBackground(c1); // colore fundo
+        painel.add(labelTexto); // adiciona texto no painel
 
         return painel;
     }
