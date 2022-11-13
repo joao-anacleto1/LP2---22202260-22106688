@@ -12,4 +12,4 @@ A primeira prova a disputar é a prova de atletismo. Os animais vão-se reunir n
 competir para determinar qual o melhor atleta.
 
 ### Diagrama UML
-![](diagrama.png?raw=true "Diagrama UML")
+![](diagramaUML.png?raw=true "Diagrama UML")
