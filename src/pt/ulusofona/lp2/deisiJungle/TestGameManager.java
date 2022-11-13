@@ -83,7 +83,7 @@ public class TestGameManager {
                 }
         );
 
-        // Move primeiro jogador
+        
         assertTrue(jogo.mapa.casas.get(0).jogadores.contains(jogo.jogadores.get(0)));
         assertFalse(jogo.mapa.casas.get(3).jogadores.contains(jogo.jogadores.get(0)));
         jogo.moveCurrentPlayer(3, false);
