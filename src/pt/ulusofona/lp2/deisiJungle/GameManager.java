@@ -281,7 +281,7 @@ public class GameManager {
         JPanel painel = new JPanel();
         painel.setSize(300, 300); // define tamanho do painel
         painel.setVisible(true); // torna o painel visivel
-        painel.setBackground(c1); // colore fundo
+        painel.setBackground(c1); // fundo do painel com a cor criada
         painel.add(labelTexto); // adiciona texto no painel
 
         return painel;
