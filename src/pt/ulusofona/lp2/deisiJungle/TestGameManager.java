@@ -73,6 +73,25 @@ public class TestGameManager {
     }
 
     @Test
+    public void test04MovePlayer() {
+        GameManager jogo = new GameManager();
+        jogo.reset();
+        jogo.createInitialJungle(10, 20, new String[][]
+                {
+                        {"9", "Gabi", "Z"},
+                        {"14", "Arrascaeta", "T"}
+                }
+        );
+
+        // Move primeiro jogador
+        assertTrue(jogo.mapa.casas.get(0).jogadores.contains(jogo.jogadores.get(0)));
+        assertFalse(jogo.mapa.casas.get(3).jogadores.contains(jogo.jogadores.get(0)));
+        jogo.moveCurrentPlayer(3, false);
+        assertFalse(jogo.mapa.casas.get(0).jogadores.contains(jogo.jogadores.get(0)));
+        assertTrue(jogo.mapa.casas.get(3).jogadores.contains(jogo.jogadores.get(0)));
+    }
+
+    @Test
     public void test01GetWinnerInfo() {
         GameManager jogo = new GameManager();
         jogo.reset();
