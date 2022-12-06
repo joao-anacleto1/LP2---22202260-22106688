@@ -10,12 +10,14 @@ public class Especie {
     int energiaInicial;
     int consumoEnergia;
     int ganhoEnergiaEmDescanso;
-    int velocidade;
+
+    int velocidadeMinima;
+    int velocidadeMaxima;
 
 
 
     public Especie(String nome, char identificador, String imagem, int energiaInicial,int consumoEnergia
-            , int ganhoEnergiaEmDescanso) {
+            , int ganhoEnergiaEmDescanso,int velocidadeMinima,int velocidadeMaxima) {
 
         this.nome = nome;
         this.identificador = identificador;
@@ -23,6 +25,9 @@ public class Especie {
         this.energiaInicial = energiaInicial;
         this.consumoEnergia = consumoEnergia;
         this.ganhoEnergiaEmDescanso = ganhoEnergiaEmDescanso;
+        this.velocidadeMinima = velocidadeMinima;
+        this.velocidadeMaxima = velocidadeMaxima;
+
     }
 
     String buscarNome() {
@@ -43,10 +48,12 @@ public class Especie {
 
     int buscarGanhoEnergiaEmDescanso(){return this.ganhoEnergiaEmDescanso;}
 
-    int buscarVelocidade(){
-        return this.velocidade;
-        //Random ran = new Random();
-        //return ran.nextInt(max) + min;
+    int buscarVelocidadeMinima(){
+        return this.velocidadeMinima;
+    }
+
+    int buscarVelocidadeMaxima(){
+        return this.velocidadeMaxima;
     }
 
 }

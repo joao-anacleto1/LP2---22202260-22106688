@@ -1,27 +1,30 @@
 package pt.ulusofona.lp2.deisiJungle;
 
+import org.junit.runners.model.InitializationError;
+
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
-import java.util.Random;
-
+import java.util.HashMap;
 
 public class GameManager {
 
     Especie elefante = new Especie("Elefante", 'E', "elephant.png",180,
-            4,10);
+            4,10,1,6);
 
     Especie leao = new Especie("Leão", 'L', "lion.png",80,
-            2,10);
+            2,10,4,6);
 
     Especie tartaruga = new Especie("Tartaruga", 'T', "turtle.png",150,
-            1,5);
+            1,5,1,3);
 
     Especie passaro = new Especie("Pássaro", 'P', "bird.png",70,
-            4,50);
+            4,50,5,6);
 
     Especie tarzan = new Especie("Tarzan", 'Z', "tarzan.png",70,
-            2,20);
+            2,20,1,6);
+
 
     ArrayList<Especie> especies = new ArrayList<>() {
         {
@@ -55,7 +58,9 @@ public class GameManager {
                     String.valueOf(especies.get(i).buscarEnergiaInicial()),
                     String.valueOf(especies.get(i).buscarConsumoEnergia()),
                     String.valueOf(especies.get(i).buscarGanhoEnergiaEmDescanso()),
-                    String.valueOf(especies.get(i).buscarVelocidade())};
+                    String.valueOf(especies.get(i).buscarVelocidadeMinima()),
+                    String.valueOf(especies.get(i).buscarVelocidadeMaxima())
+            };
         }
         return resultado;
     }
@@ -184,7 +189,7 @@ public class GameManager {
         return resultado;
     }
 
-    public boolean moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
+    public MovementResult moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
 
         if (!bypassValidations) {
             if (nrSquares < 1 || nrSquares > 6) {
@@ -195,7 +200,8 @@ public class GameManager {
                     turno += 1;
                 }
 
-                return false;
+                //return false;
+                return null;
             }
         }
         if (jogadores.get(turno).buscarEnergia() >= 2) {
@@ -207,7 +213,8 @@ public class GameManager {
             } else {
                 turno += 1;
             }
-            return true;
+            //return true;
+            return null;
 
         } else if (jogadores.get(turno).buscarPosicaoAtual() + nrSquares >= mapa.tamanhoMapa()) {
             int proximaPosicao = mapa.tamanhoMapa();
@@ -219,7 +226,8 @@ public class GameManager {
             } else {
                 turno += 1;
             }
-            return true;
+            //return true;
+            return null;
 
         } else {
 
@@ -228,10 +236,29 @@ public class GameManager {
             } else {
                 turno += 1;
             }
-            return false;
+            //return false;
+            return null;
         }
 
     }
+
+    public String[][] getFoodTypes(){
+        return null;
+    }
+
+    public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo, String[][] foodsInfo){
+        return null;
+    }
+
+    public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo){
+        return null;
+    }
+
+    public String[] getCurrentPlayerEnergyInfo(int nrPositions){return null;}
+
+    public boolean saveGame(File file){return false;}
+
+    public boolean loadGame(File file){return false;}
 
 
     public String[] getWinnerInfo() {
