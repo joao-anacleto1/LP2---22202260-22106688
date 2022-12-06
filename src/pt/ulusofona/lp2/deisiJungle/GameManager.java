@@ -3,16 +3,25 @@ package pt.ulusofona.lp2.deisiJungle;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Random;
 
 
 public class GameManager {
 
-    Especie elefante = new Especie("Elefante", 'E', "elephant.png");
-    Especie leao = new Especie("Leão", 'L', "lion.png");
-    Especie tartaruga = new Especie("Tartaruga", 'T', "turtle.png");
-    Especie passaro = new Especie("Pássaro", 'P', "bird.png");
-    Especie tarzan = new Especie("Tarzan", 'Z', "tarzan.png");
+    Especie elefante = new Especie("Elefante", 'E', "elephant.png",180,
+            4,10);
+
+    Especie leao = new Especie("Leão", 'L', "lion.png",80,
+            2,10);
+
+    Especie tartaruga = new Especie("Tartaruga", 'T', "turtle.png",150,
+            1,5);
+
+    Especie passaro = new Especie("Pássaro", 'P', "bird.png",70,
+            4,50);
+
+    Especie tarzan = new Especie("Tarzan", 'Z', "tarzan.png",70,
+            2,20);
 
     ArrayList<Especie> especies = new ArrayList<>() {
         {
@@ -42,7 +51,11 @@ public class GameManager {
             resultado[i] = new String[]{
                     String.valueOf(especies.get(i).buscarIdentificador()),
                     especies.get(i).buscarNome(),
-                    especies.get(i).buscarImagem()};
+                    especies.get(i).buscarImagem(),
+                    String.valueOf(especies.get(i).buscarEnergiaInicial()),
+                    String.valueOf(especies.get(i).buscarConsumoEnergia()),
+                    String.valueOf(especies.get(i).buscarGanhoEnergiaEmDescanso()),
+                    String.valueOf(especies.get(i).buscarVelocidade())};
         }
         return resultado;
     }
@@ -344,7 +357,11 @@ public class GameManager {
             }
             return !temEnergia;
         }
+
+
     }
+
+
 
 
 
