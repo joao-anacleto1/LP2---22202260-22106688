@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 
 public class GameManager {
 
@@ -37,13 +37,36 @@ public class GameManager {
     };
 
 
+    Alimento erva = new Alimento('e',"Erva","grass.png");
+
+    Alimento agua = new Alimento('a',"Agua","water.png");
+
+    Alimento cachoDeBananas = new Alimento('b',"Cacho de bananas",
+            "bananas.png");
+
+    Alimento carne = new Alimento('c',"Carne","meat.png");
+
+    Alimento cogumelosMagicos = new Alimento('m',"Cogumelos magicos",
+            "mushroom.png");
+
+    ArrayList<Alimento> alimentos = new ArrayList<>(){
+        {
+            add(erva);
+            add(agua);
+            add(cachoDeBananas);
+            add(carne);
+            add(cogumelosMagicos);
+        }
+    };
+
+
+
     ArrayList<Jogador> jogadores = new ArrayList<>(); // jogadores que estao a jogar
     MapaJogo mapa;
     int turno;
 
 
     public GameManager() {
-
     }
 
     public String[][] getSpecies() {
@@ -60,6 +83,20 @@ public class GameManager {
                     String.valueOf(especies.get(i).buscarGanhoEnergiaEmDescanso()),
                     String.valueOf(especies.get(i).buscarVelocidadeMinima()),
                     String.valueOf(especies.get(i).buscarVelocidadeMaxima())
+            };
+        }
+        return resultado;
+    }
+
+    public String[][] getFoodTypes(){
+
+        String[][] resultado = new String[alimentos.size()][];
+
+        for(int i = 0; i < alimentos.size(); i++){
+            resultado[i] = new String[]{
+                    String.valueOf(alimentos.get(i).buscarIdentificadorElemento()),
+                    alimentos.get(i).buscarNomeAlimento(),
+                    alimentos.get(i).buscarImagem()
             };
         }
         return resultado;
@@ -240,10 +277,6 @@ public class GameManager {
             return null;
         }
 
-    }
-
-    public String[][] getFoodTypes(){
-        return null;
     }
 
     public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo, String[][] foodsInfo){
