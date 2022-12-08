@@ -8,20 +8,20 @@ import java.util.ArrayList;
 
 public class GameManager {
 
-    Especie elefante = new Especie("Elefante", 'E', "elephant.png",180,
-            4,10,1,6);
+    Especie elefante = new Especie("Elefante", 'E', "elephant.png", 180,
+            4, 10, 1, 6);
 
-    Especie leao = new Especie("Leão", 'L', "lion.png",80,
-            2,10,4,6);
+    Especie leao = new Especie("Leão", 'L', "lion.png", 80,
+            2, 10, 4, 6);
 
-    Especie tartaruga = new Especie("Tartaruga", 'T', "turtle.png",150,
-            1,5,1,3);
+    Especie tartaruga = new Especie("Tartaruga", 'T', "turtle.png", 150,
+            1, 5, 1, 3);
 
-    Especie passaro = new Especie("Pássaro", 'P', "bird.png",70,
-            4,50,5,6);
+    Especie passaro = new Especie("Pássaro", 'P', "bird.png", 70,
+            4, 50, 5, 6);
 
-    Especie tarzan = new Especie("Tarzan", 'Z', "tarzan.png",70,
-            2,20,1,6);
+    Especie tarzan = new Especie("Tarzan", 'Z', "tarzan.png", 70,
+            2, 20, 1, 6);
 
 
     ArrayList<Especie> especies = new ArrayList<>() {
@@ -35,19 +35,19 @@ public class GameManager {
     };
 
 
-    Alimento erva = new Alimento('e',"Erva","grass.png");
+    Alimento erva = new Alimento('e', "Erva", "grass.png");
 
-    Alimento agua = new Alimento('a',"Agua","water.png");
+    Alimento agua = new Alimento('a', "Agua", "water.png");
 
-    Alimento cachoDeBananas = new Alimento('b',"Cacho de bananas",
+    Alimento cachoDeBananas = new Alimento('b', "Cacho de bananas",
             "bananas.png");
 
-    Alimento carne = new Alimento('c',"Carne","meat.png");
+    Alimento carne = new Alimento('c', "Carne", "meat.png");
 
-    Alimento cogumelosMagicos = new Alimento('m',"Cogumelos magicos",
+    Alimento cogumelosMagicos = new Alimento('m', "Cogumelos magicos",
             "mushroom.png");
 
-    ArrayList<Alimento> alimentos = new ArrayList<>(){
+    ArrayList<Alimento> alimentos = new ArrayList<>() {
         {
             add(erva);
             add(agua);
@@ -63,7 +63,8 @@ public class GameManager {
     int turno;
 
 
-    public GameManager() {}
+    public GameManager() {
+    }
 
     //DONE
     public String[][] getSpecies() {
@@ -85,11 +86,11 @@ public class GameManager {
     }
 
     //DONE
-    public String[][] getFoodTypes(){
+    public String[][] getFoodTypes() {
 
         String[][] resultado = new String[alimentos.size()][];
 
-        for(int i = 0; i < alimentos.size(); i++){
+        for (int i = 0; i < alimentos.size(); i++) {
             resultado[i] = new String[]{
                     String.valueOf(alimentos.get(i).buscarIdentificadorElemento()),
                     alimentos.get(i).buscarNomeAlimento(),
@@ -100,7 +101,7 @@ public class GameManager {
     }
 
     //INCOMPLETA - FALTA FAZER AS 2 VERIFICACOES DO ENUNCIADO A AMARELO
-    public InitializationError createInitialJungle(int jungleSize, int initialEnergy, String[][] foodsInfo) {
+    public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo, String[][] foodsInfo) {
         reset();
         ArrayList<Integer> resultado = new ArrayList<>();
         turno = 0;
@@ -109,11 +110,11 @@ public class GameManager {
             return new InitializationError("O número de jogadores não é válido");
         }
 
-        if (!(jungleSize >= 2 * foodsInfo.length)) {
+        if (!(jungleSize >= 2 * playersInfo.length)) {
             return new InitializationError("Não existem pelo menos duas posições para se jogar no mapa");
         }
 
-        for (String[] strings : foodsInfo) {
+        for (String[] strings : playersInfo) {
             // try catch -> trata exceçoes de forma que o programa não rebente,
             // neste caso caso o conteudo da string não seja um numero o programa não "rebenta"
             try {
@@ -125,35 +126,24 @@ public class GameManager {
             } catch (NumberFormatException e) {
                 return new InitializationError("Id de jogador inválido");
             }
+
             if (strings[1] == null || strings[1].equals("")) {
                 return new InitializationError("Nome de jogador inválido");
             }
-            boolean existeComida = false; // verificação final para ver se tem ou não uma especie válida
-            for (int i = 0; i < alimentos.size(); i++) {
-                if (strings[2].charAt(0) == alimentos.get(i).buscarIdentificadorElemento()) {
-                    existeComida = true;
+            boolean existeEspecie = false; //verificação especie válida
+
+            for (int j = 0; j < especies.size(); j++) {
+                if (strings[2].charAt(0) == especies.get(j).buscarIdentificador()) {
+                    existeEspecie = true;
                     break;
                 }
             }
-            if (!existeComida) {
-                return new InitializationError("Não existe comida válida");
+            if(!existeEspecie){
+                return new InitializationError("Não existe especie válida");
             }
             jogadores.add(new Jogador(Integer.parseInt(strings[0]), strings[1],
-                    buscarEspecieAtravesDoId(strings[2].charAt(0)), initialEnergy, 1));
+                    buscarEspecieAtravesDoId(strings[2].charAt(0)),1,1));
         }
-
-
-        jogadores = ordenarJogadoresPorID();
-
-        mapa = new MapaJogo(jungleSize);
-        for (int i = 0; i < jogadores.size(); i++) {
-            mapa.adicionaJogadorInicio(jogadores.get(i));
-        }
-        return new InitializationError("null");
-    }
-
-    //NOT DONE - VER PPT
-    public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo){
         return null;
     }
 
