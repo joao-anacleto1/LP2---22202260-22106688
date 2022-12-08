@@ -58,15 +58,14 @@ public class GameManager {
     };
 
 
-
     ArrayList<Jogador> jogadores = new ArrayList<>(); // jogadores que estao a jogar
     MapaJogo mapa;
     int turno;
 
 
-    public GameManager() {
-    }
+    public GameManager() {}
 
+    //DONE
     public String[][] getSpecies() {
 
         String[][] resultado = new String[especies.size()][];
@@ -79,13 +78,13 @@ public class GameManager {
                     String.valueOf(especies.get(i).buscarEnergiaInicial()),
                     String.valueOf(especies.get(i).buscarConsumoEnergia()),
                     String.valueOf(especies.get(i).buscarGanhoEnergiaEmDescanso()),
-                    String.valueOf(especies.get(i).buscarVelocidadeMinima()),
-                    String.valueOf(especies.get(i).buscarVelocidadeMaxima())
+                    "" + especies.get(i).buscarVelocidadeMinima() + ".." + especies.get(i).buscarVelocidadeMaxima()
             };
         }
         return resultado;
     }
 
+    //DONE
     public String[][] getFoodTypes(){
 
         String[][] resultado = new String[alimentos.size()][];
@@ -100,43 +99,44 @@ public class GameManager {
         return resultado;
     }
 
-    public boolean createInitialJungle(int jungleSize, int initialEnergy, String[][] playersInfo) {
+    //INCOMPLETA - FALTA FAZER AS 2 VERIFICACOES DO ENUNCIADO A AMARELO
+    public InitializationError createInitialJungle(int jungleSize, int initialEnergy, String[][] foodsInfo) {
         reset();
         ArrayList<Integer> resultado = new ArrayList<>();
         turno = 0;
 
-        if (!(playersInfo.length >= 2 && playersInfo.length <= 4)) {
-            return false;
+        if (!(foodsInfo.length >= 2 && foodsInfo.length <= 4)) {
+            return new InitializationError("O número de jogadores não é válido");
         }
 
-        if (!(jungleSize >= 2 * playersInfo.length)) {
-            return false;
+        if (!(jungleSize >= 2 * foodsInfo.length)) {
+            return new InitializationError("Não existem pelo menos duas posições para se jogar no mapa");
         }
 
-        for (String[] strings : playersInfo) {
+        for (String[] strings : foodsInfo) {
             // try catch -> trata exceçoes de forma que o programa não rebente,
             // neste caso caso o conteudo da string não seja um numero o programa não "rebenta"
             try {
                 if (!resultado.contains(Integer.parseInt(strings[0]))) {
                     resultado.add(Integer.parseInt(strings[0]));
                 } else {
-                    return false;
+                    return new InitializationError("Id de jogador inválido");
                 }
             } catch (NumberFormatException e) {
-                return false;
+                return new InitializationError("Id de jogador inválido");
             }
             if (strings[1] == null || strings[1].equals("")) {
-                return false;
+                return new InitializationError("Nome de jogador inválido");
             }
-            boolean existeEspecie = false; // verificação final para ver se tem ou não uma especie válida
-            for (int i = 0; i < especies.size(); i++) {
-                if (strings[2].charAt(0) == especies.get(i).buscarIdentificador()) {
-                    existeEspecie = true;
+            boolean existeComida = false; // verificação final para ver se tem ou não uma especie válida
+            for (int i = 0; i < alimentos.size(); i++) {
+                if (strings[2].charAt(0) == alimentos.get(i).buscarIdentificadorElemento()) {
+                    existeComida = true;
                     break;
                 }
             }
-            if (!existeEspecie) {
-                return false;
+            if (!existeComida) {
+                return new InitializationError("Não existe comida válida");
             }
             jogadores.add(new Jogador(Integer.parseInt(strings[0]), strings[1],
                     buscarEspecieAtravesDoId(strings[2].charAt(0)), initialEnergy, 1));
@@ -149,9 +149,15 @@ public class GameManager {
         for (int i = 0; i < jogadores.size(); i++) {
             mapa.adicionaJogadorInicio(jogadores.get(i));
         }
-        return true;
+        return new InitializationError("null");
     }
 
+    //NOT DONE - VER PPT
+    public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo){
+        return null;
+    }
+
+    //DONE
     public int[] getPlayerIds(int squareNr) {
         Casa casa;
         if (mapa.verificaCasa(squareNr)) {
@@ -162,6 +168,7 @@ public class GameManager {
         }
     }
 
+    //DONE
     public String[] getSquareInfo(int squareNr) {
         String[] resultado = new String[3];
 
@@ -175,6 +182,7 @@ public class GameManager {
         return resultado;
     }
 
+    //DONE
     public String[] getPlayerInfo(int playerId) {
         String[] resultado = new String[4];
 
@@ -194,21 +202,28 @@ public class GameManager {
         }
     }
 
+    //DONE E ATUALIZADA RELATIVAMENTE Á SEGUNDA PARTE
     public String[] getCurrentPlayerInfo() { //com turnos
         Jogador jogadorAtual = jogadores.get(turno);
-        String[] resultado = new String[4];
+        String[] resultado = new String[5];
 
         resultado[0] = String.valueOf(jogadorAtual.id);
         resultado[1] = jogadorAtual.nome;
         resultado[2] = String.valueOf(jogadorAtual.especie.buscarIdentificador());
         resultado[3] = String.valueOf(jogadorAtual.energia);
+        resultado[4] = "" + jogadorAtual.especie.buscarVelocidadeMinima() + ".." +
+                jogadorAtual.especie.buscarVelocidadeMaxima();
 
         return resultado;
 
     }
 
+    //NOT DONE
+    public String[] getCurrentPlayerEnergyInfo(int nrPositions){return null;}
+
+    //DONE E ATUALIZADA RELATIVAMENTE Á SEGUNDA PARTE
     public String[][] getPlayersInfo() {
-        String[][] resultado = new String[jogadores.size()][4];
+        String[][] resultado = new String[jogadores.size()][5];
 
         if (jogadores.isEmpty()) {
             return null;
@@ -218,12 +233,15 @@ public class GameManager {
                 resultado[i][1] = jogadores.get(i).nome;
                 resultado[i][2] = String.valueOf(jogadores.get(i).especie.buscarIdentificador());
                 resultado[i][3] = String.valueOf(jogadores.get(i).energia);
+                resultado[i][4] = "" + jogadores.get(i).especie.buscarVelocidadeMinima() + ".." +
+                        jogadores.get(i).especie.buscarVelocidadeMaxima();
             }
         }
 
         return resultado;
     }
 
+    //NOT DONE
     public MovementResult moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
 
         if (!bypassValidations) {
@@ -277,21 +295,7 @@ public class GameManager {
 
     }
 
-    public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo, String[][] foodsInfo){
-        return null;
-    }
-
-    public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo){
-        return null;
-    }
-
-    public String[] getCurrentPlayerEnergyInfo(int nrPositions){return null;}
-
-    public boolean saveGame(File file){return false;}
-
-    public boolean loadGame(File file){return false;}
-
-
+    //DONE
     public String[] getWinnerInfo() {
         String[] resultado = new String[4];
         Jogador jogador = jogadores.get(0);
@@ -321,6 +325,7 @@ public class GameManager {
         return resultado;
     }
 
+    //NOT DONE
     public ArrayList<String> getGameResults() {
         ArrayList<String> resultado = new ArrayList<>();
         int posicaoChegada = 1;
@@ -341,6 +346,7 @@ public class GameManager {
         return resultado;
     }
 
+    //DONE
     public JPanel getAuthorsPanel() {
 
         Color c1 = new Color(0x9fb4c7); // cor de fundo para o painel
@@ -358,10 +364,16 @@ public class GameManager {
         return painel;
     }
 
+    //DONE
     public String whoIsTaborda() {
         return "Wrestling"; // luta livre :D
     }
 
+    //NOT DONE
+    public boolean saveGame(File file){return false;}
+
+    //NOT DONE
+    public boolean loadGame(File file){return false;}
 
     // FUNÇÕES AUXILIARES
 
@@ -415,7 +427,6 @@ public class GameManager {
             }
             return !temEnergia;
         }
-
 
     }
 

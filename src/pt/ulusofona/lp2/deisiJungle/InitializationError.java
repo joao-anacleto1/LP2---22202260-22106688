@@ -1,10 +1,14 @@
 package pt.ulusofona.lp2.deisiJungle;
 
+class InitializationError {
 
+    String mensagem;
 
-public class InitializationError {
+    public InitializationError(String mensagem) {
+        this.mensagem = mensagem;
+    }
 
-    static String getMessage(){
-        return "erro de inicialização do terreno";
+    String buscaMensagemErro(){
+        return this.mensagem;
     }
 }
