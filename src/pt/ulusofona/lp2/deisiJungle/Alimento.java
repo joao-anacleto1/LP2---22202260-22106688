@@ -20,4 +20,5 @@ public class Alimento {
     String buscarNomeAlimento(){return this.nomeAlimento;}
 
     String buscarImagem(){return this.imagem;}
+
 }
