@@ -8,7 +8,7 @@ class InitializationError {
         this.mensagem = mensagem;
     }
 
-    String buscaMensagemErro(){
+    String getMessage(){
         return this.mensagem;
     }
 }
