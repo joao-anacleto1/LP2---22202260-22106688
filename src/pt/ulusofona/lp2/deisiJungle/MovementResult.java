@@ -2,12 +2,16 @@ package pt.ulusofona.lp2.deisiJungle;
 
 public class MovementResult {
 
-    void message(){
+    MovementResultCode code;
+    String message;
 
+    String message(){
+        return this.message;
     }
 
-    void code(){
-
+    MovementResultCode code(){
+        code = MovementResultCode.CAUGHT_FOOD;
+        return code;
     }
 
 }
