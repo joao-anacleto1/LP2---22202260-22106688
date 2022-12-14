@@ -2,17 +2,17 @@ package pt.ulusofona.lp2.deisiJungle;
 
 class Leao extends Especie {
 
-    String nome = "Leão";
-    char identificador = 'L';
-    String imagem = "lion.png";
-    int energiaInicial = 80;
-    int consumoEnergia = 2;
-    int ganhoEnergiaEmDescanso = 10;
-    int velocidadeMinima = 4;
-    int velocidadeMaxima = 6;
 
-
-    public Leao() {}
+    public Leao() {
+        this.nome = "Leão";
+        this.identificador = 'L';
+        this.imagem = "lion.png";
+        this.energiaInicial = 80;
+        this.consumoEnergia = 2;
+        this.ganhoEnergiaEmDescanso = 10;
+        this.velocidadeMinima = 4;
+        this.velocidadeMaxima = 6;
+    }
 
     @Override
     public boolean isHerbivoro() {

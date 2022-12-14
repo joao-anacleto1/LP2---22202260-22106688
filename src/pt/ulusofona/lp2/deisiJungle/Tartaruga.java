@@ -2,16 +2,17 @@ package pt.ulusofona.lp2.deisiJungle;
 
 class Tartaruga extends Especie {
 
-    String nome = "Tartaruga";
-    char identificador = 'T';
-    String imagem = "turtle.png";
-    int energiaInicial = 150;
-    int consumoEnergia = 1;
-    int ganhoEnergiaEmDescanso = 5;
-    int velocidadeMinima = 1;
-    int velocidadeMaxima = 3;
 
-    public Tartaruga() {}
+    public Tartaruga() {
+        this.nome = "Tartaruga";
+        this.identificador = 'T';
+        this.imagem = "turtle.png";
+        this.energiaInicial = 150;
+        this.consumoEnergia = 1;
+        this.ganhoEnergiaEmDescanso = 5;
+        this.velocidadeMinima = 1;
+        this.velocidadeMaxima = 3;
+    }
 
     @Override
     public boolean isHerbivoro() {

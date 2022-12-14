@@ -2,9 +2,9 @@ package pt.ulusofona.lp2.deisiJungle;
 
 class Erva extends Alimento {
 
-    char identificadorElemento = 'e';
-    String nomeAlimento = "Erva";
-    String imagem ="grass.png";
-
-    public Erva() {}
+    public Erva() {
+        this.identificadorElemento = 'e';
+        this.nomeAlimento = "Erva";
+        this.imagem ="grass.png";
+    }
 }

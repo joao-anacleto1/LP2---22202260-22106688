@@ -2,16 +2,17 @@ package pt.ulusofona.lp2.deisiJungle;
 
 class Passaro extends Especie {
 
-    String nome = "Pássaro";
-    char identificador = 'P';
-    String imagem = "bird.png";
-    int energiaInicial = 70;
-    int consumoEnergia = 4;
-    int ganhoEnergiaEmDescanso = 50;
-    int velocidadeMinima = 5;
-    int velocidadeMaxima = 6;
 
-    public Passaro() {}
+    public Passaro() {
+        this.nome = "Pássaro";
+        this.identificador = 'P';
+        this.imagem = "bird.png";
+        this.energiaInicial = 70;
+        this.consumoEnergia = 4;
+        this.ganhoEnergiaEmDescanso = 50;
+        this.velocidadeMinima = 5;
+        this.velocidadeMaxima = 6;
+    }
 
     @Override
     public boolean isHerbivoro() {

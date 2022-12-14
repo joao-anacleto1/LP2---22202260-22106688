@@ -68,13 +68,12 @@ public class GameManager {
     //DONE
     public String[][] getFoodTypes(){
 
-        String[][] resultado = new String[5][7];
+        String[][] resultado = new String[5][3];
 
         resultado[0] = alimentos.get(0).buscaInfo();
         resultado[1] = alimentos.get(1).buscaInfo();
         resultado[2] = alimentos.get(2).buscaInfo();
-        resultado[3] = alimentos.get(3).buscaInfo();
-        resultado[4] = alimentos.get(4).buscaInfo();
+
 
         return resultado;
     }
@@ -134,7 +133,7 @@ public class GameManager {
 
     //NOT DONE - VER PPT
     public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo){
-        return null;
+        return createInitialJungle(jungleSize,playersInfo,null);
     }
 
     //DONE
