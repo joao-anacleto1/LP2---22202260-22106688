@@ -8,6 +8,7 @@ public class Casa {
     String tipoCasa;
     String imagemCasa;
     ArrayList<Jogador> jogadores = new ArrayList<>();
+    ArrayList<Alimento> alimentos = new ArrayList<>();
 
     public Casa(int indexCasa, String tipoCasa, String imagemCasa) {
         this.indexCasa = indexCasa;
@@ -34,6 +35,27 @@ public class Casa {
             }
         }
         return false;
+    }
+
+    boolean adicionarAlimento(Alimento a) {
+        for (Alimento alimento: this.alimentos){
+            if (alimento.buscarIdentificadorElemento() == a.buscarIdentificadorElemento()){
+                return false;
+            }
+        }
+        this.alimentos.add(a);
+        return true;
+    }
+
+    boolean removerAlimento(Alimento a) {
+        for (int i = 0; i < this.alimentos.size(); i++) {
+            if (this.alimentos.get(i).buscarIdentificadorElemento() == a.buscarIdentificadorElemento()){
+                this.alimentos.remove(i);
+                return true;
+            }
+        }
+        return false;
+
     }
 
     int[] buscaJogadoresIds() {
@@ -77,11 +99,11 @@ public class Casa {
     }
 
     boolean casaVazia() {
-        return jogadores.size() == 0;
+        return jogadores.isEmpty();
     }
 
     ArrayList<Jogador> ordernarIds() {
-        ArrayList<Jogador> jogadoresIds = new ArrayList<>();
+        ArrayList<Jogador> jogadoresIds;
         jogadoresIds = jogadores;
         int n = jogadoresIds.size();
         Jogador temp = null;

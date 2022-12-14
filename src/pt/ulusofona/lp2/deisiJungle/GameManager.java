@@ -93,6 +93,27 @@ public class GameManager {
             return new InitializationError("Não existem pelo menos duas posições para se jogar no mapa");
         }
 
+        for (String[] dadosAlimento: foodsInfo){
+            try {
+                if (!resultado.contains(Integer.parseInt(dadosAlimento[0]))) {
+                    resultado.add(Integer.parseInt(dadosAlimento[0]));
+                } else {
+                    return new InitializationError("Id do alimento inválido");
+                }
+            } catch (NumberFormatException e) {
+                return new InitializationError("Id do alimento inválido");
+            }
+
+            if (Integer.parseInt(dadosAlimento[1]) != 0 && Integer.parseInt(dadosAlimento[1]) < mapa.tamanhoMapa()){
+                alimentos.add(new Alimento() {
+
+                });
+            } else {
+                return new InitializationError("O alimento está fora dos limites do terreno");
+            }
+            
+        }
+
 
         for (String[] dadosJogador: playersInfo) {
             // try catch -> trata exceçoes de forma que o programa não rebente,
@@ -101,13 +122,14 @@ public class GameManager {
                 if (!resultado.contains(Integer.parseInt(dadosJogador[0]))) {
                     resultado.add(Integer.parseInt(dadosJogador[0]));
                 } else {
-                    return new InitializationError("Id de jogador inválido");
+                    return new InitializationError("Id do jogador inválido");
                 }
             } catch (NumberFormatException e) {
-                return new InitializationError("Id de jogador inválido");
+                return new InitializationError("Id do jogador inválido");
             }
+
             if (dadosJogador[1] == null || dadosJogador[1].equals("")) {
-                return new InitializationError("Nome de jogador inválido");
+                return new InitializationError("Nome do jogador inválido");
             }
             boolean existeEspecie = false; // verificação final para ver se tem ou não uma especie válida
             for (Especie e: especies) {
