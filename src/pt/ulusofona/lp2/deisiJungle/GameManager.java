@@ -173,7 +173,7 @@ public class GameManager {
         String[] resultado = new String[4];
 
         if (jogadores.isEmpty()) {
-            return new String[0];
+            return null;
         } else {
             for (Jogador j: jogadores) {
                 j.buscarId();
