@@ -118,8 +118,7 @@ public class GameManager {
                 return new InitializationError("Não existe espécie válida");
             }
             jogadores.add(new Jogador(Integer.parseInt(dadosJogador[0]), dadosJogador[1],
-                    buscarEspecieAtravesDoId(dadosJogador[2].charAt(0)), Integer.parseInt(dadosJogador[3]),
-                    1));
+                    buscarEspecieAtravesDoId(dadosJogador[2].charAt(0)), 1));
         }
 
         jogadores = ordenarJogadoresPorID();

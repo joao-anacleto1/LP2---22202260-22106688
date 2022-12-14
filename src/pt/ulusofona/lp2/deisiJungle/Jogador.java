@@ -8,7 +8,7 @@ public class Jogador {
     Especie especie;
     int posicaoAtual;
 
-    public Jogador(int id, String nome, Especie especie, int energia, int posicaoAtual) {
+    public Jogador(int id, String nome, Especie especie,int posicaoAtual) {
         this.id = id;
         this.nome = nome;
         this.especie = especie;
