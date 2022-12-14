@@ -54,34 +54,28 @@ public class GameManager {
     //DONE
     public String[][] getSpecies() {
 
-        String[][] resultado = new String[especies.size()][];
+        String[][] resultado = new String[5][7];
 
-        for (int i = 0; i < especies.size(); i++) {
-            resultado[i] = new String[]{
-                    String.valueOf(especies.get(i).buscarIdentificador()),
-                    especies.get(i).buscarNome(),
-                    especies.get(i).buscarImagem(),
-                    String.valueOf(especies.get(i).buscarEnergiaInicial()),
-                    String.valueOf(especies.get(i).buscarConsumoEnergia()),
-                    String.valueOf(especies.get(i).buscarGanhoEnergiaEmDescanso()),
-                    "" + especies.get(i).buscarVelocidadeMinima() + ".." + especies.get(i).buscarVelocidadeMaxima()
-            };
-        }
+        resultado[0] = especies.get(0).buscaInfo();
+        resultado[1] = especies.get(1).buscaInfo();
+        resultado[2] = especies.get(2).buscaInfo();
+        resultado[3] = especies.get(3).buscaInfo();
+        resultado[4] = especies.get(4).buscaInfo();
+
         return resultado;
     }
 
     //DONE
     public String[][] getFoodTypes(){
 
-        String[][] resultado = new String[alimentos.size()][];
+        String[][] resultado = new String[5][7];
 
-        for(int i = 0; i < alimentos.size(); i++){
-            resultado[i] = new String[]{
-                    String.valueOf(alimentos.get(i).buscarIdentificadorElemento()),
-                    alimentos.get(i).buscarNomeAlimento(),
-                    alimentos.get(i).buscarImagem()
-            };
-        }
+        resultado[0] = alimentos.get(0).buscaInfo();
+        resultado[1] = alimentos.get(1).buscaInfo();
+        resultado[2] = alimentos.get(2).buscaInfo();
+        resultado[3] = alimentos.get(3).buscaInfo();
+        resultado[4] = alimentos.get(4).buscaInfo();
+
         return resultado;
     }
 

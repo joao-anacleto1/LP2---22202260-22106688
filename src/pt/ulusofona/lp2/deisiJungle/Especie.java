@@ -1,5 +1,8 @@
 package pt.ulusofona.lp2.deisiJungle;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public abstract class Especie {
 
     protected String nome;
@@ -38,6 +41,23 @@ public abstract class Especie {
 
     int buscarVelocidadeMaxima(){
         return this.velocidadeMaxima;
+    }
+
+    public String[] buscaInfo(){
+
+        String[] informacoesEspecies = new String[7];
+
+        informacoesEspecies[0] = "" + this.identificador;
+        informacoesEspecies[1] = nome;
+        informacoesEspecies[2] = imagem;
+        informacoesEspecies[3] = "" + energiaInicial;
+        informacoesEspecies[4] = "" +consumoEnergia;
+        informacoesEspecies[5] = "" + ganhoEnergiaEmDescanso;
+        informacoesEspecies[6] = "" + velocidadeMinima + ".." + velocidadeMaxima;
+
+        return informacoesEspecies;
+
+
     }
 
     public abstract boolean isHerbivoro();

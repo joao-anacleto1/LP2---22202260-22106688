@@ -17,4 +17,17 @@ public class Alimento {
 
     String buscarImagem(){return this.imagem;}
 
+    public String[] buscaInfo(){
+
+        String[] informacoesAlimentos = new String[3];
+
+        informacoesAlimentos[0] = "" + this.identificadorElemento;
+        informacoesAlimentos[1] = nomeAlimento;
+        informacoesAlimentos[2] = imagem;
+
+
+        return informacoesAlimentos;
+
+    }
+
 }
