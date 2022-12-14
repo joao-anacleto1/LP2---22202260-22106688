@@ -86,48 +86,48 @@ public class GameManager {
     }
 
     //INCOMPLETA - FALTA FAZER AS 2 VERIFICACOES DO ENUNCIADO A AMARELO
-    public InitializationError createInitialJungle(int jungleSize, int initialEnergy, String[][] foodsInfo) {
+    public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo, String[][] foodsInfo) {
         reset();
         ArrayList<Integer> resultado = new ArrayList<>();
         turno = 0;
 
-        if (!(foodsInfo.length >= 2 && foodsInfo.length <= 4)) {
+        if (!(playersInfo.length >= 2 && playersInfo.length <= 4)) {
             return new InitializationError("O número de jogadores não é válido");
         }
 
-        if (!(jungleSize >= 2 * foodsInfo.length)) {
+        if (!(jungleSize >= 2 * playersInfo.length)) {
             return new InitializationError("Não existem pelo menos duas posições para se jogar no mapa");
         }
 
-        for (String[] strings : foodsInfo) {
+        for (String[] dadosJogador: playersInfo) {
             // try catch -> trata exceçoes de forma que o programa não rebente,
             // neste caso caso o conteudo da string não seja um numero o programa não "rebenta"
             try {
-                if (!resultado.contains(Integer.parseInt(strings[0]))) {
-                    resultado.add(Integer.parseInt(strings[0]));
+                if (!resultado.contains(Integer.parseInt(dadosJogador[0]))) {
+                    resultado.add(Integer.parseInt(dadosJogador[0]));
                 } else {
                     return new InitializationError("Id de jogador inválido");
                 }
             } catch (NumberFormatException e) {
                 return new InitializationError("Id de jogador inválido");
             }
-            if (strings[1] == null || strings[1].equals("")) {
+            if (dadosJogador[1] == null || dadosJogador[1].equals("")) {
                 return new InitializationError("Nome de jogador inválido");
             }
-            boolean existeComida = false; // verificação final para ver se tem ou não uma especie válida
-            for (int i = 0; i < alimentos.size(); i++) {
-                if (strings[2].charAt(0) == alimentos.get(i).buscarIdentificadorElemento()) {
-                    existeComida = true;
+            boolean existeEspecie = false; // verificação final para ver se tem ou não uma especie válida
+            for (Especie e: especies) {
+                if (dadosJogador[2].charAt(0) == e.buscarIdentificador()) {
+                    existeEspecie = true;
                     break;
                 }
             }
-            if (!existeComida) {
-                return new InitializationError("Não existe comida válida");
+            if (!existeEspecie) {
+                return new InitializationError("Não existe espécie válida");
             }
-            jogadores.add(new Jogador(Integer.parseInt(strings[0]), strings[1],
-                    buscarEspecieAtravesDoId(strings[2].charAt(0)), initialEnergy, 1));
+            jogadores.add(new Jogador(Integer.parseInt(dadosJogador[0]), dadosJogador[1],
+                    buscarEspecieAtravesDoId(dadosJogador[2].charAt(0)), Integer.parseInt(dadosJogador[3]),
+                    1));
         }
-
 
         jogadores = ordenarJogadoresPorID();
 
