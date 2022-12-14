@@ -8,21 +8,12 @@ import java.util.ArrayList;
 
 public class GameManager {
 
-    Especie elefante = new Especie("Elefante", 'E', "elephant.png",180,
-            4,10,1,6, "Herbivoro");
 
-    Especie leao = new Especie("Leão", 'L', "lion.png",80,
-            2,10,4,6, " Carnivoro");
-
-    Especie tartaruga = new Especie("Tartaruga", 'T', "turtle.png",150,
-            1,5,1,3, "Omnivoros");
-
-    Especie passaro = new Especie("Pássaro", 'P', "bird.png",70,
-            4,50,5,6, "Omnivoros");
-
-    Especie tarzan = new Especie("Tarzan", 'Z', "tarzan.png",70,
-            2,20,1,6, "Omnivoro");
-
+    Especie elefante = new Elefante();
+    Especie leao = new Leao();
+    Especie tartaruga = new Tartaruga();
+    Especie passaro = new Passaro();
+    Especie tarzan = new Tarzan();
 
     ArrayList<Especie> especies = new ArrayList<>() {
         {
@@ -34,24 +25,27 @@ public class GameManager {
         }
     };
 
+    Alimento erva = new Erva();
+    Alimento agua = new Agua();
+    Alimento cachoDeBananas = new CachoDeBananas();
+    Alimento carne = new Carne();
+    Alimento cogumelosMagicos = new CogumelosMagicos();
 
-    Alimento erva = new Alimento('e',"Erva","grass.png");
-
-    Alimento agua = new Alimento('a',"Agua","water.png");
-
-    Alimento cachoDeBananas = new Alimento('b',"Cacho de bananas",
-            "bananas.png");
-
-    Alimento carne = new Alimento('c',"Carne","meat.png");
-
-    Alimento cogumelosMagicos = new Alimento('m',"Cogumelos magicos",
-            "mushroom.png");
-
-    ArrayList<Alimento> alimentos = new ArrayList<>();
-
+    ArrayList<Alimento> alimentos = new ArrayList<>() {
+        {
+            add(erva);
+            add(agua);
+            add(cachoDeBananas);
+            add(carne);
+            add(cogumelosMagicos);
+        }
+    };
 
     ArrayList<Jogador> jogadores = new ArrayList<>(); // jogadores que estao a jogar
+
+
     MapaJogo mapa;
+
     int turno;
 
 

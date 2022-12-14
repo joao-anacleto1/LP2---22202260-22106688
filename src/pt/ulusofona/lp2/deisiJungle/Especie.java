@@ -1,34 +1,18 @@
 package pt.ulusofona.lp2.deisiJungle;
 
-public class Especie {
+public abstract class Especie {
 
-    String nome;
-    char identificador;
-    String imagem;
-    int energiaInicial;
-    int consumoEnergia;
-    int ganhoEnergiaEmDescanso;
-
-    int velocidadeMinima;
-    int velocidadeMaxima;
-    String tipoAlimentacao;
+    protected String nome;
+    protected char identificador;
+    protected String imagem;
+    protected int energiaInicial;
+    protected int consumoEnergia;
+    protected int ganhoEnergiaEmDescanso;
+    protected int velocidadeMinima;
+    protected int velocidadeMaxima;
 
 
-
-    public Especie(String nome, char identificador, String imagem, int energiaInicial,int consumoEnergia,
-                   int ganhoEnergiaEmDescanso, int velocidadeMinima, int velocidadeMaxima, String tipoAlimentacao) {
-
-        this.nome = nome;
-        this.identificador = identificador;
-        this.imagem = imagem;
-        this.energiaInicial = energiaInicial;
-        this.consumoEnergia = consumoEnergia;
-        this.ganhoEnergiaEmDescanso = ganhoEnergiaEmDescanso;
-        this.velocidadeMinima = velocidadeMinima;
-        this.velocidadeMaxima = velocidadeMaxima;
-        this.tipoAlimentacao = tipoAlimentacao;
-
-    }
+    Especie() {}
 
     String buscarNome() {
         return this.nome;
@@ -56,4 +40,9 @@ public class Especie {
         return this.velocidadeMaxima;
     }
 
+    public abstract boolean isHerbivoro();
+
+    public abstract boolean isCarnivoro();
+
+    public abstract boolean isOmnivoro();
 }

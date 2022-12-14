@@ -2,16 +2,12 @@ package pt.ulusofona.lp2.deisiJungle;
 
 public class Alimento {
 
-    char identificadorElemento;
-    String nomeAlimento;
-    String imagem;
+    protected char identificadorElemento;
+    protected String nomeAlimento;
+    protected String imagem;
 
 
-    public Alimento(char identificadorElemento, String nomeAlimento, String imagem) {
-        this.identificadorElemento = identificadorElemento;
-        this.nomeAlimento = nomeAlimento;
-        this.imagem = imagem;
-    }
+    public Alimento() {}
 
     char buscarIdentificadorElemento(){
         return this.identificadorElemento;

@@ -1,12 +1,9 @@
 package pt.ulusofona.lp2.deisiJungle;
 
-import java.util.ArrayList;
-import java.util.Objects;
-
 public class Jogador {
 
     int id;
-    int energia; // indicada na hora do jogo
+    int energia;
     String nome;
     Especie especie;
     int posicaoAtual;
@@ -15,7 +12,7 @@ public class Jogador {
         this.id = id;
         this.nome = nome;
         this.especie = especie;
-        this.energia = energia;
+        this.energia = especie.buscarEnergiaInicial();
         this.posicaoAtual = posicaoAtual;
     }
 
@@ -53,5 +50,23 @@ public class Jogador {
     String buscarNomeEspecie(){
         return especie.buscarNome();
     }
+
+    void ingereErva(){
+
+        if(especie.isHerbivoro() || especie.isOmnivoro()){
+            this.energia += 20;
+        }else {
+            this.energia -= 20;
+        }
+    }
+
+    void ingereAgua(){
+        if(especie.isCarnivoro() || especie.isHerbivoro()){
+            this.energia += 15;
+        }else{
+            this.energia += ((this.energia * 0.20)) + this.energia;
+        }
+    }
+
 
 }
