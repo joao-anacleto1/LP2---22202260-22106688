@@ -93,7 +93,7 @@ public class GameManager {
             return new InitializationError("Não existem pelo menos duas posições para se jogar no mapa");
         }
 
-        for (String[] dadosAlimento: foodsInfo){
+        for (String[] dadosAlimento: foodsInfo) {
             try {
                 if (!resultado.contains(Integer.parseInt(dadosAlimento[0]))) {
                     resultado.add(Integer.parseInt(dadosAlimento[0]));
@@ -103,15 +103,6 @@ public class GameManager {
             } catch (NumberFormatException e) {
                 return new InitializationError("Id do alimento inválido");
             }
-
-            if (Integer.parseInt(dadosAlimento[1]) != 0 && Integer.parseInt(dadosAlimento[1]) < mapa.tamanhoMapa()){
-                alimentos.add(new Alimento() {
-
-                });
-            } else {
-                return new InitializationError("O alimento está fora dos limites do terreno");
-            }
-            
         }
 
 
