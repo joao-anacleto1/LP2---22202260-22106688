@@ -11,11 +11,12 @@ public class Especie {
 
     int velocidadeMinima;
     int velocidadeMaxima;
+    String tipoAlimentacao;
 
 
 
-    public Especie(String nome, char identificador, String imagem, int energiaInicial,int consumoEnergia
-            , int ganhoEnergiaEmDescanso,int velocidadeMinima,int velocidadeMaxima) {
+    public Especie(String nome, char identificador, String imagem, int energiaInicial,int consumoEnergia,
+                   int ganhoEnergiaEmDescanso, int velocidadeMinima, int velocidadeMaxima, String tipoAlimentacao) {
 
         this.nome = nome;
         this.identificador = identificador;
@@ -25,6 +26,7 @@ public class Especie {
         this.ganhoEnergiaEmDescanso = ganhoEnergiaEmDescanso;
         this.velocidadeMinima = velocidadeMinima;
         this.velocidadeMaxima = velocidadeMaxima;
+        this.tipoAlimentacao = tipoAlimentacao;
 
     }
 

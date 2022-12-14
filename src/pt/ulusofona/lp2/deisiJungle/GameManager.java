@@ -9,19 +9,19 @@ import java.util.ArrayList;
 public class GameManager {
 
     Especie elefante = new Especie("Elefante", 'E', "elephant.png",180,
-            4,10,1,6);
+            4,10,1,6, "Herbivoro");
 
     Especie leao = new Especie("Leão", 'L', "lion.png",80,
-            2,10,4,6);
+            2,10,4,6, " Carnivoro");
 
     Especie tartaruga = new Especie("Tartaruga", 'T', "turtle.png",150,
-            1,5,1,3);
+            1,5,1,3, "Omnivoros");
 
     Especie passaro = new Especie("Pássaro", 'P', "bird.png",70,
-            4,50,5,6);
+            4,50,5,6, "Omnivoros");
 
     Especie tarzan = new Especie("Tarzan", 'Z', "tarzan.png",70,
-            2,20,1,6);
+            2,20,1,6, "Omnivoro");
 
 
     ArrayList<Especie> especies = new ArrayList<>() {
@@ -47,15 +47,7 @@ public class GameManager {
     Alimento cogumelosMagicos = new Alimento('m',"Cogumelos magicos",
             "mushroom.png");
 
-    ArrayList<Alimento> alimentos = new ArrayList<>(){
-        {
-            add(erva);
-            add(agua);
-            add(cachoDeBananas);
-            add(carne);
-            add(cogumelosMagicos);
-        }
-    };
+    ArrayList<Alimento> alimentos = new ArrayList<>();
 
 
     ArrayList<Jogador> jogadores = new ArrayList<>(); // jogadores que estao a jogar
@@ -429,8 +421,4 @@ public class GameManager {
         }
 
     }
-
-
-
-
 
