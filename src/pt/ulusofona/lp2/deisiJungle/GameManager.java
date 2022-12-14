@@ -127,7 +127,7 @@ public class GameManager {
         for (int i = 0; i < jogadores.size(); i++) {
             mapa.adicionaJogadorInicio(jogadores.get(i));
         }
-        return new InitializationError("null");
+        return null;
     }
 
     //NOT DONE - VER PPT
