@@ -2,9 +2,9 @@ package pt.ulusofona.lp2.deisiJungle;
 
 class CogumelosMagicos extends Alimento {
 
-    char identificadorElemento = 'm';
-    String nomeAlimento = "Cogumelos magicos";
-    String imagem = "mushroom.png";
-
-    public CogumelosMagicos(){}
+    public CogumelosMagicos(){
+        this.identificadorElemento = 'm';
+        this.nomeAlimento = "Cogumelos magicos";
+        this.imagem = "mushroom.png";
+    }
 }

@@ -79,7 +79,7 @@ public class GameManager {
         return resultado;
     }
 
-    //DONE
+    //NOT DONE - FALTA FAZER P FOOD INFO
     public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo, String[][] foodsInfo) {
         reset();
         ArrayList<Integer> resultado = new ArrayList<>();
