@@ -173,9 +173,9 @@ public class GameManager {
         String[] resultado = new String[4];
 
         if (jogadores.isEmpty()) {
-            return null;
+            return new String[0];
         } else {
-            for (Jogador j : jogadores) {
+            for (Jogador j: jogadores) {
                 j.buscarId();
                 if (j.id == playerId) {
                     resultado[0] = String.valueOf(j.id);
