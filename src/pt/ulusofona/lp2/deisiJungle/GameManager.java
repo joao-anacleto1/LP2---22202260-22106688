@@ -73,12 +73,13 @@ public class GameManager {
         resultado[0] = alimentos.get(0).buscaInfo();
         resultado[1] = alimentos.get(1).buscaInfo();
         resultado[2] = alimentos.get(2).buscaInfo();
-
+        resultado[3] = alimentos.get(3).buscaInfo();
+        resultado[4] = alimentos.get(4).buscaInfo();
 
         return resultado;
     }
 
-    //INCOMPLETA - FALTA FAZER AS 2 VERIFICACOES DO ENUNCIADO A AMARELO
+    //DONE
     public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo, String[][] foodsInfo) {
         reset();
         ArrayList<Integer> resultado = new ArrayList<>();
@@ -91,6 +92,7 @@ public class GameManager {
         if (!(jungleSize >= 2 * playersInfo.length)) {
             return new InitializationError("Não existem pelo menos duas posições para se jogar no mapa");
         }
+
 
         for (String[] dadosJogador: playersInfo) {
             // try catch -> trata exceçoes de forma que o programa não rebente,
@@ -130,7 +132,7 @@ public class GameManager {
         return null;
     }
 
-    //NOT DONE - VER PPT
+    //DONE
     public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo){
         return createInitialJungle(jungleSize,playersInfo,null);
     }
