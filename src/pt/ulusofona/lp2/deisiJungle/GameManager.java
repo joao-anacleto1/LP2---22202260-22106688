@@ -123,6 +123,10 @@ public class GameManager {
         }
         jogadores = ordenarJogadoresPorID();
 
+        if(foodsInfo == null){
+            return  new InitializationError("Não existe comidas");
+        }
+
         for(String[] dadosAlimentos : foodsInfo){
 
             boolean existeAlimento = false; // verifica se existe comida válida
