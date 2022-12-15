@@ -52,6 +52,27 @@ public class TestGameManager {
         assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
     }
 
+    @Test
+    public void testCreateInitialJungle_Initialization() {
+        GameManager jogo = new GameManager();
+        jogo.reset();
+        InitializationError resultadoReal = jogo.createInitialJungle(5, new String[][] {
+
+                        {"38", "David Neres", "Z"},
+                        {"13", "Enzo Fernandez", "T"}
+                }
+                , new String[][]
+                        {
+                                {"e", "3"},
+                                {"e", "2"}
+                        }
+
+        );
+        InitializationError resultadoEsperado =  null;
+
+        assertEquals(resultadoEsperado, resultadoReal);
+    }
+
 /*    @Test
     public void test01MovePlayer() {
         GameManager jogo = new GameManager();
