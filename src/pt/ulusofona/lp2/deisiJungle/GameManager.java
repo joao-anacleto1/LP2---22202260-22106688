@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class GameManager {
 
 
+
     Especie elefante = new Elefante();
     Especie leao = new Leao();
     Especie tartaruga = new Tartaruga();
@@ -92,7 +93,6 @@ public class GameManager {
             return new InitializationError("Não existem pelo menos duas posições para se jogar no mapa");
         }
 
-
         for (String[] dadosJogador: playersInfo) {
             // try catch -> trata exceçoes de forma que o programa não rebente,
             // neste caso caso o conteudo da string não seja um numero o programa não "rebenta"
@@ -119,48 +119,44 @@ public class GameManager {
             if (!existeEspecie) {
                 return new InitializationError("Não existe espécie válida");
             }
+            Especie especie;
+
+            char idEspecie = dadosJogador[2].charAt(0);
+
+            if(idEspecie == 'E'){
+                especie = new Elefante();
+
+            }else if(idEspecie == 'Z'){
+                especie = new Tarzan();
+
+            }else if(idEspecie == 'T'){
+                especie = new Tartaruga();
+
+            }else if(idEspecie == 'P'){
+                especie = new Passaro();
+
+            }else {
+                especie = new Leao();
+            }
+
             jogadores.add(new Jogador(Integer.parseInt(dadosJogador[0]), dadosJogador[1],
-                    buscarEspecieAtravesDoId(dadosJogador[2].charAt(0)), 1));
+                    especie, 1));
         }
         jogadores = ordenarJogadoresPorID();
-
-        if(foodsInfo != null){
-
-            for(String[] dadosAlimentos : foodsInfo){
-
-            if(dadosAlimentos[0] == null){
-                return new InitializationError("O id do tipo de alimento é inválido");
-            }
-
-            boolean existeAlimento = false; // verifica se existe comida válida
-            for (Alimento a: alimentos) {
-                if (dadosAlimentos[0].charAt(0) == a.buscarIdentificadorAlimento()) {
-                    existeAlimento = true;
-                    break;
-                }
-            }
-            if(!existeAlimento){
-                return new InitializationError("Não existe comida válida");
-            }
-            try {
-                if (Integer.parseInt(dadosAlimentos[1]) > 1 && Integer.parseInt(dadosAlimentos[1]) < jungleSize)
-                {
-                    resultado.add(Integer.parseInt(dadosAlimentos[1]));
-                } else {
-                    return new InitializationError("O alimento não está posicionado dentro " +
-                            "dos limites do terreno");
-                }
-            } catch (NumberFormatException e) {
-                return new InitializationError("O alimento não está posicionado dentro " +
-                        "dos limites do terreno");
-            }
-        }
-        }
 
         mapa = new MapaJogo(jungleSize);
         for (int i = 0; i < jogadores.size(); i++) {
             mapa.adicionaJogadorInicio(jogadores.get(i));
         }
+
+        InitializationError resultadoAlimentos;
+
+        resultadoAlimentos = verificacaoAlimentos(jungleSize,mapa,foodsInfo);
+
+        if(resultadoAlimentos!= null){
+            return resultadoAlimentos;
+        }
+
         return null;
     }
 
@@ -417,14 +413,6 @@ public class GameManager {
         return resultado;
     }
 
-        public Especie buscarEspecieAtravesDoId ( char id){
-            for (Especie especie : this.especies) {
-                if (especie.buscarIdentificador() == id) {
-                    return especie;
-                }
-            }
-            return null;
-        }
 
         boolean jogoAcabado () {
             if (!mapa.buscarCasa(mapa.casas.size()).casaVazia()) {
@@ -438,6 +426,67 @@ public class GameManager {
                 }
             }
             return !temEnergia;
+        }
+
+        InitializationError verificacaoAlimentos(int jungleSize,MapaJogo mapaJogo , String[][] foodsInfo){
+            if(foodsInfo != null){
+
+                for(String[] dadosAlimentos : foodsInfo){
+
+                    if(dadosAlimentos[0] == null){
+                        return new InitializationError("O id do tipo de alimento é inválido");
+                    }
+
+                    boolean existeAlimento = false; // verifica se existe comida válida
+                    for (Alimento a: alimentos) {
+                        if (dadosAlimentos[0].charAt(0) == a.buscarIdentificadorAlimento()) {
+                            existeAlimento = true;
+                            break;
+                        }
+                    }
+                    if(!existeAlimento){
+                        return new InitializationError("Não existe comida válida");
+                    }
+                    try {
+                        if (Integer.parseInt(dadosAlimentos[1]) > 1 && Integer.parseInt(dadosAlimentos[1]) < jungleSize)
+                        {
+                            Alimento alimento;
+
+                            char idAlimento = dadosAlimentos[0].charAt(0);
+
+                            if(idAlimento == 'b'){
+                                alimento = new CachoDeBananas();
+
+                            }else if(idAlimento == 'c'){
+                                alimento = new Carne();
+
+                            }else if(idAlimento == 'm'){
+                                alimento = new CogumelosMagicos();
+
+                            }else if(idAlimento == 'e'){
+                                alimento = new Erva();
+
+                            }else {
+                                alimento = new Agua();
+                            }
+                            Casa casa;
+
+
+                            casa = mapaJogo.buscarCasa(Integer.parseInt(dadosAlimentos[1]));
+
+                            casa.adicionarAlimento(alimento);
+
+                        } else {
+                            return new InitializationError("O alimento não está posicionado dentro " +
+                                    "dos limites do terreno");
+                        }
+                    } catch (NumberFormatException e) {
+                        return new InitializationError("O alimento não está posicionado dentro " +
+                                "dos limites do terreno");
+                    }
+                }
+            }
+                return null;
         }
 
     }
