@@ -2,15 +2,15 @@ package pt.ulusofona.lp2.deisiJungle;
 
 public abstract class Alimento {
 
-    protected char identificadorElemento;
+    protected char identificadorAlimento;
     protected String nomeAlimento;
     protected String imagem;
 
 
     Alimento() {}
 
-    char buscarIdentificadorElemento(){
-        return this.identificadorElemento;
+    char buscarIdentificadorAlimento(){
+        return this.identificadorAlimento;
     }
 
     String buscarNomeAlimento(){return this.nomeAlimento;}
@@ -21,7 +21,7 @@ public abstract class Alimento {
 
         String[] informacoesAlimentos = new String[3];
 
-        informacoesAlimentos[0] = "" + identificadorElemento;
+        informacoesAlimentos[0] = "" + identificadorAlimento;
         informacoesAlimentos[1] = nomeAlimento;
         informacoesAlimentos[2] = imagem;
 

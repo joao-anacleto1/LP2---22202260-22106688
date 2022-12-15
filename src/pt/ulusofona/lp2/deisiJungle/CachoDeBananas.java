@@ -4,7 +4,7 @@ class CachoDeBananas extends Alimento {
 
 
     public CachoDeBananas() {
-        this.identificadorElemento = 'b';
+        this.identificadorAlimento = 'b';
         this.nomeAlimento = "Cacho de bananas";
         this.imagem = "bananas.png";
     }

@@ -4,7 +4,7 @@ class Agua extends Alimento {
 
 
     public Agua() {
-        this.identificadorElemento = 'a' ;
+        this.identificadorAlimento = 'a' ;
         this.nomeAlimento = "Agua";
         this.imagem = "water.png";
     }

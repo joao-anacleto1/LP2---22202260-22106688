@@ -1,7 +1,5 @@
 package pt.ulusofona.lp2.deisiJungle;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public abstract class Especie {
 

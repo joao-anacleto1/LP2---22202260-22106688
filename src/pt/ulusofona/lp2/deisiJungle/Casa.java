@@ -39,7 +39,7 @@ public class Casa {
 
     boolean adicionarAlimento(Alimento a) {
         for (Alimento alimento: this.alimentos){
-            if (alimento.buscarIdentificadorElemento() == a.buscarIdentificadorElemento()){
+            if (alimento.buscarIdentificadorAlimento() == a.buscarIdentificadorAlimento()){
                 return false;
             }
         }
@@ -49,7 +49,7 @@ public class Casa {
 
     boolean removerAlimento(Alimento a) {
         for (int i = 0; i < this.alimentos.size(); i++) {
-            if (this.alimentos.get(i).buscarIdentificadorElemento() == a.buscarIdentificadorElemento()){
+            if (this.alimentos.get(i).buscarIdentificadorAlimento() == a.buscarIdentificadorAlimento()){
                 this.alimentos.remove(i);
                 return true;
             }

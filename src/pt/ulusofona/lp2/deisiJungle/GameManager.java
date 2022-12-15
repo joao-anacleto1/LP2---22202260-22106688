@@ -73,13 +73,12 @@ public class GameManager {
         resultado[0] = alimentos.get(0).buscaInfo();
         resultado[1] = alimentos.get(1).buscaInfo();
         resultado[2] = alimentos.get(2).buscaInfo();
-        resultado[3] = alimentos.get(3).buscaInfo();
-        resultado[4] = alimentos.get(4).buscaInfo();
+
 
         return resultado;
     }
 
-    //NOT DONE - FALTA FAZER P FOOD INFO
+    //INCOMPLETA - FALTA FAZER AS 2 VERIFICACOES DO ENUNCIADO A AMARELO
     public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo, String[][] foodsInfo) {
         reset();
         ArrayList<Integer> resultado = new ArrayList<>();
@@ -92,7 +91,8 @@ public class GameManager {
         if (!(jungleSize >= 2 * playersInfo.length)) {
             return new InitializationError("Não existem pelo menos duas posições para se jogar no mapa");
         }
-        
+
+
         for (String[] dadosJogador: playersInfo) {
             // try catch -> trata exceçoes de forma que o programa não rebente,
             // neste caso caso o conteudo da string não seja um numero o programa não "rebenta"
@@ -100,14 +100,13 @@ public class GameManager {
                 if (!resultado.contains(Integer.parseInt(dadosJogador[0]))) {
                     resultado.add(Integer.parseInt(dadosJogador[0]));
                 } else {
-                    return new InitializationError("Id do jogador inválido");
+                    return new InitializationError("Id de jogador inválido");
                 }
             } catch (NumberFormatException e) {
-                return new InitializationError("Id do jogador inválido");
+                return new InitializationError("Id de jogador inválido");
             }
-
             if (dadosJogador[1] == null || dadosJogador[1].equals("")) {
-                return new InitializationError("Nome do jogador inválido");
+                return new InitializationError("Nome de jogador inválido");
             }
             boolean existeEspecie = false; // verificação final para ver se tem ou não uma especie válida
             for (Especie e: especies) {
@@ -122,8 +121,33 @@ public class GameManager {
             jogadores.add(new Jogador(Integer.parseInt(dadosJogador[0]), dadosJogador[1],
                     buscarEspecieAtravesDoId(dadosJogador[2].charAt(0)), 1));
         }
-
         jogadores = ordenarJogadoresPorID();
+
+        for(String[] dadosAlimentos : foodsInfo){
+
+            boolean existeAlimento = false; // verifica se existe comida válida
+            for (Alimento a: alimentos) {
+                if (dadosAlimentos[0].charAt(0) == a.buscarIdentificadorAlimento()) {
+                    existeAlimento = true;
+                    break;
+                }
+            }
+            if(!existeAlimento){
+                return new InitializationError("Não existe comida válida");
+            }
+            try {
+                if (Integer.parseInt(dadosAlimentos[1]) > 1 && Integer.parseInt(dadosAlimentos[1]) < mapa.tamanhoMapa())
+                {
+                    resultado.add(Integer.parseInt(dadosAlimentos[1]));
+                } else {
+                    return new InitializationError("O alimento não está posicionado dentro " +
+                            "dos limites do terreno");
+                }
+            } catch (NumberFormatException e) {
+                return new InitializationError("O alimento não está posicionado dentro " +
+                        "dos limites do terreno");
+            }
+        }
 
         mapa = new MapaJogo(jungleSize);
         for (int i = 0; i < jogadores.size(); i++) {
@@ -132,7 +156,7 @@ public class GameManager {
         return null;
     }
 
-    //DONE
+    //NOT DONE - VER PPT
     public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo){
         return createInitialJungle(jungleSize,playersInfo,null);
     }
