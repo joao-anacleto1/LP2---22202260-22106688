@@ -129,6 +129,10 @@ public class GameManager {
 
         for(String[] dadosAlimentos : foodsInfo){
 
+            if(dadosAlimentos[0] == null){
+                return new InitializationError("O id do tipo de alimento é inválido");
+            }
+
             boolean existeAlimento = false; // verifica se existe comida válida
             for (Alimento a: alimentos) {
                 if (dadosAlimentos[0].charAt(0) == a.buscarIdentificadorAlimento()) {
