@@ -149,9 +149,7 @@ public class GameManager {
             mapa.adicionaJogadorInicio(jogadores.get(i));
         }
 
-        InitializationError resultadoAlimentos;
-
-        resultadoAlimentos = verificacaoAlimentos(jungleSize,mapa,foodsInfo);
+        InitializationError resultadoAlimentos = verificacaoAlimentos(jungleSize,mapa,foodsInfo);
 
         if(resultadoAlimentos!= null){
             return resultadoAlimentos;
