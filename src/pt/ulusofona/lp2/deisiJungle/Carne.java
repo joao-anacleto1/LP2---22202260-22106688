@@ -7,8 +7,8 @@ class Carne extends Alimento{
         this.nomeAlimento = "Carne";
         this.imagem = "meat.png";
     }
+
     boolean eToxica(int turno){
         return turno >= 12;
     }
-
 }

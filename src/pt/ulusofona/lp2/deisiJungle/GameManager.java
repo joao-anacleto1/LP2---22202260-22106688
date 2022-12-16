@@ -41,7 +41,7 @@ public class GameManager {
         }
     };
 
-    ArrayList<Jogador> jogadores = new ArrayList<>(); // jogadores que estao a jogar
+    ArrayList<Jogador> jogadores = new ArrayList<>(); // jogadores que estao jogoAtual jogar
 
 
     MapaJogo mapa;
@@ -74,8 +74,9 @@ public class GameManager {
         resultado[0] = alimentos.get(0).buscaInfo();
         resultado[1] = alimentos.get(1).buscaInfo();
         resultado[2] = alimentos.get(2).buscaInfo();
-
-
+        resultado[3] = alimentos.get(3).buscaInfo();
+        resultado[4] = alimentos.get(3).buscaInfo();
+        
         return resultado;
     }
 
@@ -392,7 +393,7 @@ public class GameManager {
         return resultado;
     }
 
-    //NOT DONE
+    //DONE
     public ArrayList<String> getGameResults() {
         ArrayList<String> resultado = new ArrayList<>();
         int posicaoChegada = 1;
@@ -425,7 +426,7 @@ public class GameManager {
         JPanel painel = new JPanel();
         painel.setSize(300, 300); // define tamanho do painel
         painel.setVisible(true); // torna o painel visivel
-        painel.setBackground(c1); // fundo do painel com a cor criada
+        painel.setBackground(c1); // fundo do painel com jogoAtual cor criada
         painel.add(labelTexto); // adiciona texto no painel
 
         return painel;
@@ -490,6 +491,9 @@ public class GameManager {
         }
         return !temEnergia;
     }
+
+
+
 }
 
 

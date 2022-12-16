@@ -78,8 +78,50 @@ public class Jogador {
             }
             this.energia -= (this.energia/2); // carne toxica
         }
+    }
+
+    void ingereCogumelosMagicos(){
+
+        if (especie.eCarnivoro() || especie.eHerbivoro() || especie.eOmnivoro()){
+
+
+
+        }
 
     }
 
+    void ingereCachoDeBananas(CachoDeBananas cachoDeBananas){
 
+        for(int i = 3 ; i >= cachoDeBananas.bananasNoCacho ; i--){
+
+            if (especie.eCarnivoro() || especie.eHerbivoro() || especie.eOmnivoro()){
+                this.energia += 40;
+
+                if (cachoDeBananas.buscarBananasNoCacho() == 2){
+                    this.energia -= 40;
+                }
+                if (cachoDeBananas.buscarBananasNoCacho() == 3){
+                    this.energia -= 40;
+                }
+            }
+        }
+    }
 }
+/*
+        if (especie.eCarnivoro() || especie.eHerbivoro() || especie.eOmnivoro()){
+
+           if (cachoDeBananas.buscarBananasNoCacho() >= 1 || cachoDeBananas.buscarBananasNoCacho() <= 3){
+               this.energia += 40;
+
+               if (cachoDeBananas.buscarBananasNoCacho() == 2){
+                   this.energia -= 40;
+               }
+               if (cachoDeBananas.buscarBananasNoCacho() == 3){
+                   this.energia -= 40;
+               }
+           }
+        }
+
+ */
+
+
