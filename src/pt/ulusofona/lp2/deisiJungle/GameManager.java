@@ -75,8 +75,8 @@ public class GameManager {
         resultado[1] = alimentos.get(1).buscaInfo();
         resultado[2] = alimentos.get(2).buscaInfo();
         resultado[3] = alimentos.get(3).buscaInfo();
-        resultado[4] = alimentos.get(3).buscaInfo();
-        
+        resultado[4] = alimentos.get(4).buscaInfo();
+
         return resultado;
     }
 
