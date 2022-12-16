@@ -53,7 +53,7 @@ public class Jogador {
 
     void ingereErva(){
 
-        if(especie.isHerbivoro() || especie.isOmnivoro()){
+        if(especie.eHerbivoro() || especie.eOmnivoro()){
             this.energia += 20;
         }else {
             this.energia -= 20;
@@ -61,11 +61,24 @@ public class Jogador {
     }
 
     void ingereAgua(){
-        if(especie.isCarnivoro() || especie.isHerbivoro()){
+        if(especie.eCarnivoro() || especie.eHerbivoro()){
             this.energia += 15;
         }else{
             this.energia += ((this.energia * 0.20)) + this.energia;
         }
+    }
+
+    void ingereCarne(int turno){
+
+        Carne carne = new Carne();
+
+        if (!carne.eToxica(turno)){
+            if (especie.eCarnivoro() || especie.eOmnivoro()){
+                this.energia += 50;
+            }
+            this.energia -= (this.energia/2); // carne toxica
+        }
+
     }
 
 

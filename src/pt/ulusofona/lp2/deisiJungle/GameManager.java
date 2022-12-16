@@ -219,7 +219,7 @@ public class GameManager {
     }
 
 
-    //NOT DONE - VER PPT
+    //DONE
     public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo) {
         return createInitialJungle(jungleSize, playersInfo, null);
     }
@@ -314,14 +314,12 @@ public class GameManager {
     public MovementResult moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
 
         if (!bypassValidations) {
-            if (nrSquares < 1 || nrSquares > 6) {
-
+            if (nrSquares <= -6 || nrSquares >= 6) {
                 if (turno == jogadores.size() - 1) {
                     turno = 0;
                 } else {
                     turno += 1;
                 }
-
                 //return false;
                 return null;
             }

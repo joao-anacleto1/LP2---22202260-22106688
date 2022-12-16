@@ -58,9 +58,9 @@ public abstract class Especie {
 
     }
 
-    public abstract boolean isHerbivoro();
+    public abstract boolean eHerbivoro();
 
-    public abstract boolean isCarnivoro();
+    public abstract boolean eCarnivoro();
 
-    public abstract boolean isOmnivoro();
+    public abstract boolean eOmnivoro();
 }
