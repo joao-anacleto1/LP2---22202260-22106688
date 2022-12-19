@@ -3,6 +3,8 @@ package pt.ulusofona.lp2.deisiJungle;
 import jdk.jshell.spi.ExecutionControl;
 import kotlin.NotImplementedError;
 
+import java.util.Random;
+
 public class Jogador {
 
     int id;
@@ -79,17 +81,17 @@ public class Jogador {
         return especie.buscarNome();
     }
 
-    void consumir(Alimento a) {
+    void consumir(Alimento a,int turno) {
 
         switch (a.buscarIdentificadorAlimento()){
             case 'b':
                 ingereCachoDeBananas((CachoDeBananas) a);
                 break;
             case 'c':
-                ingereCarne(1);
+                ingereCarne(turno);
                 break;
             case 'm':
-                ingereCogumelosMagicos();
+                ingereCogumelosMagicos(turno);
                 break;
 
             case 'e':
@@ -133,8 +135,28 @@ public class Jogador {
         }
     }
 
-    void ingereCogumelosMagicos(){
+    void ingereCogumelosMagicos(int turno){
+        Random r = new Random();
+        int min = 10;
+        int max = 50;
+        int result = r.nextInt(max - min) + min;
 
+
+        int valor = (this.energia/100) * result;
+
+        if (turno % 2 == 0){
+            this.energia += valor;
+
+            if (this.energia > 200){
+                this.energia = 200;
+            }
+        }
+        else{
+            this.energia -= valor;
+            if(this.energia < 0){
+                this.energia = 0;
+            }
+        }
     }
 
     void ingereCachoDeBananas(CachoDeBananas cachoDeBananas){

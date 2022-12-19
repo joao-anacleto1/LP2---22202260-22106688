@@ -237,7 +237,7 @@ public class GameManager {
 
     //DONE
     public int[] getPlayerIds(int squareNr) {
-        ArrayList<Integer> jogs = new ArrayList<Integer>();
+        /* ArrayList<Integer> jogs = new ArrayList<Integer>();
         for(Jogador j : jogadores){
             if(j.posicaoAtual == squareNr)
                 jogs.add(j.id);
@@ -250,7 +250,14 @@ public class GameManager {
         for(int i=0;i<jogs.size();i++)
             result[i] = jogs.get(i);
 
-        return result;
+        return result;*/
+        Casa casa;
+        if (mapa.verificaCasa(squareNr)) {
+            casa = mapa.buscarCasa(squareNr);
+            return casa.buscaJogadoresIds();
+        } else {
+            return new int[]{};
+        }
     }
 
     //DONE
@@ -343,6 +350,8 @@ public class GameManager {
             return new MovementResult(MovementResultCode.INVALID_MOVEMENT,null);
         }
 
+        Casa casaAntiga = this.mapa.buscarCasa(jogadorAtual.posicaoAtual);
+
         //ACAO DE MOVIMENTO
         if (nrSquares == 0){
             jogadorAtual.ficar();
@@ -354,9 +363,14 @@ public class GameManager {
         if(jogadorAtual.posicaoAtual > mapa.tamanhoMapa() - 1)
             jogadorAtual.posicaoAtual = mapa.tamanhoMapa() - 1;
 
+
         Casa casaAtualDoJogador = this.mapa.buscarCasa(jogadorAtual.posicaoAtual);
-            if(casaAtualDoJogador.alimento != null){
-                jogadorAtual.consumir(casaAtualDoJogador.alimento);
+        if(casaAntiga.indexCasa != casaAtualDoJogador.indexCasa){
+            casaAntiga.removerJogador(jogadorAtual);
+            casaAtualDoJogador.adicionarJogador(jogadorAtual);
+        }
+        if(casaAtualDoJogador.alimento != null){
+                jogadorAtual.consumir(casaAtualDoJogador.alimento,turno);
                 return new MovementResult(MovementResultCode.CAUGHT_FOOD,"Apanhou "+ casaAtualDoJogador.alimento.nomeAlimento);
             }
             else
