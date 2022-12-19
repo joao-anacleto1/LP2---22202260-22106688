@@ -19,9 +19,9 @@ public class MapaJogo {
 
             Casa novaCasa;
             if (j == tamanho - 1) {
-                novaCasa = new Casa(j + 1, "Meta", "finish.png");
+                novaCasa = new Casa(j + 1, "Meta", "finish.png", null);
             } else {
-                novaCasa = new Casa(j + 1, "Vazio", "blank.png");
+                novaCasa = new Casa(j + 1, "Vazio", "blank.png", null);
             }
             mapa.add(novaCasa);
         }

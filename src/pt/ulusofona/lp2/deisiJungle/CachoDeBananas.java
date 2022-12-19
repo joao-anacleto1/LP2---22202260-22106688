@@ -15,4 +15,13 @@ class CachoDeBananas extends Alimento {
     int buscarBananasNoCacho(){
         return this.bananasNoCacho;
     }
+
+    public boolean getBanana(){
+
+        if(bananasNoCacho == 0)
+            return false;
+        bananasNoCacho--;
+        return true;
+
+    }
 }

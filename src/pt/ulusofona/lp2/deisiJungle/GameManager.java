@@ -1,5 +1,7 @@
 package pt.ulusofona.lp2.deisiJungle;
 
+import jdk.jshell.spi.ExecutionControl;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -160,9 +162,17 @@ public class GameManager {
     }
 
     InitializationError verificacaoAlimentos(int jungleSize, MapaJogo mapaJogo, String[][] foodsInfo) {
+
         if (foodsInfo != null) {
 
+           /* int nmr = 0;
+            for(String[] test : foodsInfo){
+                System.out.println("["+nmr+"][0]: "+test[0]);
+                System.out.println("["+nmr+"][1]: "+test[1]);
+                nmr++;
+            } */
             for (String[] dadosAlimentos : foodsInfo) {
+
 
                 if (dadosAlimentos[0] == null) {
                     return new InitializationError("O id do tipo de alimento é inválido");
@@ -170,6 +180,7 @@ public class GameManager {
 
                 boolean existeAlimento = false; // verifica se existe comida válida
                 for (Alimento a : alimentos) {
+
                     if (dadosAlimentos[0].charAt(0) == a.buscarIdentificadorAlimento()) {
                         existeAlimento = true;
                         break;
@@ -204,7 +215,7 @@ public class GameManager {
 
                         casa = mapaJogo.buscarCasa(Integer.parseInt(dadosAlimentos[1]));
 
-                        casa.adicionarAlimento(alimento);
+                        casa.receberAlimento(alimento);
 
                     } else {
                         return new InitializationError("O alimento não está posicionado dentro " +
@@ -219,7 +230,6 @@ public class GameManager {
         return null;
     }
 
-
     //DONE
     public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo) {
         return createInitialJungle(jungleSize, playersInfo, null);
@@ -227,13 +237,20 @@ public class GameManager {
 
     //DONE
     public int[] getPlayerIds(int squareNr) {
-        Casa casa;
-        if (mapa.verificaCasa(squareNr)) {
-            casa = mapa.buscarCasa(squareNr);
-            return casa.buscaJogadoresIds();
-        } else {
-            return new int[]{};
+        ArrayList<Integer> jogs = new ArrayList<Integer>();
+        for(Jogador j : jogadores){
+            if(j.posicaoAtual == squareNr)
+                jogs.add(j.id);
         }
+
+        if(jogs.isEmpty())
+            return new int[] {};
+
+        int[] result = new int[jogs.size()];
+        for(int i=0;i<jogs.size();i++)
+            result[i] = jogs.get(i);
+
+        return result;
     }
 
     //DONE
@@ -263,7 +280,7 @@ public class GameManager {
                     resultado[0] = String.valueOf(j.id);
                     resultado[1] = j.nome;
                     resultado[2] = String.valueOf(j.especie.buscarIdentificador());
-                    resultado[3] = String.valueOf(j.energia);
+                    resultado[3] = String.valueOf(j.buscarEnergia());
                 }
             }
             return resultado;
@@ -272,13 +289,13 @@ public class GameManager {
 
     //DONE E ATUALIZADA RELATIVAMENTE Á SEGUNDA PARTE
     public String[] getCurrentPlayerInfo() { //com turnos
-        Jogador jogadorAtual = jogadores.get(turno);
+        Jogador jogadorAtual = jogadores.get(turno % jogadores.size());
         String[] resultado = new String[5];
 
         resultado[0] = String.valueOf(jogadorAtual.id);
         resultado[1] = jogadorAtual.nome;
         resultado[2] = String.valueOf(jogadorAtual.especie.buscarIdentificador());
-        resultado[3] = String.valueOf(jogadorAtual.energia);
+        resultado[3] = String.valueOf(jogadorAtual.buscarEnergia());
         resultado[4] = "" + jogadorAtual.especie.buscarVelocidadeMinima() + ".." +
                 jogadorAtual.especie.buscarVelocidadeMaxima();
 
@@ -286,9 +303,12 @@ public class GameManager {
 
     }
 
-    //NOT DONE
+    //DONE
     public String[] getCurrentPlayerEnergyInfo(int nrPositions) {
-        return null;
+        Jogador jogadorAtual = jogadores.get(turno % jogadores.size());
+
+        return new String[] {String.valueOf(jogadorAtual.especie.consumoEnergia * nrPositions),
+                String.valueOf(jogadorAtual.especie.ganhoEnergiaEmDescanso)};
     }
 
     //DONE E ATUALIZADA RELATIVAMENTE Á SEGUNDA PARTE
@@ -302,7 +322,7 @@ public class GameManager {
                 resultado[i][0] = String.valueOf(jogadores.get(i).id);
                 resultado[i][1] = jogadores.get(i).nome;
                 resultado[i][2] = String.valueOf(jogadores.get(i).especie.buscarIdentificador());
-                resultado[i][3] = String.valueOf(jogadores.get(i).energia);
+                resultado[i][3] = String.valueOf(jogadores.get(i).buscarEnergia());
                 resultado[i][4] = "" + jogadores.get(i).especie.buscarVelocidadeMinima() + ".." +
                         jogadores.get(i).especie.buscarVelocidadeMaxima();
             }
@@ -314,52 +334,35 @@ public class GameManager {
     //NOT DONE
     public MovementResult moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
 
-        if (!bypassValidations) {
-            if (nrSquares <= -6 || nrSquares >= 6) {
-                if (turno == jogadores.size() - 1) {
-                    turno = 0;
-                } else {
-                    turno += 1;
-                }
-                //return false;
-                return null;
-            }
+        Jogador jogadorAtual = jogadores.get((turno++ % jogadores.size()));
+
+        if(!bypassValidations && (nrSquares < -6 || nrSquares > 6)){
+            return new MovementResult(MovementResultCode.INVALID_MOVEMENT,null);
         }
-        if (jogadores.get(turno).buscarEnergia() >= 2) {
-            int proximaPosicao = jogadores.get(turno).buscarPosicaoAtual() + nrSquares;
-            mapa.moverJogadores(jogadores.get(turno), proximaPosicao, 2);
-
-            if (turno == jogadores.size() - 1) {
-                turno = 0;
-            } else {
-                turno += 1;
-            }
-            //return true;
-            return null;
-
-        } else if (jogadores.get(turno).buscarPosicaoAtual() + nrSquares >= mapa.tamanhoMapa()) {
-            int proximaPosicao = mapa.tamanhoMapa();
-
-            mapa.moverJogadores(jogadores.get(turno), proximaPosicao, 2);
-
-            if (turno == jogadores.size() - 1) {
-                turno = 0;
-            } else {
-                turno += 1;
-            }
-            //return true;
-            return null;
-
-        } else {
-
-            if (turno == jogadores.size() - 1) {
-                turno = 0;
-            } else {
-                turno += 1;
-            }
-            //return false;
-            return null;
+        if (jogadorAtual.posicaoAtual + nrSquares < 1){
+            return new MovementResult(MovementResultCode.INVALID_MOVEMENT,null);
         }
+
+        //ACAO DE MOVIMENTO
+        if (nrSquares == 0){
+            jogadorAtual.ficar();
+        } else if (!jogadorAtual.mover(nrSquares)){
+            return new MovementResult(MovementResultCode.NO_ENERGY,null);
+        }
+
+        //GARANTIR QUE O JOGADOR NAO VAI SE MOVER PARA FORA DO MAPA
+        if(jogadorAtual.posicaoAtual > mapa.tamanhoMapa() - 1)
+            jogadorAtual.posicaoAtual = mapa.tamanhoMapa() - 1;
+
+        Casa casaAtualDoJogador = this.mapa.buscarCasa(jogadorAtual.posicaoAtual);
+            if(casaAtualDoJogador.alimento != null){
+                jogadorAtual.consumir(casaAtualDoJogador.alimento);
+                return new MovementResult(MovementResultCode.CAUGHT_FOOD,"Apanhou "+ casaAtualDoJogador.alimento.nomeAlimento);
+            }
+            else
+            {
+                return new MovementResult(MovementResultCode.VALID_MOVEMENT,null);
+            }
 
     }
 
@@ -389,7 +392,7 @@ public class GameManager {
         resultado[0] = String.valueOf(jogador.id);
         resultado[1] = jogador.nome;
         resultado[2] = String.valueOf(jogador.especie.buscarIdentificador());
-        resultado[3] = String.valueOf(jogador.energia);
+        resultado[3] = String.valueOf(jogador.buscarEnergia());
         return resultado;
     }
 

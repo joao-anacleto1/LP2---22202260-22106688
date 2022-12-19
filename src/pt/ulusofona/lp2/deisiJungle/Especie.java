@@ -63,4 +63,5 @@ public abstract class Especie {
     public abstract boolean eCarnivoro();
 
     public abstract boolean eOmnivoro();
+
 }

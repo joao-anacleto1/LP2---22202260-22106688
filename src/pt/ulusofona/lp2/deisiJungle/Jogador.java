@@ -1,12 +1,19 @@
 package pt.ulusofona.lp2.deisiJungle;
 
+import jdk.jshell.spi.ExecutionControl;
+import kotlin.NotImplementedError;
+
 public class Jogador {
 
     int id;
-    int energia;
+    private int energia;
     String nome;
     Especie especie;
     int posicaoAtual;
+
+    int qtdDeBananasIngeridas;
+
+    static int qtdMaxDeBananasIngeridas = 1;
 
     public Jogador(int id, String nome, Especie especie,int posicaoAtual) {
         this.id = id;
@@ -14,6 +21,7 @@ public class Jogador {
         this.especie = especie;
         this.energia = especie.buscarEnergiaInicial();
         this.posicaoAtual = posicaoAtual;
+        this.qtdDeBananasIngeridas = 0;
     }
 
     boolean validarNome() {
@@ -35,6 +43,26 @@ public class Jogador {
         return energia;
     }
 
+    boolean mover(int nrSquares){
+
+        if(this.energia < this.especie.consumoEnergia){
+            return false;
+        }
+        this.energia -= especie.consumoEnergia * nrSquares;
+        this.posicaoAtual += nrSquares;
+
+        return true;
+
+    }
+
+    void ficar(){
+        this.energia += this.especie.ganhoEnergiaEmDescanso;
+
+        if (this.energia > 200){
+            this.energia = 200;
+        }
+    }
+
     void removeEnergia(int valor) {
         this.energia -= valor;
     }
@@ -49,6 +77,31 @@ public class Jogador {
 
     String buscarNomeEspecie(){
         return especie.buscarNome();
+    }
+
+    void consumir(Alimento a) {
+
+        switch (a.buscarIdentificadorAlimento()){
+            case 'b':
+                ingereCachoDeBananas((CachoDeBananas) a);
+                break;
+            case 'c':
+                ingereCarne(1);
+                break;
+            case 'm':
+                ingereCogumelosMagicos();
+                break;
+
+            case 'e':
+                ingereErva();
+                break;
+
+            case 'a':
+                ingereAgua();
+                break;
+
+            default:
+        }
     }
 
     void ingereErva(){
@@ -82,46 +135,21 @@ public class Jogador {
 
     void ingereCogumelosMagicos(){
 
-        if (especie.eCarnivoro() || especie.eHerbivoro() || especie.eOmnivoro()){
-
-
-
-        }
-
     }
 
     void ingereCachoDeBananas(CachoDeBananas cachoDeBananas){
 
-        for(int i = 3 ; i >= cachoDeBananas.bananasNoCacho ; i--){
+        if(cachoDeBananas.getBanana()){
+            qtdDeBananasIngeridas++;
+            int energiaASomar;
+            if(qtdDeBananasIngeridas <= Jogador.qtdMaxDeBananasIngeridas)
+                energiaASomar = 40;
+            else
+                energiaASomar = -40;
 
-            if (especie.eCarnivoro() || especie.eHerbivoro() || especie.eOmnivoro()){
-                this.energia += 40;
-
-                if (cachoDeBananas.buscarBananasNoCacho() == 2){
-                    this.energia -= 40;
-                }
-                if (cachoDeBananas.buscarBananasNoCacho() == 3){
-                    this.energia -= 40;
-                }
-            }
+            this.energia += energiaASomar;
         }
     }
 }
-/*
-        if (especie.eCarnivoro() || especie.eHerbivoro() || especie.eOmnivoro()){
-
-           if (cachoDeBananas.buscarBananasNoCacho() >= 1 || cachoDeBananas.buscarBananasNoCacho() <= 3){
-               this.energia += 40;
-
-               if (cachoDeBananas.buscarBananasNoCacho() == 2){
-                   this.energia -= 40;
-               }
-               if (cachoDeBananas.buscarBananasNoCacho() == 3){
-                   this.energia -= 40;
-               }
-           }
-        }
-
- */
 
 

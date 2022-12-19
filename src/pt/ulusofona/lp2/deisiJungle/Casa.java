@@ -8,12 +8,21 @@ public class Casa {
     String tipoCasa;
     String imagemCasa;
     ArrayList<Jogador> jogadores = new ArrayList<>();
-    ArrayList<Alimento> alimentos = new ArrayList<>();
+    Alimento alimento;
 
-    public Casa(int indexCasa, String tipoCasa, String imagemCasa) {
+    public Casa(int indexCasa, String tipoCasa, String imagemCasa, Alimento alimento) {
         this.indexCasa = indexCasa;
         this.tipoCasa = tipoCasa;
         this.imagemCasa = imagemCasa;
+        this.alimento = alimento;
+    }
+
+    public void receberAlimento(Alimento a){
+        if(a != null){
+            this.alimento = a;
+            this.tipoCasa = a.nomeAlimento;
+            this.imagemCasa = a.imagem;
+        }
     }
 
     boolean adicionarJogador(Jogador j) {
@@ -37,26 +46,6 @@ public class Casa {
         return false;
     }
 
-    boolean adicionarAlimento(Alimento a) {
-        for (Alimento alimento: this.alimentos){
-            if (alimento.buscarIdentificadorAlimento() == a.buscarIdentificadorAlimento()){
-                return false;
-            }
-        }
-        this.alimentos.add(a);
-        return true;
-    }
-
-    boolean removerAlimento(Alimento a) {
-        for (int i = 0; i < this.alimentos.size(); i++) {
-            if (this.alimentos.get(i).buscarIdentificadorAlimento() == a.buscarIdentificadorAlimento()){
-                this.alimentos.remove(i);
-                return true;
-            }
-        }
-        return false;
-
-    }
 
     int[] buscaJogadoresIds() {
         int[] ids = new int[jogadores.size()];
@@ -121,6 +110,5 @@ public class Casa {
 
         return jogadoresIds;
     }
-
 
 }
