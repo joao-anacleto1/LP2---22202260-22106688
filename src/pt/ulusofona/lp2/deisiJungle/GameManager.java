@@ -519,7 +519,7 @@ public class GameManager {
         }
 
         distanciaEntreJogadores = maiorPosicao - segundaMaiorPosicao;
-        return false;
+        return true;
     }
 
 }
