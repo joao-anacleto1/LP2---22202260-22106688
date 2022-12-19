@@ -28,6 +28,10 @@ public class MapaJogo {
         return mapa;
     }
 
+    ArrayList<Casa> buscarCasas(){
+        return this.casas;
+    }
+
     int tamanhoMapa(){
         return casas.size();
     }

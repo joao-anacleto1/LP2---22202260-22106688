@@ -161,6 +161,7 @@ public class GameManager {
         return null;
     }
 
+    //DONE
     InitializationError verificacaoAlimentos(int jungleSize, MapaJogo mapaJogo, String[][] foodsInfo) {
 
         if (foodsInfo != null) {
@@ -295,7 +296,7 @@ public class GameManager {
         }
     }
 
-    //DONE E ATUALIZADA RELATIVAMENTE Á SEGUNDA PARTE
+    //DONE
     public String[] getCurrentPlayerInfo() { //com turnos
         Jogador jogadorAtual = jogadores.get(turno % jogadores.size());
         String[] resultado = new String[5];
@@ -319,7 +320,7 @@ public class GameManager {
                 String.valueOf(jogadorAtual.especie.ganhoEnergiaEmDescanso)};
     }
 
-    //DONE E ATUALIZADA RELATIVAMENTE Á SEGUNDA PARTE
+    //DONE
     public String[][] getPlayersInfo() {
         String[][] resultado = new String[jogadores.size()][5];
 
@@ -499,26 +500,36 @@ public class GameManager {
 
 
     boolean jogoAcabado() {
-        int maiorPosicao = 0;
-        int segundaMaiorPosicao = 0;
-        int distanciaEntreJogadores = 0;
+
+        int primeiraMaiorPosicao = -1;
+        int segundaMaiorPosicao = -1;
 
         if (!mapa.buscarCasa(mapa.casas.size()).casaVazia()) {
             return true;
         }
 
-        for (Jogador j: jogadores) {
-            if (j.buscarPosicaoAtual() > maiorPosicao){
-                maiorPosicao = j.posicaoAtual;
-                for (Jogador p: jogadores){
-                    if (p.buscarPosicaoAtual() > segundaMaiorPosicao){
-                        segundaMaiorPosicao = p.buscarPosicaoAtual();
-                    }
-                }
-            }
+        for(int j = mapa.tamanhoMapa() ; j > 0 ; j -- ){
+
+             Casa casa = mapa.buscarCasa(j);
+
+             if(!casa.casaVazia()){
+                 if(primeiraMaiorPosicao > 0){
+
+                     if(segundaMaiorPosicao < 0){
+                         segundaMaiorPosicao = j;
+                     }
+
+                 }else{
+                     primeiraMaiorPosicao = j;
+                 }
+             }
         }
 
-        distanciaEntreJogadores = maiorPosicao - segundaMaiorPosicao;
+        if((primeiraMaiorPosicao - segundaMaiorPosicao) > mapa.tamanhoMapa()/2){
+            return true;
+        }
+
+
         return false;
     }
 
