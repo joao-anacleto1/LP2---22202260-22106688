@@ -5,7 +5,7 @@ class CogumelosMagicos extends Alimento {
 
     public CogumelosMagicos(){
         this.identificadorAlimento = 'm';
-        this.nomeAlimento = "Cogumelo magico";
+        this.nomeAlimento = "Cogumelo Magico";
         this.imagem = "mushroom.png";
     }
 }
