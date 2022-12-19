@@ -360,9 +360,9 @@ public class GameManager {
         }
 
         //GARANTIR QUE O JOGADOR NAO VAI SE MOVER PARA FORA DO MAPA
-        if(jogadorAtual.posicaoAtual > mapa.tamanhoMapa() - 1)
+        if(jogadorAtual.posicaoAtual > mapa.tamanhoMapa() - 1){
             jogadorAtual.posicaoAtual = mapa.tamanhoMapa() - 1;
-
+        }
 
         Casa casaAtualDoJogador = this.mapa.buscarCasa(jogadorAtual.posicaoAtual);
         if(casaAntiga.indexCasa != casaAtualDoJogador.indexCasa){
@@ -496,20 +496,32 @@ public class GameManager {
 
 
     boolean jogoAcabado() {
+        int maiorPosicao = 0;
+        int segundaMaiorPosicao = 0;
+        int distanciaEntreJogadores = 0;
+
         if (!mapa.buscarCasa(mapa.casas.size()).casaVazia()) {
             return true;
         }
-        boolean temEnergia = false;
 
-        for (int j = 0; j < jogadores.size(); j++) {
-            if (jogadores.get(j).buscarEnergia() >= 2) {
-                temEnergia = true;
+        for (Jogador j: jogadores) {
+            if (j.buscarPosicaoAtual() > maiorPosicao){
+                maiorPosicao = j.posicaoAtual;
+                for (Jogador p: jogadores){
+                    if (p.buscarPosicaoAtual() > segundaMaiorPosicao){
+                        segundaMaiorPosicao = p.buscarPosicaoAtual();
+                    }
+                }
             }
         }
-        return !temEnergia;
+
+        distanciaEntreJogadores = maiorPosicao - segundaMaiorPosicao;
+
+        /*if (distanciaEntreJogadores > mapa.tamanhoMapa() / 2){
+            return segundaMaiorPosicao;
+        }*/
+        return true;
     }
-
-
 
 }
 

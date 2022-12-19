@@ -164,10 +164,11 @@ public class Jogador {
         if(cachoDeBananas.getBanana()){
             qtdDeBananasIngeridas++;
             int energiaASomar;
-            if(qtdDeBananasIngeridas <= Jogador.qtdMaxDeBananasIngeridas)
+            if(qtdDeBananasIngeridas <= Jogador.qtdMaxDeBananasIngeridas){
                 energiaASomar = 40;
-            else
+            } else {
                 energiaASomar = -40;
+            }
 
             this.energia += energiaASomar;
         }
