@@ -276,7 +276,7 @@ public class GameManager {
 
     //DONE
     public String[] getPlayerInfo(int playerId) {
-        String[] resultado = new String[4];
+        String[] resultado = new String[5];
 
         if (jogadores.isEmpty()) {
             return null;
@@ -288,6 +288,7 @@ public class GameManager {
                     resultado[1] = j.nome;
                     resultado[2] = String.valueOf(j.especie.buscarIdentificador());
                     resultado[3] = String.valueOf(j.buscarEnergia());
+                    resultado[4] = "" + j.especie.buscarVelocidadeMinima() + ".." + j.especie.buscarVelocidadeMaxima();
                 }
             }
             return resultado;
@@ -371,7 +372,8 @@ public class GameManager {
         }
         if(casaAtualDoJogador.alimento != null){
                 jogadorAtual.consumir(casaAtualDoJogador.alimento,turno);
-                return new MovementResult(MovementResultCode.CAUGHT_FOOD,"Apanhou "+ casaAtualDoJogador.alimento.nomeAlimento);
+                return new MovementResult(MovementResultCode.CAUGHT_FOOD,
+                        "Apanhou "+ casaAtualDoJogador.alimento.nomeAlimento);
             }
             else
             {
@@ -382,7 +384,7 @@ public class GameManager {
 
     //DONE
     public String[] getWinnerInfo() {
-        String[] resultado = new String[4];
+        String[] resultado = new String[5];
         Jogador jogador = jogadores.get(0);
 
         if (jogoAcabado()) {
@@ -407,6 +409,7 @@ public class GameManager {
         resultado[1] = jogador.nome;
         resultado[2] = String.valueOf(jogador.especie.buscarIdentificador());
         resultado[3] = String.valueOf(jogador.buscarEnergia());
+        resultado[4] = "" + jogador.especie.buscarVelocidadeMinima() + ".." + jogador.especie.buscarVelocidadeMaxima();
         return resultado;
     }
 
@@ -516,13 +519,7 @@ public class GameManager {
         }
 
         distanciaEntreJogadores = maiorPosicao - segundaMaiorPosicao;
-
-        /*if (distanciaEntreJogadores > mapa.tamanhoMapa() / 2){
-            return segundaMaiorPosicao;
-        }*/
-        return true;
+        return false;
     }
 
 }
-
-
