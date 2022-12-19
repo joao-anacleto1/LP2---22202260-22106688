@@ -59,7 +59,6 @@ public class Jogador {
 
     void ficar(){
         this.energia += this.especie.ganhoEnergiaEmDescanso;
-
         if (this.energia > 200){
             this.energia = 200;
         }
@@ -109,18 +108,27 @@ public class Jogador {
     void ingereErva(){
 
         if(especie.eHerbivoro() || especie.eOmnivoro()){
+            if (this.energia > 200){
+                this.energia = 200;
+            }
             this.energia += 20;
-        }else {
+        } else {
             this.energia -= 20;
         }
+
     }
 
     void ingereAgua(){
+
         if(especie.eCarnivoro() || especie.eHerbivoro()){
+            if (this.energia > 200){
+                this.energia = 200;
+            }
             this.energia += 15;
-        }else{
-            this.energia += ((this.energia * 0.20)) + this.energia;
+        } else {
+            this.energia += (this.energia * 0.20) + this.energia;
         }
+
     }
 
     void ingereCarne(int turno){
@@ -129,6 +137,9 @@ public class Jogador {
 
         if (!carne.eToxica(turno)){
             if (especie.eCarnivoro() || especie.eOmnivoro()){
+                if (this.energia > 200){
+                    this.energia = 200;
+                }
                 this.energia += 50;
             }
             this.energia -= (this.energia/2); // carne toxica
@@ -140,18 +151,14 @@ public class Jogador {
         int min = 10;
         int max = 50;
         int result = r.nextInt(max - min) + min;
-
-
         int valor = (this.energia/100) * result;
 
         if (turno % 2 == 0){
             this.energia += valor;
-
             if (this.energia > 200){
                 this.energia = 200;
             }
-        }
-        else{
+        } else {
             this.energia -= valor;
             if(this.energia < 0){
                 this.energia = 0;
@@ -163,13 +170,15 @@ public class Jogador {
 
         if(cachoDeBananas.getBanana()){
             qtdDeBananasIngeridas++;
-            int energiaASomar;
-            if(qtdDeBananasIngeridas <= Jogador.qtdMaxDeBananasIngeridas){
+            int energiaASomar = 0;
+
+            if (this.energia > 200){
+                this.energia = 200;
+            } else if(qtdDeBananasIngeridas <= Jogador.qtdMaxDeBananasIngeridas){
                 energiaASomar = 40;
             } else {
                 energiaASomar = -40;
             }
-
             this.energia += energiaASomar;
         }
     }
