@@ -87,6 +87,10 @@ public class Casa {
         return resultado;
     }
 
+    int buscaNrJogadoresNaCasa(){
+        return jogadores.size();
+    }
+
     boolean casaVazia() {
         return jogadores.isEmpty();
     }
