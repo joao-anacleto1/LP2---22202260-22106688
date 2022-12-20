@@ -312,7 +312,7 @@ public class GameManager {
 
     }
 
-    //DONE -  AINDA NAO ESTA A PASSAR 
+    //DONE -  AINDA NAO ESTA A PASSAR
     public String[] getCurrentPlayerEnergyInfo(int nrPositions) {
         Jogador jogadorAtual = jogadores.get(turno % jogadores.size());
 
