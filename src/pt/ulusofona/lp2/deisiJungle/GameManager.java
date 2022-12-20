@@ -312,12 +312,12 @@ public class GameManager {
 
     }
 
-    //DONE
+    //DONE -  AINDA NAO ESTA A PASSAR 
     public String[] getCurrentPlayerEnergyInfo(int nrPositions) {
         Jogador jogadorAtual = jogadores.get(turno % jogadores.size());
 
-        return new String[] {String.valueOf(jogadorAtual.especie.consumoEnergia * nrPositions),
-                String.valueOf(jogadorAtual.especie.ganhoEnergiaEmDescanso)};
+        return new String[] {String.valueOf(jogadorAtual.especie.buscarConsumoEnergia() * nrPositions),
+                String.valueOf(jogadorAtual.especie.buscarGanhoEnergiaEmDescanso())};
     }
 
     //DONE
@@ -530,8 +530,6 @@ public class GameManager {
         }
 
         if((primeiraMaiorPosicao - segundaMaiorPosicao) > mapa.tamanhoMapa()/2){
-            // System.out.println("1mp :" + primeiraMaiorPosicao);
-            // System.out.println("2mp :" + segundaMaiorPosicao);
             return true;
         }
 
