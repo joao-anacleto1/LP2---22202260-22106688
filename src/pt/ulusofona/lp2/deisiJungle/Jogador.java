@@ -106,11 +106,10 @@ public class Jogador {
 
     void ingereErva(){
 
-        if (this.energia > 200){
-            this.energia = 200;
-        }
-
         if(especie.eHerbivoro() || especie.eOmnivoro()){
+            if (this.energia > 200){
+                this.energia = 200;
+            }
             this.energia += 20;
         } else {
             this.energia -= 20;
@@ -120,11 +119,10 @@ public class Jogador {
 
     void ingereAgua(){
 
-        if (this.energia > 200){
-            this.energia = 200;
-        }
-
         if(especie.eCarnivoro() || especie.eHerbivoro()){
+            if (this.energia > 200){
+                this.energia = 200;
+            }
             this.energia += 15;
         } else {
             this.energia += (this.energia * 0.20) + this.energia;
@@ -136,12 +134,12 @@ public class Jogador {
 
         Carne carne = new Carne();
 
-        if (this.energia > 200){
-            this.energia = 200;
-        }
 
         if (!carne.eToxica(turno)){
             if (especie.eCarnivoro() || especie.eOmnivoro()){
+                if (this.energia > 200){
+                    this.energia = 200;
+                }
                 this.energia += 50;
             }
             this.energia -= (this.energia/2); // carne toxica
@@ -153,12 +151,11 @@ public class Jogador {
 
         int valor = (this.energia/100) * cogumelosMagicos.buscarNrCogumelo();
 
-        if (this.energia > 200){
-            this.energia = 200;
-        }
-
         if (turno % 2 == 0){
             this.energia += valor;
+            if (this.energia > 200){
+                this.energia = 200;
+            }
         } else {
             this.energia -= valor;
             if(this.energia < 0){
@@ -175,8 +172,8 @@ public class Jogador {
 
             if (this.energia > 200) {
                 this.energia = 200;
-            }
-            if(qtdDeBananasIngeridas <= Jogador.qtdMaxDeBananasIngeridas){
+
+            }else if(qtdDeBananasIngeridas <= Jogador.qtdMaxDeBananasIngeridas){
                 energiaASomar = 40;
             } else {
                 energiaASomar = -40;
