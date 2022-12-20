@@ -15,7 +15,7 @@ class Carne extends Alimento{
 
     void insereTooltipCarne(int turno){
         if(!eToxica(turno)){
-            this.tooltip = "Carne : +- 50 energia : " + turno + " jogadas";
+            this.tooltip = "Carne : + 50 energia : " + turno + " jogadas";
         }else{
             this.tooltip = "Carne toxica";
         }

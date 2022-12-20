@@ -20,7 +20,7 @@ class CachoDeBananas extends Alimento {
             return false;
         }
         bananasNoCacho--;
-        this.tooltip = "Bananas : " + bananasNoCacho + " : + 40 energia";
+        this.tooltip = "Bananas : " + bananasNoCacho + " : + 40";
         return true;
     }
 }
