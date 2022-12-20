@@ -145,6 +145,7 @@ public class Jogador {
                 this.energia += 50;
             }
             this.energia -= (this.energia/2); // carne toxica
+
         }
     }
 
@@ -171,7 +172,7 @@ public class Jogador {
 
     void ingereCachoDeBananas(CachoDeBananas cachoDeBananas){
 
-        if(cachoDeBananas.getBanana()){
+        if(cachoDeBananas.buscarBananasNoCacho()){
             qtdDeBananasIngeridas++;
             int energiaASomar = 0;
 
@@ -184,7 +185,7 @@ public class Jogador {
                 energiaASomar = -40;
             }
             this.energia += energiaASomar;
-        }
+        };
     }
 }
 

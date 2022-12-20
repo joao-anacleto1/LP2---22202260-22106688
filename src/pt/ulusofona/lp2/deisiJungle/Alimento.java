@@ -5,6 +5,7 @@ public abstract class Alimento {
     protected char identificadorAlimento;
     protected String nomeAlimento;
     protected String imagem;
+    protected String tooltip;
 
 
     Alimento() {}
@@ -16,6 +17,10 @@ public abstract class Alimento {
     String buscarNomeAlimento(){return this.nomeAlimento;}
 
     String buscarImagem(){return this.imagem;}
+
+    String buscarTooltip(){
+        return this.tooltip;
+    }
 
     public String[] buscaInfo(){
 

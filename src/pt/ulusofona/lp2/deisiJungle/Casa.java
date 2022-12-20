@@ -20,8 +20,8 @@ public class Casa {
     public void receberAlimento(Alimento a){
         if(a != null){
             this.alimento = a;
-            this.tipoCasa = a.nomeAlimento;
-            this.imagemCasa = a.imagem;
+            this.tipoCasa = a.buscarTooltip();
+            this.imagemCasa = a.buscarImagem();
         }
     }
 
