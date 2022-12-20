@@ -8,7 +8,7 @@ class CogumelosMagicos extends Alimento {
 
     public CogumelosMagicos(){
         this.identificadorAlimento = 'm';
-        this.nomeAlimento = "Cogumelo Magico";
+        this.nomeAlimento = "Cogumelos Magicos";
         this.imagem = "mushroom.png";
         Random r = new Random();
         int min = 10;
