@@ -59,12 +59,19 @@ public class Casa {
         return indexCasa;
     }
 
-    String buscarTipoCasa() {
-        return tipoCasa;
+    String buscarTipoCasa(int turno) {
+        if(alimento != null){
+            if(alimento.buscarIdentificadorAlimento() == 'c'){
+                Carne carne = (Carne) alimento;
+                carne.insereTooltipCarne(turno);
+            }
+            return this.alimento.buscarTooltip();
+        }
+        return this.tipoCasa;
     }
 
     String buscarImagemCasa() {
-        return imagemCasa;
+        return this.imagemCasa;
     }
 
     ArrayList<Integer> buscaIds() {

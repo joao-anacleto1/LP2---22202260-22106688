@@ -10,9 +10,8 @@ class CachoDeBananas extends Alimento {
         this.nomeAlimento = "Bananas";
         this.imagem = "bananas.png";
         this.bananasNoCacho = 3;
+        this.tooltip = "Bananas : 3 : + 40 energia";
     }
-
-
 
 
     public boolean buscarBananasNoCacho(){
@@ -21,6 +20,7 @@ class CachoDeBananas extends Alimento {
             return false;
         }
         bananasNoCacho--;
+        this.tooltip = "Bananas : " + bananasNoCacho + " : + 40 energia";
         return true;
     }
 }

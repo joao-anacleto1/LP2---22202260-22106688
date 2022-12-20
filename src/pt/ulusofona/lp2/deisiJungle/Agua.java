@@ -7,6 +7,7 @@ class Agua extends Alimento {
         this.identificadorAlimento = 'a' ;
         this.nomeAlimento = "Agua";
         this.imagem = "water.png";
+        this.tooltip = "“Agua : + 10U|20% energia";
     }
 
 

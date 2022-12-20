@@ -270,7 +270,7 @@ public class GameManager {
         }
         Casa casa = mapa.buscarCasa(squareNr);
         resultado[0] = casa.buscarImagemCasa();
-        resultado[1] = casa.buscarTipoCasa();
+        resultado[1] = casa.buscarTipoCasa(turno);
         resultado[2] = casa.buscaIdsString();
         return resultado;
     }

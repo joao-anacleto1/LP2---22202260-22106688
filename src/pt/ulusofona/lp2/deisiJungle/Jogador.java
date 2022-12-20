@@ -89,7 +89,7 @@ public class Jogador {
                 ingereCarne(turno);
                 break;
             case 'm':
-                ingereCogumelosMagicos(turno);
+                ingereCogumelosMagicos(turno,(CogumelosMagicos) a);
                 break;
 
             case 'e':
@@ -149,12 +149,9 @@ public class Jogador {
         }
     }
 
-    void ingereCogumelosMagicos(int turno){
-        Random r = new Random();
-        int min = 10;
-        int max = 50;
-        int result = r.nextInt(max - min) + min;
-        int valor = (this.energia/100) * result;
+    void ingereCogumelosMagicos(int turno, CogumelosMagicos cogumelosMagicos){
+
+        int valor = (this.energia/100) * cogumelosMagicos.buscarNrCogumelo();
 
         if (this.energia > 200){
             this.energia = 200;

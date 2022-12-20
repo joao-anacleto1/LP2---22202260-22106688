@@ -6,6 +6,7 @@ class Erva extends Alimento {
         this.identificadorAlimento = 'e';
         this.nomeAlimento = "Erva";
         this.imagem ="grass.png";
+        this.tooltip = "Erva : +- 20 energia";
     }
 
 
