@@ -41,7 +41,10 @@ public class Jogador {
     }
 
     int buscarEnergia() {
-        return energia;
+        if(this.energia > 200){
+            return this.energia = 200;
+        }
+        return this.energia;
     }
 
     boolean mover(int nrSquares){
