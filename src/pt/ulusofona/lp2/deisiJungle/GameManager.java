@@ -373,7 +373,8 @@ public class GameManager {
             casaAntiga.removerJogador(jogadorAtual);
             casaAtualDoJogador.adicionarJogador(jogadorAtual);
         }
-        if(casaAtualDoJogador.alimento != null){
+
+        if(casaAtualDoJogador.alimento != null && jogadorAtual.consumirAlimento(casaAtualDoJogador.alimento,turno)){
                 jogadorAtual.consumirAlimento(casaAtualDoJogador.alimento,turno);
                 return new MovementResult(MovementResultCode.CAUGHT_FOOD,
                         "Apanhou "+ casaAtualDoJogador.alimento.buscarNomeAlimento());

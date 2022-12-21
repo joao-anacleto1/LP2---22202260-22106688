@@ -83,28 +83,30 @@ public class Jogador {
         return especie.buscarNome();
     }
 
-    void consumirAlimento(Alimento a, int turno) {
+    boolean consumirAlimento(Alimento a, int turno) {
 
         switch (a.buscarIdentificadorAlimento()) {
             case 'c':
                 if (especie.eCarnivoro() || especie.eOmnivoro()){
                     ingereCarne(turno);
+                    return true;
+                } else {
+                    return false;
                 }
-                break;
             case 'b':
                 ingereCachoDeBananas((CachoDeBananas) a);
-                break;
-
+                return true;
             case 'm':
                 ingereCogumelosMagicos(turno, (CogumelosMagicos) a);
-                break;
+                return true;
             case 'e':
                 ingereErva();
-                break;
+                return true;
             case 'a':
                 ingereAgua();
-                break;
+                return true;
             default:
+                return false;
         }
     }
 
