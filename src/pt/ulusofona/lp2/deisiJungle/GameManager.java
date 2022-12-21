@@ -374,15 +374,18 @@ public class GameManager {
             casaAtualDoJogador.adicionarJogador(jogadorAtual);
         }
 
-        if(casaAtualDoJogador.alimento != null && jogadorAtual.consumirAlimento(casaAtualDoJogador.alimento,turno)){
+        if(casaAtualDoJogador.alimento != null){
                 jogadorAtual.consumirAlimento(casaAtualDoJogador.alimento,turno);
-                return new MovementResult(MovementResultCode.CAUGHT_FOOD,
-                        "Apanhou "+ casaAtualDoJogador.alimento.buscarNomeAlimento());
+                if (jogadorAtual.consumirAlimento(casaAtualDoJogador.alimento, turno)){
+                    return new MovementResult(MovementResultCode.CAUGHT_FOOD,
+                            "Apanhou "+ casaAtualDoJogador.alimento.buscarNomeAlimento());
+                } else {
+                    return new MovementResult(MovementResultCode.VALID_MOVEMENT,null);
+                }
             }
             else {
                 return new MovementResult(MovementResultCode.VALID_MOVEMENT,null);
             }
-
     }
 
     //DONE
