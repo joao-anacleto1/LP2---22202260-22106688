@@ -321,13 +321,11 @@ public class GameManager {
     public String[] getCurrentPlayerEnergyInfo(int nrPositions) {
         Jogador jogadorAtual = jogadores.get(turno % jogadores.size());
 
-        if (nrPositions >= 0){
+        if (nrPositions > 0){
             return new String[] {String.valueOf(jogadorAtual.especie.buscarConsumoEnergia() * nrPositions),
                     String.valueOf(jogadorAtual.especie.buscarGanhoEnergiaEmDescanso())};
         }
-        return null;
-
-
+        return new String[]{};
     }
 
     //DONE
