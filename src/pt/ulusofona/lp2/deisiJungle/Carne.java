@@ -10,7 +10,7 @@ class Carne extends Alimento{
     }
 
     boolean eToxica(int turno){
-        return turno >= 12;
+        return turno > 12;
     }
 
     void insereTooltipCarne(int turno){

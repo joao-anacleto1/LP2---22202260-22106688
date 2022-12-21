@@ -164,10 +164,31 @@ public class TestGameManager {
 
     @Test
 
-    public void test06GetPlayerInfo(){
+    public void test_06_EatCogumelos(){
         GameManager jogo = new GameManager();
         jogo.reset();
+
+        String[][] playersinfo = new String[2][4];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Elefante";
+        playersinfo[0][2] = "Z";
+        playersinfo[0][3] = "180";
+
+
+        String[][] foodsInfo =  new String[1][2];
+
+        foodsInfo[0][0] = "m";
+        foodsInfo[0][1] = "2";
+
+
+        jogo.createInitialJungle(30,playersinfo,foodsInfo);
+
+        String energiaEsperada = "180";
+        String energiaObtida = playersinfo[0][2];
     }
+
+
 
 }
 
