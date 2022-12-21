@@ -86,13 +86,25 @@ public class Jogador {
     void consumirAlimento(Alimento a, int turno) {
 
         switch (a.buscarIdentificadorAlimento()) {
-            case 'b' -> ingereCachoDeBananas((CachoDeBananas) a);
-            case 'c' -> ingereCarne(turno);
-            case 'm' -> ingereCogumelosMagicos(turno, (CogumelosMagicos) a);
-            case 'e' -> ingereErva();
-            case 'a' -> ingereAgua();
-            default -> {
-            }
+            case 'c':
+                if (!especie.eHerbivoro()){
+                    ingereCarne(turno);
+                }
+                break;
+            case 'b':
+                ingereCachoDeBananas((CachoDeBananas) a);
+                break;
+
+            case 'm':
+                ingereCogumelosMagicos(turno, (CogumelosMagicos) a);
+                break;
+            case 'e':
+                ingereErva();
+                break;
+            case 'a':
+                ingereAgua();
+                break;
+            default:
         }
     }
 
@@ -126,14 +138,13 @@ public class Jogador {
 
         Carne carne = new Carne();
 
-
         if (!carne.eToxica(turno)){
             if (especie.eCarnivoro() || especie.eOmnivoro()){
                 if (this.energia > 200){
                     this.energia = 200;
                 }
                 this.energia += 50;
-            } 
+            }
         } else {
             this.energia -= (this.energia/2); // carne toxica
         }

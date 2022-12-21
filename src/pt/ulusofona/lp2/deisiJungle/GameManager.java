@@ -211,7 +211,6 @@ public class GameManager {
                         }
                         Casa casa;
 
-
                         casa = mapaJogo.buscarCasa(Integer.parseInt(dadosAlimentos[1]));
 
                         casa.receberAlimento(alimento);
