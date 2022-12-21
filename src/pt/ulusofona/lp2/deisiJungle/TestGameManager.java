@@ -124,15 +124,17 @@ public class TestGameManager {
         GameManager jogo = new GameManager();
         jogo.reset();
 
-        String[][] playersinfo = new String[2][3];
+        String[][] playersinfo = new String[2][4];
 
         playersinfo[0][0] = "1";
         playersinfo[0][1] = "Tarzan";
         playersinfo[0][2] = "Z";
+        playersinfo[0][3] = "70";
 
         playersinfo[1][0] = "2";
         playersinfo[1][1] = "Leaooo";
         playersinfo[1][2] = "L";
+        playersinfo[1][3] = "80";
 
         String[][] foodsInfo =  new String[1][2];
 
@@ -145,6 +147,8 @@ public class TestGameManager {
         int idCurrentPlayerEsperado = 1;
         int idCurrentPlayerObtido = jogo.buscarJogadorAtualID();
 
+
+
         Assert.assertEquals(idCurrentPlayerEsperado,idCurrentPlayerObtido);
 
         MovementResult move = jogo.moveCurrentPlayer(3,false);
@@ -153,7 +157,10 @@ public class TestGameManager {
         move = jogo.moveCurrentPlayer(5,false);
         Assert.assertEquals(MovementResultCode.VALID_MOVEMENT,move.code());
 
-        move = jogo.moveCurrentPlayer(1,false);
+        move = jogo.moveCurrentPlayer(0,false);
+        Assert.assertEquals(MovementResultCode.CAUGHT_FOOD,move.code());
+
+        move = jogo.moveCurrentPlayer(4,false);
         Assert.assertEquals(MovementResultCode.VALID_MOVEMENT,move.code());
 
 
