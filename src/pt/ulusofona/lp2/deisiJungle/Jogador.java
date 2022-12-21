@@ -76,7 +76,7 @@ public class Jogador {
     }
 
     String buscarNomeJogador(){
-        return nome;
+        return this.nome;
     }
 
     String buscarNomeEspecie(){

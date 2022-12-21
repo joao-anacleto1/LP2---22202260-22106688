@@ -141,13 +141,10 @@ public class TestGameManager {
         foodsInfo[0][0] = "a";
         foodsInfo[0][1] = "4";
 
-
         jogo.createInitialJungle(30,playersinfo,foodsInfo);
 
         int idCurrentPlayerEsperado = 1;
         int idCurrentPlayerObtido = jogo.buscarJogadorAtualID();
-
-
 
         Assert.assertEquals(idCurrentPlayerEsperado,idCurrentPlayerObtido);
 

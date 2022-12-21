@@ -284,7 +284,7 @@ public class GameManager {
                 j.buscarId();
                 if (j.id == playerId) {
                     resultado[0] = String.valueOf(j.id);
-                    resultado[1] = j.nome;
+                    resultado[1] = j.buscarNomeJogador();
                     resultado[2] = String.valueOf(j.especie.buscarIdentificador());
                     resultado[3] = String.valueOf(j.buscarEnergia());
                     resultado[4] = "" + j.especie.buscarVelocidadeMinima() + ".." + j.especie.buscarVelocidadeMaxima();
@@ -300,7 +300,7 @@ public class GameManager {
         String[] resultado = new String[5];
 
         resultado[0] = String.valueOf(jogadorAtual.id);
-        resultado[1] = jogadorAtual.nome;
+        resultado[1] = jogadorAtual.buscarNomeJogador();
         resultado[2] = String.valueOf(jogadorAtual.especie.buscarIdentificador());
         resultado[3] = String.valueOf(jogadorAtual.buscarEnergia());
         resultado[4] = "" + jogadorAtual.especie.buscarVelocidadeMinima() + ".." +
