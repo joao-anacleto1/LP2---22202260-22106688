@@ -133,9 +133,9 @@ public class Jogador {
                     this.energia = 200;
                 }
                 this.energia += 50;
-            }
+            } 
+        } else {
             this.energia -= (this.energia/2); // carne toxica
-
         }
     }
 
