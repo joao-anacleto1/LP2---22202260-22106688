@@ -312,6 +312,11 @@ public class GameManager {
 
     }
 
+    int buscarJogadorAtualID(){
+        Jogador jogadorAtual = jogadores.get(turno % jogadores.size());
+        return jogadorAtual.id;
+    }
+
     //DONE -  AINDA NAO ESTA A PASSAR
     public String[] getCurrentPlayerEnergyInfo(int nrPositions) {
         Jogador jogadorAtual = jogadores.get(turno % jogadores.size());
@@ -374,10 +379,9 @@ public class GameManager {
         if(casaAtualDoJogador.alimento != null){
                 jogadorAtual.consumir(casaAtualDoJogador.alimento,turno);
                 return new MovementResult(MovementResultCode.CAUGHT_FOOD,
-                        "Apanhou "+ casaAtualDoJogador.alimento.nomeAlimento);
+                        "Apanhou "+ casaAtualDoJogador.alimento.buscarNomeAlimento());
             }
-            else
-            {
+            else {
                 return new MovementResult(MovementResultCode.VALID_MOVEMENT,null);
             }
 
