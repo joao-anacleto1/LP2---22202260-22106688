@@ -325,7 +325,7 @@ public class GameManager {
             return new String[] {String.valueOf(jogadorAtual.especie.buscarConsumoEnergia() * nrPositions),
                     String.valueOf(jogadorAtual.especie.buscarGanhoEnergiaEmDescanso())};
         }
-        return new String[]{};
+        return new String[]{};  
     }
 
     //DONE
