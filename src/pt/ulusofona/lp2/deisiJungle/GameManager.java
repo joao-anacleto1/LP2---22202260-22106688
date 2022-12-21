@@ -342,7 +342,7 @@ public class GameManager {
         return resultado;
     }
 
-    //NOT DONE
+    //DONE - ver caught food e valid movement
     public MovementResult moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
 
         Jogador jogadorAtual = jogadores.get((turno++ % jogadores.size()));
@@ -376,14 +376,9 @@ public class GameManager {
 
         if(casaAtualDoJogador.alimento != null){
                 jogadorAtual.consumirAlimento(casaAtualDoJogador.alimento,turno);
-                if (jogadorAtual.consumirAlimento(casaAtualDoJogador.alimento, turno)){
-                    return new MovementResult(MovementResultCode.CAUGHT_FOOD,
-                            "Apanhou "+ casaAtualDoJogador.alimento.buscarNomeAlimento());
-                } else {
-                    return new MovementResult(MovementResultCode.VALID_MOVEMENT,null);
-                }
-            }
-            else {
+            return new MovementResult(MovementResultCode.CAUGHT_FOOD,
+                    "Apanhou "+ casaAtualDoJogador.alimento.buscarNomeAlimento());
+            } else {
                 return new MovementResult(MovementResultCode.VALID_MOVEMENT,null);
             }
     }
