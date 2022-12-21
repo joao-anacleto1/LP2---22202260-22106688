@@ -131,7 +131,7 @@ public class Jogador {
             }
             this.energia += 15;
         } else {
-            this.energia += (this.energia * 0.20) + this.energia;
+            this.energia = (int) (this.energia * 0.20) + this.energia;
         }
 
     }
@@ -154,7 +154,7 @@ public class Jogador {
 
     void ingereCogumelosMagicos(int turno, CogumelosMagicos cogumelosMagicos){
 
-        int valor = Math.round((this.energia/100.0f) * cogumelosMagicos.buscarNrCogumelo());
+        int valor = (int)(this.energia/100.0f) * cogumelosMagicos.buscarNrCogumelo();
 
         if (turno % 2 == 0){
             this.energia += valor;

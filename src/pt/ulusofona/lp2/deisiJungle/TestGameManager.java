@@ -146,13 +146,26 @@ public class TestGameManager {
         int idCurrentPlayerEsperado = 1;
         int idCurrentPlayerObtido = jogo.buscarJogadorAtualID();
 
+        int energiaEsperada = 70;
+        int energiaObtida =  jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada,energiaObtida);
+
         Assert.assertEquals(idCurrentPlayerEsperado,idCurrentPlayerObtido);
 
         MovementResult move = jogo.moveCurrentPlayer(3,false);
         Assert.assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
+        energiaEsperada = 76;
+        energiaObtida =  jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada,energiaObtida);
+
+
         move = jogo.moveCurrentPlayer(5,false);
         Assert.assertEquals(MovementResultCode.VALID_MOVEMENT,move.code());
+
+        energiaEsperada = 70;
+        energiaObtida =  jogo.jogadores.get(1).buscarEnergia();
+        assertEquals(energiaEsperada,energiaObtida);
 
         move = jogo.moveCurrentPlayer(0,false);
         Assert.assertEquals(MovementResultCode.CAUGHT_FOOD,move.code());
@@ -171,21 +184,37 @@ public class TestGameManager {
         String[][] playersinfo = new String[2][4];
 
         playersinfo[0][0] = "1";
-        playersinfo[0][1] = "Elefante";
-        playersinfo[0][2] = "Z";
+        playersinfo[0][1] = "tarzammm";
+        playersinfo[0][2] = "E";
         playersinfo[0][3] = "180";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Leaooo";
+        playersinfo[1][2] = "L";
+        playersinfo[1][3] = "80";
 
 
         String[][] foodsInfo =  new String[1][2];
 
         foodsInfo[0][0] = "m";
-        foodsInfo[0][1] = "2";
+        foodsInfo[0][1] = "4";
 
 
         jogo.createInitialJungle(30,playersinfo,foodsInfo);
 
-        String energiaEsperada = "180";
-        String energiaObtida = playersinfo[0][2];
+        int energiaEsperada = 180;
+        int energiaObtida =  jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada,energiaObtida);
+
+        MovementResult move = jogo.moveCurrentPlayer(3,false);
+        assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
+
+        energiaEsperada = 180;
+        energiaObtida =  jogo.jogadores.get(0).buscarEnergia();
+
+        assertEquals(energiaEsperada,energiaObtida);
+
+
     }
 
 
