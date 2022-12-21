@@ -53,7 +53,7 @@ public class Jogador {
         if(this.energia < this.especie.consumoEnergia){
             return false;
         }
-        this.energia -= especie.consumoEnergia * nrSquares;
+        this.energia -= especie.consumoEnergia * Math.abs(nrSquares);
         this.posicaoAtual += nrSquares;
 
         return true;
@@ -83,28 +83,16 @@ public class Jogador {
         return especie.buscarNome();
     }
 
-    void consumir(Alimento a,int turno) {
+    void consumirAlimento(Alimento a, int turno) {
 
-        switch (a.buscarIdentificadorAlimento()){
-            case 'b':
-                ingereCachoDeBananas((CachoDeBananas) a);
-                break;
-            case 'c':
-                ingereCarne(turno);
-                break;
-            case 'm':
-                ingereCogumelosMagicos(turno,(CogumelosMagicos) a);
-                break;
-
-            case 'e':
-                ingereErva();
-                break;
-
-            case 'a':
-                ingereAgua();
-                break;
-
-            default:
+        switch (a.buscarIdentificadorAlimento()) {
+            case 'b' -> ingereCachoDeBananas((CachoDeBananas) a);
+            case 'c' -> ingereCarne(turno);
+            case 'm' -> ingereCogumelosMagicos(turno, (CogumelosMagicos) a);
+            case 'e' -> ingereErva();
+            case 'a' -> ingereAgua();
+            default -> {
+            }
         }
     }
 
@@ -183,7 +171,7 @@ public class Jogador {
                 energiaASomar = -40;
             }
             this.energia += energiaASomar;
-        };
+        }
     }
 }
 

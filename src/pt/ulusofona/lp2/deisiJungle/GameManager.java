@@ -1,7 +1,5 @@
 package pt.ulusofona.lp2.deisiJungle;
 
-import jdk.jshell.spi.ExecutionControl;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -321,11 +319,8 @@ public class GameManager {
     public String[] getCurrentPlayerEnergyInfo(int nrPositions) {
         Jogador jogadorAtual = jogadores.get(turno % jogadores.size());
 
-        if (nrPositions > 0){
-            return new String[] {String.valueOf(jogadorAtual.especie.buscarConsumoEnergia() * nrPositions),
+        return new String[] {String.valueOf(jogadorAtual.especie.buscarConsumoEnergia() * Math.abs(nrPositions)),
                     String.valueOf(jogadorAtual.especie.buscarGanhoEnergiaEmDescanso())};
-        }
-        return new String[]{};  
     }
 
     //DONE
@@ -380,7 +375,7 @@ public class GameManager {
             casaAtualDoJogador.adicionarJogador(jogadorAtual);
         }
         if(casaAtualDoJogador.alimento != null){
-                jogadorAtual.consumir(casaAtualDoJogador.alimento,turno);
+                jogadorAtual.consumirAlimento(casaAtualDoJogador.alimento,turno);
                 return new MovementResult(MovementResultCode.CAUGHT_FOOD,
                         "Apanhou "+ casaAtualDoJogador.alimento.buscarNomeAlimento());
             }
