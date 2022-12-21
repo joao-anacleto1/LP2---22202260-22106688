@@ -184,9 +184,9 @@ public class TestGameManager {
         String[][] playersinfo = new String[2][4];
 
         playersinfo[0][0] = "1";
-        playersinfo[0][1] = "tarzammm";
-        playersinfo[0][2] = "E";
-        playersinfo[0][3] = "180";
+        playersinfo[0][1] = "Tarzannnnnnnnnnnnnnnnnn";
+        playersinfo[0][2] = "Z";
+        playersinfo[0][3] = "70";
 
         playersinfo[1][0] = "2";
         playersinfo[1][1] = "Leaooo";
@@ -202,15 +202,15 @@ public class TestGameManager {
 
         jogo.createInitialJungle(30,playersinfo,foodsInfo);
 
-        int energiaEsperada = 180;
+        int energiaEsperada = 70;
         int energiaObtida =  jogo.jogadores.get(0).buscarEnergia();
         assertEquals(energiaEsperada,energiaObtida);
 
         MovementResult move = jogo.moveCurrentPlayer(3,false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = 180;
-        energiaObtida =  jogo.jogadores.get(0).buscarEnergia();
+        energiaEsperada = 64;
+        energiaObtida = jogo.jogadores.get(0).buscarEnergia();
 
         assertEquals(energiaEsperada,energiaObtida);
 
