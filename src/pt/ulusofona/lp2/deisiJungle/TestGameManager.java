@@ -209,9 +209,11 @@ public class TestGameManager {
         MovementResult move = jogo.moveCurrentPlayer(3,false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = 64;
-        energiaObtida = jogo.jogadores.get(0).buscarEnergia();
+        Alimento alimento = jogo.mapa.buscarCasa(4).alimento;
+        int nrRandom = ((CogumelosMagicos)alimento).buscarNrCogumelo();
 
+        energiaEsperada = (70 - (3*2)) - ((int) ((70 - (3*2)) * (nrRandom / 100.0)));
+        energiaObtida = jogo.jogadores.get(0).buscarEnergia();
         assertEquals(energiaEsperada,energiaObtida);
 
 

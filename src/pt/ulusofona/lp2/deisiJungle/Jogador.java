@@ -6,6 +6,12 @@ import java.util.Random;
 
 public class Jogador {
 
+    /**
+     * Numero maximo de bananas ingeridas por jogador
+     * se ingerir mais do que uma banana o jogador perde energia
+     */
+    private static final int MAX_BANANAS = 1;
+
     int id;
     private int energia;
     String nome;
@@ -14,7 +20,6 @@ public class Jogador {
 
     int qtdDeBananasIngeridas;
 
-    static int qtdMaxDeBananasIngeridas = 1; // se ingerir mais do que uma banana o jogador perde energia
 
     public Jogador(int id, String nome, Especie especie,int posicaoAtual) {
         this.id = id;
@@ -154,7 +159,7 @@ public class Jogador {
 
     void ingereCogumelosMagicos(int turno, CogumelosMagicos cogumelosMagicos){
 
-        int valor = (int) (this.energia/100.0f) * cogumelosMagicos.buscarNrCogumelo();
+        int valor = (int) ((this.energia/100.0f) * cogumelosMagicos.buscarNrCogumelo());
 
         if (turno % 2 == 0){
             this.energia += valor;
@@ -178,7 +183,7 @@ public class Jogador {
             if (this.energia > 200) {
                 this.energia = 200;
 
-            }else if(qtdDeBananasIngeridas <= Jogador.qtdMaxDeBananasIngeridas){
+            }else if(qtdDeBananasIngeridas <= MAX_BANANAS){
                 energiaASomar = 40;
             } else {
                 energiaASomar = -40;
