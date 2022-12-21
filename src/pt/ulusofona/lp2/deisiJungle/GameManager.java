@@ -537,7 +537,6 @@ public class GameManager {
         if((primeiraMaiorPosicao - segundaMaiorPosicao) > mapa.tamanhoMapa()/2){
             return true;
         }
-
         return false;
     }
 

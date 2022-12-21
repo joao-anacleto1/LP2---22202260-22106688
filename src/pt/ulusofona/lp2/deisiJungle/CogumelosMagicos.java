@@ -14,7 +14,7 @@ class CogumelosMagicos extends Alimento {
         int min = 10;
         int max = 50;
         this.nrCogumelo = r.nextInt(max - min) + min;
-        this.tooltip = "Cogumelo Magico: +- " + nrCogumelo + "% energia";
+        this.tooltip = "Cogumelo Magico : +- " + nrCogumelo + "% energia";
     }
 
     int buscarNrCogumelo(){
