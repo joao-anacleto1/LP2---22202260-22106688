@@ -163,9 +163,13 @@ public class TestGameManager {
         move = jogo.moveCurrentPlayer(4,false);
         Assert.assertEquals(MovementResultCode.VALID_MOVEMENT,move.code());
 
+    }
 
+    @Test
 
-
+    public void test06GetPlayerInfo(){
+        GameManager jogo = new GameManager();
+        jogo.reset();
     }
 
 }

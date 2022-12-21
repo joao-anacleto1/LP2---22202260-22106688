@@ -14,7 +14,7 @@ public class Jogador {
 
     int qtdDeBananasIngeridas;
 
-    static int qtdMaxDeBananasIngeridas = 1;
+    static int qtdMaxDeBananasIngeridas = 1; // se ingerir mais do que uma banana o jogador perde energia
 
     public Jogador(int id, String nome, Especie especie,int posicaoAtual) {
         this.id = id;
@@ -41,7 +41,8 @@ public class Jogador {
     }
 
     int buscarEnergia() {
-        if(this.energia > 200){
+
+        if(this.energia > 200) {
             return this.energia = 200;
         }
         return this.energia;
