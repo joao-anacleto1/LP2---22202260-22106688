@@ -87,7 +87,7 @@ public class Jogador {
 
         switch (a.buscarIdentificadorAlimento()) {
             case 'c':
-                if (!especie.eHerbivoro()){
+                if (especie.eCarnivoro() || especie.eOmnivoro()){
                     ingereCarne(turno);
                 }
                 break;
