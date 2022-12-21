@@ -58,11 +58,14 @@ public class Jogador {
         if(this.energia < this.especie.consumoEnergia){
             return false;
         }
-        this.energia -= especie.consumoEnergia * Math.abs(nrSquares);
-        this.posicaoAtual += nrSquares;
+        if (nrSquares > this.especie.buscarVelocidadeMinima() &&
+                nrSquares < this.especie.buscarVelocidadeMaxima()){
 
-        return true;
-
+            this.energia -= this.especie.consumoEnergia * Math.abs(nrSquares);
+            this.posicaoAtual += nrSquares;
+            return true;
+        }
+        return false;
     }
 
     void ficar(){

@@ -375,6 +375,7 @@ public class GameManager {
         }
 
         if(casaAtualDoJogador.alimento != null && jogadorAtual.consumirAlimento(casaAtualDoJogador.alimento,turno)){
+
             return new MovementResult(MovementResultCode.CAUGHT_FOOD,
                     "Apanhou "+ casaAtualDoJogador.alimento.buscarNomeAlimento());
             } else {
