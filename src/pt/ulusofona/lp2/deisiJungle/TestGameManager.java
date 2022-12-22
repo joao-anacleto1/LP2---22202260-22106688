@@ -566,7 +566,7 @@ public class TestGameManager {
 
 
         MovementResult move = jogo.moveCurrentPlayer(7,true);
-        assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
+        assertEquals(MovementResultCode.INVALID_MOVEMENT, move.code());
 
 
 
