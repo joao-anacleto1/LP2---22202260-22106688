@@ -243,7 +243,7 @@ public class TestGameManager {
         String[][] foodsInfo =  new String[1][2];
 
         foodsInfo[0][0] = "e";
-        foodsInfo[0][1] = "4";
+        foodsInfo[0][1] = "5";
 
 
         jogo.createInitialJungle(30,playersinfo,foodsInfo);
@@ -252,10 +252,10 @@ public class TestGameManager {
         int energiaObtida =  jogo.jogadores.get(0).buscarEnergia();
         assertEquals(energiaEsperada,energiaObtida);
 
-        MovementResult move = jogo.moveCurrentPlayer(3,false);
+        MovementResult move = jogo.moveCurrentPlayer(4,false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = (80 - (2*3)) - 20;
+        energiaEsperada = (80 - (2*4)) - 20;
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
         assertEquals(energiaEsperada,energiaObtida);
     }
@@ -281,7 +281,7 @@ public class TestGameManager {
         String[][] foodsInfo =  new String[1][2];
 
         foodsInfo[0][0] = "a";
-        foodsInfo[0][1] = "4";
+        foodsInfo[0][1] = "5";
 
 
         jogo.createInitialJungle(30,playersinfo,foodsInfo);
@@ -290,17 +290,17 @@ public class TestGameManager {
         int energiaObtida =  jogo.jogadores.get(0).buscarEnergia();
         assertEquals(energiaEsperada,energiaObtida);
 
-        MovementResult move = jogo.moveCurrentPlayer(3,false);
+        MovementResult move = jogo.moveCurrentPlayer(4,false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = (80 - (2*3)) + 15;
+        energiaEsperada = (80 - (2*4)) + 15;
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
         assertEquals(energiaEsperada,energiaObtida);
 
-        move = jogo.moveCurrentPlayer(3,false);
+        move = jogo.moveCurrentPlayer(4,false);
         assertEquals(MovementResultCode.CAUGHT_FOOD,move.code());
 
-        energiaEsperada = (180 - (4*3)) + 15;
+        energiaEsperada = (180 - (4*4)) + 15;
         energiaObtida = jogo.jogadores.get(1).buscarEnergia();
         assertEquals(energiaEsperada,energiaObtida);
     }
@@ -376,7 +376,7 @@ public class TestGameManager {
         String[][] foodsInfo =  new String[1][2];
 
         foodsInfo[0][0] = "b";
-        foodsInfo[0][1] = "4";
+        foodsInfo[0][1] = "6";
 
 
         jogo.createInitialJungle(30,playersinfo,foodsInfo);
@@ -385,33 +385,33 @@ public class TestGameManager {
         int energiaObtida =  jogo.jogadores.get(0).buscarEnergia();
         assertEquals(energiaEsperada,energiaObtida);
 
-        MovementResult move = jogo.moveCurrentPlayer(3,false);
+        MovementResult move = jogo.moveCurrentPlayer(5,false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = (80 - (2*3) + 40);
+        energiaEsperada = (80 - (2*5) + 40);
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
         assertEquals(energiaEsperada,energiaObtida);
 
-        move = jogo.moveCurrentPlayer(3,false);
+        move = jogo.moveCurrentPlayer(5,false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
         energiaEsperada = 200; //200 porque (180 - (4*3)) + 40 ultrapassa os 200 e o maxEnergia = 200
         energiaObtida = jogo.jogadores.get(1).buscarEnergia();
         assertEquals(energiaEsperada,energiaObtida);
 
-        move = jogo.moveCurrentPlayer(3,false);
+        move = jogo.moveCurrentPlayer(5,false);
         assertEquals(MovementResultCode.CAUGHT_FOOD,move.code());
 
-        energiaEsperada = (70 - (2*3)) + 40;
+        energiaEsperada = (70 - (2*5)) + 40;
         energiaObtida = jogo.jogadores.get(2).buscarEnergia();
         assertEquals(energiaEsperada,energiaObtida);
 
-        move = jogo.moveCurrentPlayer(3,false);
-        assertEquals(MovementResultCode.INVALID_MOVEMENT,move.code());
+        move = jogo.moveCurrentPlayer(5,false);
+        assertEquals(MovementResultCode.CAUGHT_FOOD,move.code());
         //INVALID_MOVEMENT pq o passaro só pode andar 5 a 6 squares,por causa da velocidade min e max, deste modo
         //o movimento é invalido
 
-        energiaEsperada = (70 - (4*3)); //JA NAO EXISTEM MAIS BANANAS NO CACHO!
+        energiaEsperada = (70 - (4*5)); //JA NAO EXISTEM MAIS BANANAS NO CACHO!
         energiaObtida = jogo.jogadores.get(3).buscarEnergia();
         assertEquals(energiaEsperada,energiaObtida);
     }
@@ -499,7 +499,7 @@ public class TestGameManager {
         playersinfo[0][3] = "80";
 
         playersinfo[1][0] = "2";
-        playersinfo[1][1] = "Tarzan";
+        playersinfo[1][1] = "Tarzan2";
         playersinfo[1][2] = "Z";
         playersinfo[1][3] = "70";
 
@@ -507,7 +507,7 @@ public class TestGameManager {
         String[][] foodsInfo =  new String[1][2];
 
         foodsInfo[0][0] = "b";
-        foodsInfo[0][1] = "4";
+        foodsInfo[0][1] = "5";
 
 
         jogo.createInitialJungle(30,playersinfo,foodsInfo);
@@ -516,26 +516,61 @@ public class TestGameManager {
         int energiaObtida =  jogo.jogadores.get(0).buscarEnergia();
         assertEquals(energiaEsperada,energiaObtida);
 
-        MovementResult move = jogo.moveCurrentPlayer(3,false);
+        MovementResult move = jogo.moveCurrentPlayer(4,false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = (80 - (2*3)) + 40; //= 114
+        energiaEsperada = (80 - (2*4)) + 40; //= 112
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
         assertEquals(energiaEsperada,energiaObtida);
 
-        move = jogo.moveCurrentPlayer(3,false);
+        move = jogo.moveCurrentPlayer(4,false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = (70 - (2*3)) + 40; //= 104
+        energiaEsperada = (70 - (2*4)) + 40; //= 102
         energiaObtida = jogo.jogadores.get(1).buscarEnergia();
         assertEquals(energiaEsperada,energiaObtida);
 
         move = jogo.moveCurrentPlayer(0,false);
         assertEquals(MovementResultCode.CAUGHT_FOOD,move.code());
 
-        energiaEsperada = (114 + 10) - 40; //+10 porque ficou em descanso e -40 pq comeu 2 bananas
+        energiaEsperada = (112 + 10) - 40; //+10 porque ficou em descanso e -40 pq comeu 2 bananas
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
         assertEquals(energiaEsperada,energiaObtida);
+
+    }
+
+    @Test
+    public void test_13_moveCurrentPlayer_MoveWitBypass(){
+        GameManager jogo = new GameManager();
+        jogo.reset();
+
+        String[][] playersinfo = new String[2][4];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Leao";
+        playersinfo[0][2] = "L";
+        playersinfo[0][3] = "80";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Tarzan2";
+        playersinfo[1][2] = "Z";
+        playersinfo[1][3] = "70";
+
+
+        String[][] foodsInfo =  new String[1][2];
+
+        foodsInfo[0][0] = "b";
+        foodsInfo[0][1] = "8";
+
+        jogo.createInitialJungle(30,playersinfo,foodsInfo);
+        
+
+        MovementResult move = jogo.moveCurrentPlayer(7,true);
+        assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
+
+
+
+
 
     }
 

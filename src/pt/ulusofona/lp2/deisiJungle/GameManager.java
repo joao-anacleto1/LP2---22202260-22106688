@@ -347,6 +347,10 @@ public class GameManager {
 
         Jogador jogadorAtual = jogadores.get((turno++ % jogadores.size()));
 
+        if(bypassValidations){
+            return new MovementResult(MovementResultCode.VALID_MOVEMENT,null);
+        }
+
         if(!bypassValidations && (nrSquares < -6 || nrSquares > 6)){
             return new MovementResult(MovementResultCode.INVALID_MOVEMENT,null);
         }
