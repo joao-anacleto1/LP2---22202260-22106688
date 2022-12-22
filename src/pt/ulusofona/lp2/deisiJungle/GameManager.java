@@ -359,8 +359,10 @@ public class GameManager {
         //ACAO DE MOVIMENTO
         if (nrSquares == 0){
             jogadorAtual.ficar();
-        } else if (!jogadorAtual.mover(nrSquares)){
+        } else if (jogadorAtual.mover(nrSquares).equals(MovementResultCode.NO_ENERGY)){
             return new MovementResult(MovementResultCode.NO_ENERGY,null);
+        }else if(jogadorAtual.mover(nrSquares).equals(MovementResultCode.INVALID_MOVEMENT)){
+            return new MovementResult(MovementResultCode.INVALID_MOVEMENT,null);
         }
 
         //GARANTIR QUE O JOGADOR NAO VAI SE MOVER PARA FORA DO MAPA

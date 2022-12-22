@@ -53,14 +53,24 @@ public class Jogador {
         return this.energia;
     }
 
-    boolean mover(int nrSquares){
+    MovementResultCode mover(int nrSquares){
+
 
         if(this.energia < this.especie.consumoEnergia){
-            return false;
-        } 
-        this.energia -= especie.consumoEnergia * Math.abs(nrSquares);
-        this.posicaoAtual += nrSquares;
-        return true;
+            return MovementResultCode.NO_ENERGY;
+        }
+
+        if(!(Math.abs(nrSquares) >= especie.buscarVelocidadeMinima()) && !(Math.abs(nrSquares) <=
+                especie.buscarVelocidadeMaxima())){
+
+            return MovementResultCode.INVALID_MOVEMENT;
+
+        }
+            this.energia -= especie.consumoEnergia * Math.abs(nrSquares);
+            this.posicaoAtual += nrSquares;
+            return MovementResultCode.VALID_MOVEMENT;
+
+
 
     }
 
