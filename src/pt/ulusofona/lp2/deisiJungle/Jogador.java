@@ -59,7 +59,7 @@ public class Jogador {
             return MovementResultCode.NO_ENERGY;
         }
 
-        if(!(Math.abs(nrSquares) >= especie.buscarVelocidadeMinima()) && !(Math.abs(nrSquares) <=
+        if(!(Math.abs(nrSquares) >= especie.buscarVelocidadeMinima() && Math.abs(nrSquares) <=
                 especie.buscarVelocidadeMaxima())){
 
             return MovementResultCode.INVALID_MOVEMENT;

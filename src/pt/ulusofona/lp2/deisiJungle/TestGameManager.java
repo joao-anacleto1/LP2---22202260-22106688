@@ -345,7 +345,8 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_11_moveCurrentPlayer_EatBananas_LastPlayerDontEatBecauseDontHaveMoreBananasInBunch(){
+    public void test_11_moveCurrentPlayer_EatBananas_LastPlayerDontEatBecauseDontHaveMoreBananasInBunchAndInvalidMov(){
+
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -406,7 +407,9 @@ public class TestGameManager {
         assertEquals(energiaEsperada,energiaObtida);
 
         move = jogo.moveCurrentPlayer(3,false);
-        assertEquals(MovementResultCode.CAUGHT_FOOD,move.code());
+        assertEquals(MovementResultCode.INVALID_MOVEMENT,move.code());
+        //INVALID_MOVEMENT pq o passaro só pode andar 5 a 6 squares,por causa da velocidade min e max, deste modo
+        //o movimento é invalido
 
         energiaEsperada = (70 - (4*3)); //JA NAO EXISTEM MAIS BANANAS NO CACHO!
         energiaObtida = jogo.jogadores.get(3).buscarEnergia();
@@ -414,7 +417,77 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_12_moveCurrentPlayer_EatBananas_BananasGastricDifficulties(){
+    public void test_12_moveCurrentPlayer_EatBananas_LastPlayerDontEatBecauseDontHaveMoreBananasInBunchAndCaughtFood(){
+        GameManager jogo = new GameManager();
+        jogo.reset();
+
+        String[][] playersinfo = new String[4][4];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Leao";
+        playersinfo[0][2] = "L";
+        playersinfo[0][3] = "80";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Elefante";
+        playersinfo[1][2] = "E";
+        playersinfo[1][3] = "180";
+
+        playersinfo[2][0] = "3";
+        playersinfo[2][1] = "Tarzan";
+        playersinfo[2][2] = "Z";
+        playersinfo[2][3] = "70";
+
+        playersinfo[3][0] = "4";
+        playersinfo[3][1] = "Passaro";
+        playersinfo[3][2] = "P";
+        playersinfo[3][3] = "70";
+
+
+        String[][] foodsInfo =  new String[1][2];
+
+        foodsInfo[0][0] = "b";
+        foodsInfo[0][1] = "6";
+
+
+        jogo.createInitialJungle(30,playersinfo,foodsInfo);
+
+        int energiaEsperada = 80;
+        int energiaObtida =  jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada,energiaObtida);
+
+        MovementResult move = jogo.moveCurrentPlayer(5,false);
+        assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
+
+        energiaEsperada = (80 - (2*5) + 40);
+        energiaObtida = jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada,energiaObtida);
+
+        move = jogo.moveCurrentPlayer(5,false);
+        assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
+
+        energiaEsperada = 200; //200 porque (180 - (4*3)) + 40 ultrapassa os 200 e o maxEnergia = 200
+        energiaObtida = jogo.jogadores.get(1).buscarEnergia();
+        assertEquals(energiaEsperada,energiaObtida);
+
+        move = jogo.moveCurrentPlayer(5,false);
+        assertEquals(MovementResultCode.CAUGHT_FOOD,move.code());
+
+        energiaEsperada = (70 - (2*5)) + 40;
+        energiaObtida = jogo.jogadores.get(2).buscarEnergia();
+        assertEquals(energiaEsperada,energiaObtida);
+
+        move = jogo.moveCurrentPlayer(5,false);
+        assertEquals(MovementResultCode.CAUGHT_FOOD,move.code());
+
+
+        energiaEsperada = (70 - (4*5)); //JA NAO EXISTEM MAIS BANANAS NO CACHO!
+        energiaObtida = jogo.jogadores.get(3).buscarEnergia();
+        assertEquals(energiaEsperada,energiaObtida);
+    }
+
+    @Test
+    public void test_13_moveCurrentPlayer_EatBananas_BananasGastricDifficulties(){
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -460,15 +533,15 @@ public class TestGameManager {
         move = jogo.moveCurrentPlayer(0,false);
         assertEquals(MovementResultCode.CAUGHT_FOOD,move.code());
 
-        energiaEsperada = (114 + 10) - 40; //+10
+        energiaEsperada = (114 + 10) - 40; //+10 porque ficou em descanso e -40 pq comeu 2 bananas
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
         assertEquals(energiaEsperada,energiaObtida);
 
     }
-    
+
 
     @Test
-    public void test_06_moveCurrentPlayer_EatCogumelos(){
+    public void test_20_moveCurrentPlayer_EatCogumelos(){
         GameManager jogo = new GameManager();
         jogo.reset();
 
