@@ -55,7 +55,6 @@ public class Jogador {
 
     MovementResultCode mover(int nrSquares){
 
-
         if(this.energia < this.especie.consumoEnergia){
             return MovementResultCode.NO_ENERGY;
         }
@@ -65,11 +64,11 @@ public class Jogador {
 
             return MovementResultCode.INVALID_MOVEMENT;
 
-        }
+        }else{
             this.energia -= especie.consumoEnergia * Math.abs(nrSquares);
             this.posicaoAtual += nrSquares;
             return MovementResultCode.VALID_MOVEMENT;
-
+        }
 
 
     }

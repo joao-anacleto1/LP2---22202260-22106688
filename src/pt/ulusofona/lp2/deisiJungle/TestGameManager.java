@@ -446,14 +446,14 @@ public class TestGameManager {
         MovementResult move = jogo.moveCurrentPlayer(3,false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = (80 - (23)) + 40; //= 114
+        energiaEsperada = (80 - (2*3)) + 40; //= 114
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
         assertEquals(energiaEsperada,energiaObtida);
 
         move = jogo.moveCurrentPlayer(3,false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = (70 - (23)) + 40; //= 104
+        energiaEsperada = (70 - (2*3)) + 40; //= 104
         energiaObtida = jogo.jogadores.get(1).buscarEnergia();
         assertEquals(energiaEsperada,energiaObtida);
 
@@ -464,13 +464,8 @@ public class TestGameManager {
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
         assertEquals(energiaEsperada,energiaObtida);
 
-
-
-
     }
-
-
-
+    
 
     @Test
     public void test_06_moveCurrentPlayer_EatCogumelos(){
