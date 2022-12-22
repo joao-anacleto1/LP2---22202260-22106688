@@ -563,7 +563,7 @@ public class TestGameManager {
         foodsInfo[0][1] = "8";
 
         jogo.createInitialJungle(30,playersinfo,foodsInfo);
-        
+
 
         MovementResult move = jogo.moveCurrentPlayer(7,true);
         assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
