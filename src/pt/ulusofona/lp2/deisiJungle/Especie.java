@@ -58,10 +58,22 @@ public abstract class Especie {
 
     }
 
+
     public abstract boolean eHerbivoro();
 
     public abstract boolean eCarnivoro();
 
     public abstract boolean eOmnivoro();
 
+    @Override
+    public String toString() {
+        return "nome='" + nome + '\'' +
+                ", identificador=" + identificador +
+                ", imagem='" + imagem + '\'' +
+                ", energiaInicial=" + energiaInicial +
+                ", consumoEnergia=" + consumoEnergia +
+                ", ganhoEnergiaEmDescanso=" + ganhoEnergiaEmDescanso +
+                ", velocidadeMinima=" + velocidadeMinima +
+                ", velocidadeMaxima=" + velocidadeMaxima ;
+    }
 }

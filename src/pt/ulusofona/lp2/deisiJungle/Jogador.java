@@ -20,14 +20,40 @@ public class Jogador {
 
     int qtdDeBananasIngeridas;
 
+    public Jogador() {
+    }
 
-    public Jogador(int id, String nome, Especie especie,int posicaoAtual) {
+    public Jogador(int id, String nome, Especie especie, int posicaoAtual) {
         this.id = id;
         this.nome = nome;
         this.especie = especie;
         this.energia = especie.buscarEnergiaInicial();
         this.posicaoAtual = posicaoAtual;
         this.qtdDeBananasIngeridas = 0;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setEnergia(int energia) {
+        this.energia = energia;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setEspecie(Especie especie) {
+        this.especie = especie;
+    }
+
+    public void setPosicaoAtual(int posicaoAtual) {
+        this.posicaoAtual = posicaoAtual;
+    }
+
+    public void setQtdDeBananasIngeridas(int qtdDeBananasIngeridas) {
+        this.qtdDeBananasIngeridas = qtdDeBananasIngeridas;
     }
 
     boolean validarNome() {
@@ -202,6 +228,18 @@ public class Jogador {
             }
             this.energia += energiaASomar;
         }
+    }
+
+    @Override
+    public String toString() {
+        return
+                "id=" + id +
+                ", energia=" + energia +
+                ", nome='" + nome + '\'' +
+                ", especie=" + especie +
+                ", posicaoAtual=" + posicaoAtual +
+                ", qtdDeBananasIngeridas=" + qtdDeBananasIngeridas +
+                '}' + "\n";
     }
 }
 
