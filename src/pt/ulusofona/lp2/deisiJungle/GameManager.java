@@ -365,13 +365,11 @@ public class GameManager {
             if(movementResultCode == MovementResultCode.NO_ENERGY){
                 return new MovementResult(MovementResultCode.NO_ENERGY,null);
 
-            }else if(movementResultCode == MovementResultCode.INVALID_MOVEMENT){
+            }else if(movementResultCode == MovementResultCode.INVALID_MOVEMENT && !bypassValidations){
                 return new MovementResult(MovementResultCode.INVALID_MOVEMENT,null);
             }
 
         }
-
-
 
         //GARANTIR QUE O JOGADOR NAO VAI SE MOVER PARA FORA DO MAPA
         if(jogadorAtual.posicaoAtual > mapa.tamanhoMapa() ){
