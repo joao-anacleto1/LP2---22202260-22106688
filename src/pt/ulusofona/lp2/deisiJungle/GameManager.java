@@ -153,8 +153,7 @@ public class GameManager {
         }
         jogadores = ordenarJogadoresPorID();
 
-        System.out.println(jogadores);
-
+        //System.out.println(jogadores);
 
         mapa = new MapaJogo(jungleSize);
         for (int i = 0; i < jogadores.size(); i++) {

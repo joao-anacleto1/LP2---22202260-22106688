@@ -10,6 +10,7 @@ import static org.junit.Assert.*;
 
 public class TestGameManager {
 
+
     @Test
     public void test_01_CreateInitialJungle_InvalidFoodID() {
         GameManager jogo = new GameManager();
@@ -29,6 +30,7 @@ public class TestGameManager {
         InitializationError resultadoEsperado = new InitializationError("O id do tipo de alimento é inválido");
         assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
     }
+
 
     @Test
     public void test_02_CreateInitialJungle_FoodInvalidPosition() {
@@ -72,6 +74,7 @@ public class TestGameManager {
 
         assertEquals(resultadoEsperado, resultadoReal);
     }
+
 
     @Test
     public void test_04_MoveCurrentPlayer() {
@@ -615,4 +618,11 @@ public class TestGameManager {
 
     }
 
+
+
+
+
 }
+
+
+
