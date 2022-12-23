@@ -2,8 +2,10 @@ package pt.ulusofona.lp2.deisiJungle;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
+import java.io.*;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class GameManager {
@@ -43,8 +45,13 @@ public class GameManager {
 
     ArrayList<Jogador> jogadores = new ArrayList<>(); // jogadores que estao jogoAtual jogar
 
+    Jogador jogadorInfo;
+
 
     MapaJogo mapa;
+
+    int nrCasasMapa;
+
 
     int turno;
 
@@ -85,6 +92,7 @@ public class GameManager {
         reset();
         ArrayList<Integer> resultado = new ArrayList<>();
         turno = 0;
+        nrCasasMapa = jungleSize;
 
         if (!(playersInfo.length >= 2 && playersInfo.length <= 4)) {
             return new InitializationError("O número de jogadores não é válido");
@@ -139,23 +147,33 @@ public class GameManager {
             } else {
                 especie = new Leao();
             }
+
             jogadores.add(new Jogador(Integer.parseInt(dadosJogador[0]), dadosJogador[1],
                     especie, 1));
         }
         jogadores = ordenarJogadoresPorID();
 
+        System.out.println(jogadores);
+
+
         mapa = new MapaJogo(jungleSize);
-        for (Jogador j : jogadores) {
-            mapa.adicionaJogadorInicio(j);
+        for (int i = 0; i < jogadores.size(); i++) {
+            mapa.adicionaJogadorInicio(jogadores.get(i));
         }
 
         InitializationError resultadoAlimentos = verificacaoAlimentos(jungleSize, mapa, foodsInfo);
 
-        return resultadoAlimentos;
+        if (resultadoAlimentos != null) {
+            return resultadoAlimentos;
+        }
+
+        return null;
     }
 
     //DONE
     InitializationError verificacaoAlimentos(int jungleSize, MapaJogo mapaJogo, String[][] foodsInfo) {
+
+        nrCasasMapa = jungleSize;
 
         if (foodsInfo != null) {
 
@@ -267,7 +285,7 @@ public class GameManager {
         return resultado;
     }
 
-    //DONE - falha em alguns testes
+    //DONE
     public String[] getPlayerInfo(int playerId) {
         String[] resultado = new String[5];
 
@@ -304,12 +322,17 @@ public class GameManager {
 
     }
 
-    //DONE
+    int buscarJogadorAtualID(){
+        Jogador jogadorAtual = jogadores.get(turno % jogadores.size());
+        return jogadorAtual.id;
+    }
+
+    //DONE -  AINDA NAO ESTA A PASSAR
     public String[] getCurrentPlayerEnergyInfo(int nrPositions) {
         Jogador jogadorAtual = jogadores.get(turno % jogadores.size());
 
         return new String[] {String.valueOf(jogadorAtual.especie.buscarConsumoEnergia() * Math.abs(nrPositions)),
-                    String.valueOf(jogadorAtual.especie.buscarGanhoEnergiaEmDescanso())};
+                String.valueOf(jogadorAtual.especie.buscarGanhoEnergiaEmDescanso())};
     }
 
     //DONE
@@ -332,10 +355,12 @@ public class GameManager {
         return resultado;
     }
 
-    //DONE
+    //DONE - ver caught food e valid movement
     public MovementResult moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
 
         Jogador jogadorAtual = jogadores.get((turno++ % jogadores.size()));
+
+        jogadorInfo = jogadorAtual;
 
         if(!bypassValidations && (nrSquares < -6 || nrSquares > 6)){
             return new MovementResult(MovementResultCode.INVALID_MOVEMENT,null);
@@ -349,10 +374,16 @@ public class GameManager {
         //ACAO DE MOVIMENTO
         if (nrSquares == 0){
             jogadorAtual.ficar();
-        } else if (jogadorAtual.mover(nrSquares).equals(MovementResultCode.NO_ENERGY)){
-            return new MovementResult(MovementResultCode.NO_ENERGY,null);
-        }else if(jogadorAtual.mover(nrSquares).equals(MovementResultCode.INVALID_MOVEMENT)){
-            return new MovementResult(MovementResultCode.INVALID_MOVEMENT,null);
+        } else{
+            MovementResultCode movementResultCode = jogadorAtual.mover(nrSquares);
+
+            if(movementResultCode == MovementResultCode.NO_ENERGY){
+                return new MovementResult(MovementResultCode.NO_ENERGY,null);
+
+            }else if(movementResultCode == MovementResultCode.INVALID_MOVEMENT && !bypassValidations){
+                return new MovementResult(MovementResultCode.INVALID_MOVEMENT,null);
+            }
+
         }
 
         //GARANTIR QUE O JOGADOR NAO VAI SE MOVER PARA FORA DO MAPA
@@ -370,12 +401,12 @@ public class GameManager {
 
             return new MovementResult(MovementResultCode.CAUGHT_FOOD,
                     "Apanhou "+ casaAtualDoJogador.alimento.buscarNomeAlimento());
-            } else {
-                return new MovementResult(MovementResultCode.VALID_MOVEMENT,null);
-            }
+        } else {
+            return new MovementResult(MovementResultCode.VALID_MOVEMENT,null);
+        }
     }
 
-    //DONE - n passa
+    //DONE
     public String[] getWinnerInfo() {
         String[] resultado = new String[5];
         Jogador jogador = jogadores.get(0);
@@ -452,12 +483,82 @@ public class GameManager {
 
     //NOT DONE
     public boolean saveGame(File file) {
-        return false;
+        /*
+        try{
+            //jogadores,alimentos,
+            if(file.createNewFile()){
+                BufferedWriter buff = new BufferedWriter(new FileWriter(file.getName(),true));
+                buff.write(nrCasasMapa + "\n");
+
+                for(Jogador jogador : jogadores){
+
+                    buff.write(jogador.id + ":" + jogador.especie.identificador +  ":" +
+                            jogador.especie.consumoEnergia + ":" + jogador.especie.ganhoEnergiaEmDescanso + ":" +
+                            jogador.especie.velocidadeMinima + ":" + jogador.especie.velocidadeMaxima + ":" +
+                                    jogador.especie.nome +  ":" + jogador.especie.imagem + ":" +
+                                    jogador.especie.energiaInicial + ":" + jogador.nome + ":" + jogador.posicaoAtual
+                            + "\n") ;
+                }
+
+                buff.close();
+            }
+
+
+        }catch (IOException io){
+            return false;
+        }
+
+         */
+        return true;
     }
 
     //NOT DONE
     public boolean loadGame(File file) {
-        return false;
+    /*
+        try{
+            reset();
+            Scanner scanner = new Scanner(file);
+
+            nrCasasMapa = Integer.parseInt(scanner.nextLine());
+
+            String string1;
+            String string2;
+            String[] string3;
+
+            while(scanner.hasNextLine()) {
+                string1 = scanner.nextLine();
+                string2 = string1;
+                string3 = string2.split(" ");
+
+                Jogador jogador = new Jogador(string3[0], new Especie());
+/*
+                jogador.setId(Integer.parseInt(string3[0]));
+                jogador.especie.setIdentificador(string3[1].charAt(0));
+                jogador.especie.setConsumoEnergia(Integer.parseInt(string3[2]));
+                jogador.especie.setGanhoEnergiaEmDescanso(Integer.parseInt(string3[3]));
+                jogador.especie.setVelocidadeMinima(Integer.parseInt(string3[4]));
+                jogador.especie.setVelocidadeMaxima(Integer.parseInt(string3[5]));
+                jogador.especie.setNome(string3[6]);
+                jogador.especie.setImagem(string3[7]);
+                jogador.especie.setEnergiaInicial(Integer.parseInt(string3[8]));
+                jogador.setNome(string3[9]);
+                jogador.setPosicaoAtual(Integer.parseInt(string3[10]));
+
+                jogadores.add(jogador);
+
+
+
+ */
+
+
+/*
+        }catch (IOException io){
+            return false;
+        }
+
+ */
+
+        return true;
     }
 
     // FUNÇÕES AUXILIARES
@@ -490,6 +591,7 @@ public class GameManager {
         return resultado;
     }
 
+
     boolean jogoAcabado() {
 
         int primeiraMaiorPosicao = -1;
@@ -501,34 +603,29 @@ public class GameManager {
 
         for(int j = mapa.tamanhoMapa() - 1 ; j > 0 ; j -- ){
 
-             Casa casa = mapa.buscarCasa(j);
+            Casa casa = mapa.buscarCasa(j);
 
-             if(primeiraMaiorPosicao < 0 && casa.buscaNrJogadoresNaCasa() >= 2){
-                 return false;
-             }
+            if(primeiraMaiorPosicao < 0 && casa.buscaNrJogadoresNaCasa() >= 2){
+                return false;
+            }
 
-             if(!casa.casaVazia()){
-                 if(primeiraMaiorPosicao > 0){
+            if(!casa.casaVazia()){
+                if(primeiraMaiorPosicao > 0){
 
-                     if(segundaMaiorPosicao < 0){
-                         segundaMaiorPosicao = j;
-                     }
+                    if(segundaMaiorPosicao < 0){
+                        segundaMaiorPosicao = j;
+                    }
 
-                 } else {
-                     primeiraMaiorPosicao = j;
-                 }
-             }
+                } else {
+                    primeiraMaiorPosicao = j;
+                }
+            }
         }
 
         if((primeiraMaiorPosicao - segundaMaiorPosicao) > mapa.tamanhoMapa()/2){
             return true;
         }
         return false;
-    }
-
-    int buscarJogadorAtualID(){
-        Jogador jogadorAtual = jogadores.get(turno % jogadores.size());
-        return jogadorAtual.id;
     }
 
 }
