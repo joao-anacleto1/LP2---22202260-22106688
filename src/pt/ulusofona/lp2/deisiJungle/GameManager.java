@@ -332,7 +332,7 @@ public class GameManager {
         Jogador jogadorAtual = jogadores.get(turno % jogadores.size());
 
         return new String[] {String.valueOf(jogadorAtual.especie.buscarConsumoEnergia() * Math.abs(nrPositions)),
-                    String.valueOf(jogadorAtual.especie.buscarGanhoEnergiaEmDescanso())};
+                String.valueOf(jogadorAtual.especie.buscarGanhoEnergiaEmDescanso())};
     }
 
     //DONE
@@ -401,9 +401,9 @@ public class GameManager {
 
             return new MovementResult(MovementResultCode.CAUGHT_FOOD,
                     "Apanhou "+ casaAtualDoJogador.alimento.buscarNomeAlimento());
-            } else {
-                return new MovementResult(MovementResultCode.VALID_MOVEMENT,null);
-            }
+        } else {
+            return new MovementResult(MovementResultCode.VALID_MOVEMENT,null);
+        }
     }
 
     //DONE
@@ -603,23 +603,23 @@ public class GameManager {
 
         for(int j = mapa.tamanhoMapa() - 1 ; j > 0 ; j -- ){
 
-             Casa casa = mapa.buscarCasa(j);
+            Casa casa = mapa.buscarCasa(j);
 
-             if(primeiraMaiorPosicao < 0 && casa.buscaNrJogadoresNaCasa() >= 2){
-                 return false;
-             }
+            if(primeiraMaiorPosicao < 0 && casa.buscaNrJogadoresNaCasa() >= 2){
+                return false;
+            }
 
-             if(!casa.casaVazia()){
-                 if(primeiraMaiorPosicao > 0){
+            if(!casa.casaVazia()){
+                if(primeiraMaiorPosicao > 0){
 
-                     if(segundaMaiorPosicao < 0){
-                         segundaMaiorPosicao = j;
-                     }
+                    if(segundaMaiorPosicao < 0){
+                        segundaMaiorPosicao = j;
+                    }
 
-                 } else {
-                     primeiraMaiorPosicao = j;
-                 }
-             }
+                } else {
+                    primeiraMaiorPosicao = j;
+                }
+            }
         }
 
         if((primeiraMaiorPosicao - segundaMaiorPosicao) > mapa.tamanhoMapa()/2){
