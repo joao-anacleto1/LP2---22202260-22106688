@@ -52,6 +52,8 @@ public class GameManager {
 
     int nrCasasMapa;
 
+    int posicoesMovidas;
+
 
     int turno;
 
@@ -152,8 +154,6 @@ public class GameManager {
                     especie, 1));
         }
         jogadores = ordenarJogadoresPorID();
-
-        //System.out.println(jogadores);
 
         mapa = new MapaJogo(jungleSize);
         for (int i = 0; i < jogadores.size(); i++) {
@@ -397,10 +397,10 @@ public class GameManager {
         }
 
         if(casaAtualDoJogador.alimento != null && jogadorAtual.consumirAlimento(casaAtualDoJogador.alimento,turno)){
-
             return new MovementResult(MovementResultCode.CAUGHT_FOOD,
                     "Apanhou "+ casaAtualDoJogador.alimento.buscarNomeAlimento());
         } else {
+            posicoesMovidas++;
             return new MovementResult(MovementResultCode.VALID_MOVEMENT,null);
         }
     }
@@ -448,7 +448,9 @@ public class GameManager {
                 String nomeJogador = jogadores.get(j).buscarNomeJogador();
                 String nomeEspecie = jogadores.get(j).buscarNomeEspecie();
                 int posicaoNoMapa = jogadores.get(j).buscarPosicaoAtual();
-                String res = "#" + posicaoChegada + " " + nomeJogador + ", " + nomeEspecie + ", " + posicaoNoMapa;
+                int posicoesPosMovimentacoes = posicoesMovidas;
+                String res = "#" + posicaoChegada + " " + nomeJogador + ", " + nomeEspecie + ", " + posicaoNoMapa +
+                        ", " + posicoesPosMovimentacoes;
                 resultado.add(res);
                 posicaoChegada += 1;
             }
