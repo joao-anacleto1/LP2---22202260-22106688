@@ -463,8 +463,8 @@ public class GameManager {
                 String nomeEspecie = jogadores.get(j).buscarNomeEspecie();
                 int posicaoNoMapa = jogadores.get(j).buscarPosicaoAtual();
                 String res = "#" + posicaoChegada + " " + nomeJogador + ", " + nomeEspecie + ", " + posicaoNoMapa +
-                        ", " + jogadores.get(j).buscarPosicaoPercorrida() + "," + jogadores.get(j).buscarSomarComida() +
-                        "\n";
+                        ", " + jogadores.get(j).buscarPosicaoPercorrida() + ", " + jogadores.get(j).buscarSomarComida()
+                        ;
                 resultado.add(res);
                 posicaoChegada += 1;
             }
