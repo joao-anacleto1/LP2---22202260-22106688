@@ -1,7 +1,6 @@
 package pt.ulusofona.lp2.deisiJungle;
 
 
-
 import java.util.Random;
 
 public class Jogador {
@@ -17,7 +16,8 @@ public class Jogador {
     String nome;
     Especie especie;
     int posicaoAtual;
-
+    int posicaoPercorrida = 0;
+    int somarComida = 0;
     int qtdDeBananasIngeridas;
 
     public Jogador() {
@@ -30,6 +30,14 @@ public class Jogador {
         this.energia = especie.buscarEnergiaInicial();
         this.posicaoAtual = posicaoAtual;
         this.qtdDeBananasIngeridas = 0;
+    }
+
+    public int buscarPosicaoPercorrida() {
+        return this.posicaoPercorrida;
+    }
+
+    public int buscarSomarComida() {
+        return this.somarComida;
     }
 
     public void setId(int id) {
@@ -97,6 +105,7 @@ public class Jogador {
         }else{
             this.energia -= especie.consumoEnergia * Math.abs(nrSquares);
             this.posicaoAtual += nrSquares;
+            this.posicaoPercorrida += Math.abs(nrSquares);
             return MovementResultCode.VALID_MOVEMENT;
         }
 
@@ -132,21 +141,26 @@ public class Jogador {
             case 'c':
                 if (especie.eCarnivoro() || especie.eOmnivoro()){
                     ingereCarne(turno);
+                    this.somarComida++;
                     return true;
                 } else {
                     return false;
                 }
             case 'b':
                 ingereCachoDeBananas((CachoDeBananas) a);
+                this.somarComida++;
                 return true;
             case 'm':
                 ingereCogumelosMagicos(turno, (CogumelosMagicos) a);
+                this.somarComida++;
                 return true;
             case 'e':
                 ingereErva();
+                this.somarComida++;
                 return true;
             case 'a':
                 ingereAgua();
+                this.somarComida++;
                 return true;
             default:
                 return false;

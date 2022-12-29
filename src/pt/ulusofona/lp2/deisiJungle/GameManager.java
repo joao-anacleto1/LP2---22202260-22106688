@@ -52,9 +52,6 @@ public class GameManager {
 
     int nrCasasMapa;
 
-    int posicoesMovidas;
-
-
     int turno;
 
 
@@ -396,7 +393,6 @@ public class GameManager {
             return new MovementResult(MovementResultCode.CAUGHT_FOOD,
                     "Apanhou "+ casaAtualDoJogador.alimento.buscarNomeAlimento());
         } else {
-            posicoesMovidas++;
             return new MovementResult(MovementResultCode.VALID_MOVEMENT,null);
         }
     }
@@ -466,9 +462,9 @@ public class GameManager {
                 String nomeJogador = jogadores.get(j).buscarNomeJogador();
                 String nomeEspecie = jogadores.get(j).buscarNomeEspecie();
                 int posicaoNoMapa = jogadores.get(j).buscarPosicaoAtual();
-                int posicoesPosMovimentacoes = posicoesMovidas;
                 String res = "#" + posicaoChegada + " " + nomeJogador + ", " + nomeEspecie + ", " + posicaoNoMapa +
-                        ", " + posicoesPosMovimentacoes;
+                        ", " + jogadores.get(j).buscarPosicaoPercorrida() + "," + jogadores.get(j).buscarSomarComida() +
+                        "\n";
                 resultado.add(res);
                 posicaoChegada += 1;
             }
@@ -502,82 +498,157 @@ public class GameManager {
 
     //NOT DONE
     public boolean saveGame(File file) {
-        /*
-        try{
-            //jogadores,alimentos,
-            if(file.createNewFile()){
-                BufferedWriter buff = new BufferedWriter(new FileWriter(file.getName(),true));
+
+        try (BufferedWriter buff = new BufferedWriter(new FileWriter(file));) {
+
+            if (file.createNewFile()) {
+
+                // generic parameters
+
                 buff.write(nrCasasMapa + "\n");
+                buff.write(turno + "\n");
 
-                for(Jogador jogador : jogadores){
 
-                    buff.write(jogador.id + ":" + jogador.especie.identificador +  ":" +
-                            jogador.especie.consumoEnergia + ":" + jogador.especie.ganhoEnergiaEmDescanso + ":" +
-                            jogador.especie.velocidadeMinima + ":" + jogador.especie.velocidadeMaxima + ":" +
-                                    jogador.especie.nome +  ":" + jogador.especie.imagem + ":" +
-                                    jogador.especie.energiaInicial + ":" + jogador.nome + ":" + jogador.posicaoAtual
-                            + "\n") ;
+                buff.write("JOGADORES" + "\n");
+
+                // jogadores
+
+                for (Jogador jogador : jogadores) {
+
+                    buff.write(jogador.id + ":" + jogador.especie.identificador + ":" +
+                            jogador.nome + ":" + jogador.posicaoAtual + ":" + jogador.buscarEnergia() + ":" +
+                            jogador.qtdDeBananasIngeridas
+                            + "\n");
                 }
 
-                buff.close();
+                buff.write("ALIMENTOS" + "\n");
+
+                // TODO alimentos
+
+                for(Alimento alimento : alimentos){
+
+                    buff.write(alimento.identificadorAlimento + ":" + alimento.nomeAlimento + ":" +
+                            alimento.tooltip + ":" + alimento.imagem + "\n");
+                }
+
             }
 
-
-        }catch (IOException io){
+        } catch (IOException io) {
             return false;
         }
 
-         */
+
         return true;
+
     }
 
     //NOT DONE
     public boolean loadGame(File file) {
-    /*
-        try{
+
+        try {
+
             reset();
             Scanner scanner = new Scanner(file);
 
             nrCasasMapa = Integer.parseInt(scanner.nextLine());
+            turno = Integer.parseInt(scanner.nextLine());
 
-            String string1;
-            String string2;
-            String[] string3;
+            // TODO
 
-            while(scanner.hasNextLine()) {
-                string1 = scanner.nextLine();
-                string2 = string1;
-                string3 = string2.split(" ");
+            String line;
+            String[] splited;
 
-                Jogador jogador = new Jogador(string3[0], new Especie());
-/*
-                jogador.setId(Integer.parseInt(string3[0]));
-                jogador.especie.setIdentificador(string3[1].charAt(0));
-                jogador.especie.setConsumoEnergia(Integer.parseInt(string3[2]));
-                jogador.especie.setGanhoEnergiaEmDescanso(Integer.parseInt(string3[3]));
-                jogador.especie.setVelocidadeMinima(Integer.parseInt(string3[4]));
-                jogador.especie.setVelocidadeMaxima(Integer.parseInt(string3[5]));
-                jogador.especie.setNome(string3[6]);
-                jogador.especie.setImagem(string3[7]);
-                jogador.especie.setEnergiaInicial(Integer.parseInt(string3[8]));
-                jogador.setNome(string3[9]);
-                jogador.setPosicaoAtual(Integer.parseInt(string3[10]));
+            // Jogadores
+
+            while (scanner.hasNextLine()) {
+
+                // jogador.id + ":" + jogador.especie.identificador + ":" +
+                // jogador.nome + ":" + jogador.posicaoAtual + ":" + jogador.buscarEnergia() + ":" +
+                // jogador.qtdDeBananasIngeridas
+
+                line = scanner.nextLine();
+
+                if ("ALIMENTOS".equals(line)) {
+                    break;
+                }
+
+                splited = line.split(":");
+
+
+                char idEspecie = splited[1].charAt(0);
+
+                Especie especie = null;
+
+                if (idEspecie == 'E') {
+                    especie = new Elefante();
+
+                } else if (idEspecie == 'Z') {
+                    especie = new Tarzan();
+
+                } else if (idEspecie == 'T') {
+                    especie = new Tartaruga();
+
+                } else if (idEspecie == 'P') {
+                    especie = new Passaro();
+
+                } else {
+                    especie = new Leao();
+                }
+
+                Jogador jogador = new Jogador(Integer.parseInt(splited[0]), splited[2], especie,
+                        Integer.parseInt(splited[3]));
+
+                jogador.setEnergia(Integer.parseInt(splited[4]));
+                jogador.setQtdDeBananasIngeridas(Integer.parseInt(splited[5]));
+
 
                 jogadores.add(jogador);
 
+            }
+
+            // TODO alimentos
+
+            while (scanner.hasNextLine()) {
+
+                //alimento.identificadorAlimento + ":" + alimento.nomeAlimento + ":" +
+                // alimento.tooltip + ":" + alimento.imagem + "\n"
+
+                line = scanner.nextLine();
+
+                splited = line.split(":");
+
+                char idAlimento = splited[0].charAt(0);
+
+                Alimento alimento = null;
+
+                if (idAlimento == 'b') {
+                    alimento = new CachoDeBananas();
+
+                } else if (idAlimento == 'c') {
+                    alimento = new Carne();
+
+                } else if (idAlimento == 'm') {
+                    alimento = new CogumelosMagicos();
+
+                } else if (idAlimento == 'e') {
+                    alimento = new Erva();
+
+                } else {
+                    alimento = new Agua();
+                }
+
+               // Alimento alimento = new Alimento() ;
 
 
- */
 
+            }
 
-/*
-        }catch (IOException io){
+        } catch (IOException io) {
             return false;
         }
 
- */
-
         return true;
+
     }
 
     // FUNÇÕES AUXILIARES

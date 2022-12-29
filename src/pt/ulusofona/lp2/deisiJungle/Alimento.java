@@ -8,7 +8,8 @@ public abstract class Alimento {
     protected String tooltip;
 
 
-    Alimento() {}
+    public Alimento() {}
+
 
     char buscarIdentificadorAlimento(){
         return this.identificadorAlimento;
