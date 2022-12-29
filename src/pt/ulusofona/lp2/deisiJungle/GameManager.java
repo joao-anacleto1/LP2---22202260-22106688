@@ -162,11 +162,7 @@ public class GameManager {
 
         InitializationError resultadoAlimentos = verificacaoAlimentos(jungleSize, mapa, foodsInfo);
 
-        if (resultadoAlimentos != null) {
-            return resultadoAlimentos;
-        }
-
-        return null;
+        return resultadoAlimentos;
     }
 
     //DONE
