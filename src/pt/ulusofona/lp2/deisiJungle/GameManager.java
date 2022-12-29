@@ -410,7 +410,7 @@ public class GameManager {
         String[] resultado = new String[5];
         Jogador jogador = jogadores.get(0);
 
-        if (jogoAcabado()) {
+        if (jogoAcabado() == 1) {
             int maisLonge = jogadores.get(0).buscarPosicaoAtual();
 
             for (int i = 1; i < jogadores.size(); i++) {
@@ -424,10 +424,32 @@ public class GameManager {
                     jogador = jogadores.get(i);
                 }
             }
+        }
 
-        } else {
+        if(jogoAcabado() == 2) {
+            //ordenar por posicao
+            for (int i = 0; i < jogadores.size(); i++) {
+
+                // Inner nested loop pointing 1 index ahead
+                for (int j = i + 1; j < jogadores.size(); j++) {
+
+                    Jogador t;
+
+                    if (jogadores.get(j).buscarPosicaoAtual() > jogadores.get(i).buscarPosicaoAtual()) {
+                        t = jogadores.get(i);
+                        jogadores.set(i, jogadores.get(j));
+                        jogadores.set(j, t);
+                    }
+                }
+            }
+            jogador = jogadores.get(1);
+            ordenarJogadoresPorID();
+        }
+
+        if(jogoAcabado() == 0){
             return null;
         }
+
         resultado[0] = String.valueOf(jogador.id);
         resultado[1] = jogador.nome;
         resultado[2] = String.valueOf(jogador.especie.buscarIdentificador());
@@ -593,13 +615,13 @@ public class GameManager {
     }
 
 
-    boolean jogoAcabado() {
+    int jogoAcabado() {
 
         int primeiraMaiorPosicao = -1;
         int segundaMaiorPosicao = -1;
 
         if (!mapa.buscarCasa(mapa.casas.size()).casaVazia()) {
-            return true;
+            return 1;
         }
 
         for(int j = mapa.tamanhoMapa() - 1 ; j > 0 ; j -- ){
@@ -607,7 +629,7 @@ public class GameManager {
             Casa casa = mapa.buscarCasa(j);
 
             if(primeiraMaiorPosicao < 0 && casa.buscaNrJogadoresNaCasa() >= 2){
-                return false;
+                return 0;
             }
 
             if(!casa.casaVazia()){
@@ -624,9 +646,9 @@ public class GameManager {
         }
 
         if((primeiraMaiorPosicao - segundaMaiorPosicao) > mapa.tamanhoMapa()/2){
-            return true;
+            return 2;
         }
-        return false;
+        return 0;
     }
 
 }
