@@ -523,12 +523,12 @@ public class GameManager {
 
                 buff.write("ALIMENTOS" + "\n");
 
-                // TODO alimentos
+                // alimentos
 
-                for(Alimento alimento : alimentos){
+                for( Casa casa: mapa.casas){
 
-                    buff.write(alimento.identificadorAlimento + ":" + alimento.nomeAlimento + ":" +
-                            alimento.tooltip + ":" + alimento.imagem + "\n");
+                    buff.write(casa.indexCasa + ":" + casa.tipoCasa + ":" +
+                            casa.imagemCasa + ":" + casa.alimento + "\n");
                 }
 
             }
@@ -610,8 +610,7 @@ public class GameManager {
 
             while (scanner.hasNextLine()) {
 
-                //alimento.identificadorAlimento + ":" + alimento.nomeAlimento + ":" +
-                // alimento.tooltip + ":" + alimento.imagem + "\n"
+                //casa.indexCasa + ":" + casa.tipoCasa + ":" + casa.imagemCasa + ":" + casa.alimento + "\n"
 
                 line = scanner.nextLine();
 
@@ -637,7 +636,9 @@ public class GameManager {
                     alimento = new Agua();
                 }
 
-               // Alimento alimento = new Alimento() ;
+                Casa casa = new Casa(Integer.parseInt(splited[0]),splited[1],splited[2],alimento);;
+
+                mapa.casas.add(casa);
 
 
 
