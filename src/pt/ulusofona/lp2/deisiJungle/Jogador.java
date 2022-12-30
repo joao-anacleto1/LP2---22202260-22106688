@@ -91,14 +91,14 @@ public class Jogador {
         return this.energia;
     }
 
-    MovementResultCode mover(int nrSquares){
+    MovementResultCode mover(int nrSquares , boolean verificacao){
 
         if(this.energia < this.especie.consumoEnergia){
             return MovementResultCode.NO_ENERGY;
         }
 
         if(!(Math.abs(nrSquares) >= especie.buscarVelocidadeMinima() && Math.abs(nrSquares) <=
-                especie.buscarVelocidadeMaxima())){
+                especie.buscarVelocidadeMaxima()) && verificacao){
 
             return MovementResultCode.INVALID_MOVEMENT;
 

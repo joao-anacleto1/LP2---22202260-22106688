@@ -368,7 +368,7 @@ public class GameManager {
         if (nrSquares == 0) {
             jogadorAtual.ficar();
         } else {
-            MovementResultCode movementResultCode = jogadorAtual.mover(nrSquares);
+            MovementResultCode movementResultCode = jogadorAtual.mover(nrSquares,!bypassValidations);
 
             if (movementResultCode == MovementResultCode.NO_ENERGY) {
                 return new MovementResult(MovementResultCode.NO_ENERGY, null);
@@ -602,23 +602,8 @@ public class GameManager {
 
                     char idEspecie = splited[0].charAt(0);
 
-                    Especie especie = null;
+                    Especie especie = auxiliarEspecie(idEspecie);
 
-                    if (idEspecie == 'E') {
-                        especie = new Elefante();
-
-                    } else if (idEspecie == 'Z') {
-                        especie = new Tarzan();
-
-                    } else if (idEspecie == 'T') {
-                        especie = new Tartaruga();
-
-                    } else if (idEspecie == 'P') {
-                        especie = new Passaro();
-
-                    } else {
-                        especie = new Leao();
-                    }
 
                     Jogador jogador = new Jogador(Integer.parseInt(splited[1]), splited[2], especie,
                             Integer.parseInt(splited[3]));
@@ -645,32 +630,34 @@ public class GameManager {
 
                     char idAlimento = splited[1].charAt(0);
 
-                    Alimento alimento = null;
+                    if (idAlimento != 'N') {
 
-                    if (idAlimento == 'b') {
-                        alimento = new CachoDeBananas();
-                        int nrBananas = Integer.parseInt(splited[3]);
-                        ((CachoDeBananas) alimento).alteraBananas(nrBananas);
+                        Alimento alimento = null;
 
-                    } else if (idAlimento == 'c') {
-                        alimento = new Carne();
+                        if (idAlimento == 'b') {
+                            alimento = new CachoDeBananas();
+                            int nrBananas = Integer.parseInt(splited[3]);
+                            ((CachoDeBananas) alimento).alteraBananas(nrBananas);
 
-                    } else if (idAlimento == 'm') {
-                        alimento = new CogumelosMagicos();
-                        int nrCogumelos = Integer.parseInt(splited[2]);
-                        ((CogumelosMagicos) alimento).alteraCogumelos(nrCogumelos);
+                        } else if (idAlimento == 'c') {
+                            alimento = new Carne();
 
-                    } else if (idAlimento == 'e') {
-                        alimento = new Erva();
+                        } else if (idAlimento == 'm') {
+                            alimento = new CogumelosMagicos();
+                            int nrCogumelos = Integer.parseInt(splited[2]);
+                            ((CogumelosMagicos) alimento).alteraCogumelos(nrCogumelos);
 
-                    } else if (idAlimento == 'a') {
-                        alimento = new Agua();
+                        } else if (idAlimento == 'e') {
+                            alimento = new Erva();
+
+                        } else if (idAlimento == 'a') {
+                            alimento = new Agua();
+                        }
+
+                        Casa casa = mapa.buscarCasa(Integer.parseInt(splited[0]));
+
+                        casa.receberAlimento(alimento);
                     }
-
-                    Casa casa = mapa.buscarCasa(Integer.parseInt(splited[0]));
-
-
-                    casa.receberAlimento(alimento);
                 }
 
                 countLine++;
@@ -714,6 +701,26 @@ public class GameManager {
             }
         }
         return resultado;
+    }
+
+    Especie auxiliarEspecie(char idEspecie ){
+
+        if (idEspecie == 'E') {
+            return new Elefante();
+
+        } else if (idEspecie == 'Z') {
+            return new Tarzan();
+
+        } else if (idEspecie == 'T') {
+            return new Tartaruga();
+
+        } else if (idEspecie == 'P') {
+            return new Passaro();
+
+        } else {
+            return new Leao();
+        }
+
     }
 
 

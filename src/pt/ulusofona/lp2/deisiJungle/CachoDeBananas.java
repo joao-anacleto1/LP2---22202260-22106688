@@ -10,7 +10,7 @@ class CachoDeBananas extends Alimento {
         this.nomeAlimento = "Bananas";
         this.imagem = "bananas.png";
         this.bananasNoCacho = 3;
-        this.tooltip = "Bananas : 3 : + 40 energia";
+        this.tooltip = "Bananas : " + bananasNoCacho +" : + 40 energia";
     }
 
     public int buscarBananas(){
