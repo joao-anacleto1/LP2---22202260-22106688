@@ -17,13 +17,21 @@ public abstract class Alimento {
 
     String buscarNomeAlimento(){return this.nomeAlimento;}
 
-
-
     String buscarImagem(){return this.imagem;}
 
     String buscarTooltip(){
         return this.tooltip;
     }
+
+    public int buscarEnergiaCogumelo(CogumelosMagicos cogumelo){
+        return cogumelo.buscarNrCogumelo();
+    }
+
+    public int buscarBananasNoCacho(CachoDeBananas banana){
+        return banana.buscarBananas();
+    }
+
+
 
     public String[] buscaInfo(){
 

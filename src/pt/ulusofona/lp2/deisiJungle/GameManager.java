@@ -533,12 +533,25 @@ public class GameManager {
 
             for (Casa casa : mapa.casas) {
 
-                if(casa.alimento == null){
+                if (casa.alimento == null) {
 
-                    buff.write(casa.indexCasa +  ":" + "NONE" + "\n");
+                    buff.write(casa.indexCasa + ":" + "NONE" + ":" + "NONE" + ":" + "NONE" + "\n");
 
-                }else{
-                    buff.write(casa.indexCasa + ":" + casa.alimento.identificadorAlimento + "\n");
+                } else if (casa.alimento.identificadorAlimento == 'm') {
+
+                    buff.write(casa.indexCasa + ":" + casa.alimento.identificadorAlimento +
+                            ":" + casa.alimento.buscarEnergiaCogumelo((CogumelosMagicos) casa.alimento) +
+                            ":" + "NONE" + "\n");
+
+                } else if (casa.alimento.identificadorAlimento == 'b') {
+
+                    buff.write(casa.indexCasa + ":" + casa.alimento.identificadorAlimento +
+                            ":" + "NONE" + ":" + casa.alimento.buscarBananasNoCacho((CachoDeBananas) casa.alimento)
+                            + "\n");
+
+                } else {
+                    buff.write(casa.indexCasa + ":" + casa.alimento.identificadorAlimento +
+                            ":" + "NONE" + ":" + "NONE" + "\n");
                 }
 
             }
@@ -581,20 +594,20 @@ public class GameManager {
 
                 line = scanner.nextLine();
 
-                System.out.println(line);
+                //System.out.println(line);
 
-                System.out.println(countLine);
+                // System.out.println(countLine);
 
                 if (countLine >= 3 && countLine <= 6) {
 
-                    if(line.equals("NONE")){
+                    if (line.equals("NONE")) {
                         countLine++;
                         continue;
                     }
 
                     splited = line.split(":");
 
-                    System.out.println(Arrays.toString(splited));
+                    //System.out.println(Arrays.toString(splited));
 
 
                     char idEspecie = splited[0].charAt(0);
@@ -626,43 +639,55 @@ public class GameManager {
 
                     jogadores.add(jogador);
 
-                    for(Casa casa : mapa.casas){
-                        for(Jogador jogadorInicial : jogadores){
-                            if(jogadorInicial.buscarPosicaoAtual() == casa.buscarIndexCasa()){
+                    for (Casa casa : mapa.casas) {
+                        for (Jogador jogadorInicial : jogadores) {
+                            if (jogadorInicial.buscarPosicaoAtual() == casa.buscarIndexCasa()) {
                                 casa.adicionarJogador(jogadorInicial);
                             }
                         }
                     }
 
-                } else{
+                } else {
 
                     // TODO alimentos
 
-                   // casa.indexCasa + ":" + casa.tipoCasa + ":" +casa.imagemCasa + ":" + casa.especie.idAlimento "\n"
+                    /*
+                      casa.indexCasa + ":" + casa.alimento.identificadorAlimento +
+                      ":" + casa.alimento.buscarEnergiaCogumelo((CogumelosMagicos) casa.alimento) +
+                        ":" + casa.alimento.buscarBananasNoCacho((CachoDeBananas) casa.alimento) + "\n"
+
+                     */
 
                     splited = line.split(":");
 
                     char idAlimento = splited[1].charAt(0);
 
+
                     Alimento alimento = null;
+
 
                     if (idAlimento == 'b') {
                         alimento = new CachoDeBananas();
+                        int nrBananas = Integer.parseInt(splited[3]);
+                        ((CachoDeBananas) alimento).alteraBananas(nrBananas);
 
                     } else if (idAlimento == 'c') {
                         alimento = new Carne();
 
                     } else if (idAlimento == 'm') {
                         alimento = new CogumelosMagicos();
+                        int nrCogumelos = Integer.parseInt(splited[2]);
+                        ((CogumelosMagicos) alimento).alteraCogumelos(nrCogumelos);
 
                     } else if (idAlimento == 'e') {
                         alimento = new Erva();
 
-                    } else if(idAlimento == 'a') {
+                    } else if (idAlimento == 'a') {
                         alimento = new Agua();
                     }
 
-                    Casa casa  = mapa.buscarCasa(Integer.parseInt(splited[0]));
+                    Casa casa = mapa.buscarCasa(Integer.parseInt(splited[0]));
+
 
                     casa.receberAlimento(alimento);
                 }

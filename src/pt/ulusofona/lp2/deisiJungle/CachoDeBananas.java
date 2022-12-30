@@ -13,10 +13,13 @@ class CachoDeBananas extends Alimento {
         this.tooltip = "Bananas : 3 : + 40 energia";
     }
 
+    public int buscarBananas(){
+        return this.bananasNoCacho;
+    }
+
     public void alteraBananas(int valor){
         this.bananasNoCacho = valor;
     }
-
 
     public boolean buscarBananasNoCacho(){
 
