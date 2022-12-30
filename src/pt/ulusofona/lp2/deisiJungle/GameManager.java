@@ -5,6 +5,8 @@ import java.awt.*;
 import java.io.*;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
 
@@ -46,7 +48,6 @@ public class GameManager {
     ArrayList<Jogador> jogadores = new ArrayList<>(); // jogadores que estao jogoAtual jogar
 
     Jogador jogadorInfo;
-
 
     MapaJogo mapa;
 
@@ -314,7 +315,7 @@ public class GameManager {
 
     }
 
-    int buscarJogadorAtualID(){
+    int buscarJogadorAtualID() {
         Jogador jogadorAtual = jogadores.get(turno % jogadores.size());
         return jogadorAtual.id;
     }
@@ -323,7 +324,7 @@ public class GameManager {
     public String[] getCurrentPlayerEnergyInfo(int nrPositions) {
         Jogador jogadorAtual = jogadores.get(turno % jogadores.size());
 
-        return new String[] {String.valueOf(jogadorAtual.especie.buscarConsumoEnergia() * Math.abs(nrPositions)),
+        return new String[]{String.valueOf(jogadorAtual.especie.buscarConsumoEnergia() * Math.abs(nrPositions)),
                 String.valueOf(jogadorAtual.especie.buscarGanhoEnergiaEmDescanso())};
     }
 
@@ -354,46 +355,46 @@ public class GameManager {
 
         jogadorInfo = jogadorAtual;
 
-        if(!bypassValidations && (nrSquares < -6 || nrSquares > 6)){
-            return new MovementResult(MovementResultCode.INVALID_MOVEMENT,null);
+        if (!bypassValidations && (nrSquares < -6 || nrSquares > 6)) {
+            return new MovementResult(MovementResultCode.INVALID_MOVEMENT, null);
         }
-        if (jogadorAtual.posicaoAtual + nrSquares < 1){
-            return new MovementResult(MovementResultCode.INVALID_MOVEMENT,null);
+        if (jogadorAtual.posicaoAtual + nrSquares < 1) {
+            return new MovementResult(MovementResultCode.INVALID_MOVEMENT, null);
         }
 
         Casa casaAntiga = this.mapa.buscarCasa(jogadorAtual.posicaoAtual);
 
         //ACAO DE MOVIMENTO
-        if (nrSquares == 0){
+        if (nrSquares == 0) {
             jogadorAtual.ficar();
-        } else{
+        } else {
             MovementResultCode movementResultCode = jogadorAtual.mover(nrSquares);
 
-            if(movementResultCode == MovementResultCode.NO_ENERGY){
-                return new MovementResult(MovementResultCode.NO_ENERGY,null);
+            if (movementResultCode == MovementResultCode.NO_ENERGY) {
+                return new MovementResult(MovementResultCode.NO_ENERGY, null);
 
-            }else if(movementResultCode == MovementResultCode.INVALID_MOVEMENT && !bypassValidations){
-                return new MovementResult(MovementResultCode.INVALID_MOVEMENT,null);
+            } else if (movementResultCode == MovementResultCode.INVALID_MOVEMENT && !bypassValidations) {
+                return new MovementResult(MovementResultCode.INVALID_MOVEMENT, null);
             }
 
         }
 
         //GARANTIR QUE O JOGADOR NAO VAI SE MOVER PARA FORA DO MAPA
-        if(jogadorAtual.posicaoAtual > mapa.tamanhoMapa() ){
+        if (jogadorAtual.posicaoAtual > mapa.tamanhoMapa()) {
             jogadorAtual.posicaoAtual = mapa.tamanhoMapa();
         }
 
         Casa casaAtualDoJogador = this.mapa.buscarCasa(jogadorAtual.posicaoAtual);
-        if(casaAntiga.indexCasa != casaAtualDoJogador.indexCasa){
+        if (casaAntiga.indexCasa != casaAtualDoJogador.indexCasa) {
             casaAntiga.removerJogador(jogadorAtual);
             casaAtualDoJogador.adicionarJogador(jogadorAtual);
         }
 
-        if(casaAtualDoJogador.alimento != null && jogadorAtual.consumirAlimento(casaAtualDoJogador.alimento,turno)){
+        if (casaAtualDoJogador.alimento != null && jogadorAtual.consumirAlimento(casaAtualDoJogador.alimento, turno)) {
             return new MovementResult(MovementResultCode.CAUGHT_FOOD,
-                    "Apanhou "+ casaAtualDoJogador.alimento.buscarNomeAlimento());
+                    "Apanhou " + casaAtualDoJogador.alimento.buscarNomeAlimento());
         } else {
-            return new MovementResult(MovementResultCode.VALID_MOVEMENT,null);
+            return new MovementResult(MovementResultCode.VALID_MOVEMENT, null);
         }
     }
 
@@ -418,7 +419,7 @@ public class GameManager {
             }
         }
 
-        if(jogoAcabado() == 2) {
+        if (jogoAcabado() == 2) {
             //ordenar por posicao
             for (int i = 0; i < jogadores.size(); i++) {
 
@@ -438,7 +439,7 @@ public class GameManager {
             ordenarJogadoresPorID();
         }
 
-        if(jogoAcabado() == 0){
+        if (jogoAcabado() == 0) {
             return null;
         }
 
@@ -463,8 +464,7 @@ public class GameManager {
                 String nomeEspecie = jogadores.get(j).buscarNomeEspecie();
                 int posicaoNoMapa = jogadores.get(j).buscarPosicaoAtual();
                 String res = "#" + posicaoChegada + " " + nomeJogador + ", " + nomeEspecie + ", " + posicaoNoMapa +
-                        ", " + jogadores.get(j).buscarPosicaoPercorrida() + ", " + jogadores.get(j).buscarSomarComida()
-                        ;
+                        ", " + jogadores.get(j).buscarPosicaoPercorrida() + ", " + jogadores.get(j).buscarSomarComida();
                 resultado.add(res);
                 posicaoChegada += 1;
             }
@@ -501,34 +501,44 @@ public class GameManager {
 
         try (BufferedWriter buff = new BufferedWriter(new FileWriter(file));) {
 
-            if (file.createNewFile()) {
+            // generic parameters
 
-                // generic parameters
-
-                buff.write(nrCasasMapa + "\n");
-                buff.write(turno + "\n");
+            buff.write(nrCasasMapa + "\n");
+            buff.write(turno + "\n");
 
 
-                buff.write("JOGADORES" + "\n");
+            // buff.write("JOGADORES" + "\n");
 
-                // jogadores
 
-                for (Jogador jogador : jogadores) {
+            // jogadores
 
-                    buff.write(jogador.id + ":" + jogador.especie.identificador + ":" +
-                            jogador.nome + ":" + jogador.posicaoAtual + ":" + jogador.buscarEnergia() + ":" +
-                            jogador.qtdDeBananasIngeridas
-                            + "\n");
+            for (int i = 0; i < 4; i++) {
+
+                if (!(i < jogadores.size())) {
+                    buff.write("NONE\n");
+
+                } else {
+                    Jogador jogadorAtual = jogadores.get(i);
+
+                    buff.write(jogadorAtual.especie.identificador + ":" + jogadorAtual.id + ":" +
+                            jogadorAtual.nome + ":" + jogadorAtual.posicaoAtual + ":" +
+                            jogadorAtual.buscarEnergia() + ":" + jogadorAtual.qtdDeBananasIngeridas + "\n");
                 }
 
-                buff.write("ALIMENTOS" + "\n");
+            }
 
-                // alimentos
+            //buff.write("ALIMENTOS" + "\n");
 
-                for( Casa casa: mapa.casas){
+            // alimentos
 
-                    buff.write(casa.indexCasa + ":" + casa.tipoCasa + ":" +
-                            casa.imagemCasa + ":" + casa.alimento + "\n");
+            for (Casa casa : mapa.casas) {
+
+                if(casa.alimento == null){
+
+                    buff.write(casa.indexCasa +  ":" + "NONE" + "\n");
+
+                }else{
+                    buff.write(casa.indexCasa + ":" + casa.alimento.identificadorAlimento + "\n");
                 }
 
             }
@@ -553,8 +563,11 @@ public class GameManager {
             nrCasasMapa = Integer.parseInt(scanner.nextLine());
             turno = Integer.parseInt(scanner.nextLine());
 
+            mapa = new MapaJogo(nrCasasMapa);
+
             // TODO
 
+            int countLine = 3;
             String line;
             String[] splited;
 
@@ -562,94 +575,108 @@ public class GameManager {
 
             while (scanner.hasNextLine()) {
 
-                // jogador.id + ":" + jogador.especie.identificador + ":" +
+                // jogador.especie.identificador + ":" + jogador.id + ":" +
                 // jogador.nome + ":" + jogador.posicaoAtual + ":" + jogador.buscarEnergia() + ":" +
                 // jogador.qtdDeBananasIngeridas
 
                 line = scanner.nextLine();
 
-                if ("ALIMENTOS".equals(line)) {
-                    break;
+                System.out.println(line);
+
+                System.out.println(countLine);
+
+                if (countLine >= 3 && countLine <= 6) {
+
+                    if(line.equals("NONE")){
+                        countLine++;
+                        continue;
+                    }
+
+                    splited = line.split(":");
+
+                    System.out.println(Arrays.toString(splited));
+
+
+                    char idEspecie = splited[0].charAt(0);
+
+                    Especie especie = null;
+
+                    if (idEspecie == 'E') {
+                        especie = new Elefante();
+
+                    } else if (idEspecie == 'Z') {
+                        especie = new Tarzan();
+
+                    } else if (idEspecie == 'T') {
+                        especie = new Tartaruga();
+
+                    } else if (idEspecie == 'P') {
+                        especie = new Passaro();
+
+                    } else {
+                        especie = new Leao();
+                    }
+
+                    Jogador jogador = new Jogador(Integer.parseInt(splited[1]), splited[2], especie,
+                            Integer.parseInt(splited[3]));
+
+                    jogador.setEnergia(Integer.parseInt(splited[4]));
+                    jogador.setQtdDeBananasIngeridas(Integer.parseInt(splited[5]));
+
+
+                    jogadores.add(jogador);
+
+                    for(Casa casa : mapa.casas){
+                        for(Jogador jogadorInicial : jogadores){
+                            if(jogadorInicial.buscarPosicaoAtual() == casa.buscarIndexCasa()){
+                                casa.adicionarJogador(jogadorInicial);
+                            }
+                        }
+                    }
+
+                } else{
+
+                    // TODO alimentos
+
+                   // casa.indexCasa + ":" + casa.tipoCasa + ":" +casa.imagemCasa + ":" + casa.especie.idAlimento "\n"
+
+                    splited = line.split(":");
+
+                    char idAlimento = splited[1].charAt(0);
+
+                    Alimento alimento = null;
+
+                    if (idAlimento == 'b') {
+                        alimento = new CachoDeBananas();
+
+                    } else if (idAlimento == 'c') {
+                        alimento = new Carne();
+
+                    } else if (idAlimento == 'm') {
+                        alimento = new CogumelosMagicos();
+
+                    } else if (idAlimento == 'e') {
+                        alimento = new Erva();
+
+                    } else if(idAlimento == 'a') {
+                        alimento = new Agua();
+                    }
+
+                    Casa casa  = mapa.buscarCasa(Integer.parseInt(splited[0]));
+
+                    casa.receberAlimento(alimento);
                 }
 
-                splited = line.split(":");
-
-
-                char idEspecie = splited[1].charAt(0);
-
-                Especie especie = null;
-
-                if (idEspecie == 'E') {
-                    especie = new Elefante();
-
-                } else if (idEspecie == 'Z') {
-                    especie = new Tarzan();
-
-                } else if (idEspecie == 'T') {
-                    especie = new Tartaruga();
-
-                } else if (idEspecie == 'P') {
-                    especie = new Passaro();
-
-                } else {
-                    especie = new Leao();
-                }
-
-                Jogador jogador = new Jogador(Integer.parseInt(splited[0]), splited[2], especie,
-                        Integer.parseInt(splited[3]));
-
-                jogador.setEnergia(Integer.parseInt(splited[4]));
-                jogador.setQtdDeBananasIngeridas(Integer.parseInt(splited[5]));
-
-
-                jogadores.add(jogador);
+                countLine++;
 
             }
 
-            // TODO alimentos
-
-            while (scanner.hasNextLine()) {
-
-                //casa.indexCasa + ":" + casa.tipoCasa + ":" + casa.imagemCasa + ":" + casa.alimento + "\n"
-
-                line = scanner.nextLine();
-
-                splited = line.split(":");
-
-                char idAlimento = splited[0].charAt(0);
-
-                Alimento alimento = null;
-
-                if (idAlimento == 'b') {
-                    alimento = new CachoDeBananas();
-
-                } else if (idAlimento == 'c') {
-                    alimento = new Carne();
-
-                } else if (idAlimento == 'm') {
-                    alimento = new CogumelosMagicos();
-
-                } else if (idAlimento == 'e') {
-                    alimento = new Erva();
-
-                } else {
-                    alimento = new Agua();
-                }
-
-                Casa casa = new Casa(Integer.parseInt(splited[0]),splited[1],splited[2],alimento);;
-
-                mapa.casas.add(casa);
-
-
-
-            }
 
         } catch (IOException io) {
             return false;
         }
 
         return true;
-
     }
 
     // FUNÇÕES AUXILIARES
@@ -692,18 +719,18 @@ public class GameManager {
             return 1;
         }
 
-        for(int j = mapa.tamanhoMapa() - 1 ; j > 0 ; j -- ){
+        for (int j = mapa.tamanhoMapa() - 1; j > 0; j--) {
 
             Casa casa = mapa.buscarCasa(j);
 
-            if(primeiraMaiorPosicao < 0 && casa.buscaNrJogadoresNaCasa() >= 2){
+            if (primeiraMaiorPosicao < 0 && casa.buscaNrJogadoresNaCasa() >= 2) {
                 return 0;
             }
 
-            if(!casa.casaVazia()){
-                if(primeiraMaiorPosicao > 0){
+            if (!casa.casaVazia()) {
+                if (primeiraMaiorPosicao > 0) {
 
-                    if(segundaMaiorPosicao < 0){
+                    if (segundaMaiorPosicao < 0) {
                         segundaMaiorPosicao = j;
                     }
 
@@ -713,7 +740,7 @@ public class GameManager {
             }
         }
 
-        if((primeiraMaiorPosicao - segundaMaiorPosicao) > mapa.tamanhoMapa()/2){
+        if ((primeiraMaiorPosicao - segundaMaiorPosicao) > mapa.tamanhoMapa() / 2) {
             return 2;
         }
         return 0;
