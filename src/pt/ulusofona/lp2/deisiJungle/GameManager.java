@@ -632,27 +632,7 @@ public class GameManager {
 
                     if (idAlimento != 'N') {
 
-                        Alimento alimento = null;
-
-                        if (idAlimento == 'b') {
-                            alimento = new CachoDeBananas();
-                            int nrBananas = Integer.parseInt(splited[3]);
-                            ((CachoDeBananas) alimento).alteraBananas(nrBananas);
-
-                        } else if (idAlimento == 'c') {
-                            alimento = new Carne();
-
-                        } else if (idAlimento == 'm') {
-                            alimento = new CogumelosMagicos();
-                            int nrCogumelos = Integer.parseInt(splited[2]);
-                            ((CogumelosMagicos) alimento).alteraCogumelos(nrCogumelos);
-
-                        } else if (idAlimento == 'e') {
-                            alimento = new Erva();
-
-                        } else if (idAlimento == 'a') {
-                            alimento = new Agua();
-                        }
+                        Alimento alimento = criaAlimento(splited,idAlimento);
 
                         Casa casa = mapa.buscarCasa(Integer.parseInt(splited[0]));
 
@@ -721,6 +701,26 @@ public class GameManager {
             return new Leao();
         }
 
+    }
+
+    public Alimento criaAlimento(String[] splitted, char idAlimento) {
+        Alimento alimento = null;
+        if (idAlimento == 'b') {
+            alimento = new CachoDeBananas();
+            int nrBananas = Integer.parseInt(splitted[3]);
+            ((CachoDeBananas) alimento).alteraBananas(nrBananas);
+        } else if (idAlimento == 'c') {
+            alimento = new Carne();
+        } else if (idAlimento == 'm') {
+            alimento = new CogumelosMagicos();
+            int nrCogumelos = Integer.parseInt(splitted[2]);
+            ((CogumelosMagicos) alimento).alteraCogumelos(nrCogumelos);
+        } else if (idAlimento == 'e') {
+            alimento = new Erva();
+        } else if (idAlimento == 'a') {
+            alimento = new Agua();
+        }
+        return alimento;
     }
 
 
