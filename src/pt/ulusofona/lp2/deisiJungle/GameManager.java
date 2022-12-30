@@ -588,15 +588,8 @@ public class GameManager {
 
             while (scanner.hasNextLine()) {
 
-                // jogador.especie.identificador + ":" + jogador.id + ":" +
-                // jogador.nome + ":" + jogador.posicaoAtual + ":" + jogador.buscarEnergia() + ":" +
-                // jogador.qtdDeBananasIngeridas
-
                 line = scanner.nextLine();
 
-                //System.out.println(line);
-
-                // System.out.println(countLine);
 
                 if (countLine >= 3 && countLine <= 6) {
 
@@ -606,9 +599,6 @@ public class GameManager {
                     }
 
                     splited = line.split(":");
-
-                    //System.out.println(Arrays.toString(splited));
-
 
                     char idEspecie = splited[0].charAt(0);
 
@@ -651,20 +641,11 @@ public class GameManager {
 
                     // TODO alimentos
 
-                    /*
-                      casa.indexCasa + ":" + casa.alimento.identificadorAlimento +
-                      ":" + casa.alimento.buscarEnergiaCogumelo((CogumelosMagicos) casa.alimento) +
-                        ":" + casa.alimento.buscarBananasNoCacho((CachoDeBananas) casa.alimento) + "\n"
-
-                     */
-
                     splited = line.split(":");
 
                     char idAlimento = splited[1].charAt(0);
 
-
                     Alimento alimento = null;
-
 
                     if (idAlimento == 'b') {
                         alimento = new CachoDeBananas();
@@ -710,6 +691,7 @@ public class GameManager {
         mapa = null;
         jogadores = new ArrayList<>();
     }
+
 
     public ArrayList<Jogador> ordenarJogadoresPorID() {
 
