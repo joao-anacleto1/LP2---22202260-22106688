@@ -620,12 +620,13 @@ public class GameManager {
                         especie = new Leao();
                     }
 
+
+                    assert false;
                     Jogador jogador = new Jogador(Integer.parseInt(splited[1]), splited[2], especie,
                             Integer.parseInt(splited[3]));
 
                     jogador.setEnergia(Integer.parseInt(splited[4]));
                     jogador.setQtdDeBananasIngeridas(Integer.parseInt(splited[5]));
-
 
                     jogadores.add(jogador);
 
@@ -636,7 +637,6 @@ public class GameManager {
                             }
                         }
                     }
-
                 } else {
 
                     // TODO alimentos
@@ -646,6 +646,9 @@ public class GameManager {
                     char idAlimento = splited[1].charAt(0);
 
                     Alimento alimento = null;
+
+
+                    /*
 
                     if (idAlimento == 'b') {
                         alimento = new CachoDeBananas();
@@ -667,21 +670,17 @@ public class GameManager {
                         alimento = new Agua();
                     }
 
+                     */
+
+
                     Casa casa = mapa.buscarCasa(Integer.parseInt(splited[0]));
-
-
-                    casa.receberAlimento(alimento);
+                    casa.receberAlimento(criarAlimento(idAlimento,splited));
                 }
-
                 countLine++;
-
             }
-
-
         } catch (IOException io) {
             return false;
         }
-
         return true;
     }
 
@@ -690,6 +689,28 @@ public class GameManager {
     public void reset() {
         mapa = null;
         jogadores = new ArrayList<>();
+    }
+
+
+    public Alimento criarAlimento(char idAlimento, String[] splited) {
+        if (idAlimento == 'b') {
+            Alimento alimento = new CachoDeBananas();
+            int nrBananas = Integer.parseInt(splited[3]);
+            ((CachoDeBananas) alimento).alteraBananas(nrBananas);
+            return alimento;
+        } else if (idAlimento == 'c') {
+            return new Carne();
+        } else if (idAlimento == 'm') {
+            Alimento alimento = new CogumelosMagicos();
+            int nrCogumelos = Integer.parseInt(splited[2]);
+            ((CogumelosMagicos) alimento).alteraCogumelos(nrCogumelos);
+            return alimento;
+        } else if (idAlimento == 'e') {
+            return new Erva();
+        } else if (idAlimento == 'a') {
+            return new Agua();
+        }
+        return null;
     }
 
 
