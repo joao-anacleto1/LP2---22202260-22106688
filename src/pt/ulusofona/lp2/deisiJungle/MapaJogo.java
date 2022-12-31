@@ -19,20 +19,20 @@ public class MapaJogo {
 
             Casa novaCasa;
             if (j == tamanho - 1) {
-                novaCasa = new Casa(j + 1, "Meta", "finish.png",null);
+                novaCasa = new Casa(j + 1, "Meta", "finish.png", null);
             } else {
-                novaCasa = new Casa(j + 1, "Vazio", "blank.png",null);
+                novaCasa = new Casa(j + 1, "Vazio", "blank.png", null);
             }
             mapa.add(novaCasa);
         }
         return mapa;
     }
 
-    ArrayList<Casa> buscarCasas(){
+    ArrayList<Casa> buscarCasas() {
         return this.casas;
     }
 
-    int tamanhoMapa(){
+    int buscarTamanhoMapa() {
         return casas.size();
     }
 
@@ -72,7 +72,7 @@ public class MapaJogo {
     }
 
 
-    void adicionaJogadorInicio(Jogador jogador){
+    void adicionaJogadorInicio(Jogador jogador) {
         casas.get(0).adicionarJogador(jogador);
     }
 

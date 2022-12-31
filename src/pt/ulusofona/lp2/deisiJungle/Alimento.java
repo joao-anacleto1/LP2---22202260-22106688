@@ -8,32 +8,36 @@ public abstract class Alimento {
     protected String tooltip;
 
 
-    public Alimento() {}
+    public Alimento() {
+    }
 
 
-    char buscarIdentificadorAlimento(){
+    char buscarIdentificadorAlimento() {
         return this.identificadorAlimento;
     }
 
-    String buscarNomeAlimento(){return this.nomeAlimento;}
+    String buscarNomeAlimento() {
+        return this.nomeAlimento;
+    }
 
-    String buscarImagem(){return this.imagem;}
+    String buscarImagem() {
+        return this.imagem;
+    }
 
-    String buscarTooltip(){
+    String buscarTooltip() {
         return this.tooltip;
     }
 
-    public int buscarEnergiaCogumelo(CogumelosMagicos cogumelo){
+    public int buscarEnergiaCogumelo(CogumelosMagicos cogumelo) {
         return cogumelo.buscarNrCogumelo();
     }
 
-    public int buscarBananasNoCacho(CachoDeBananas banana){
+    public int buscarBananasNoCacho(CachoDeBananas banana) {
         return banana.buscarBananas();
     }
 
 
-
-    public String[] buscaInfo(){
+    public String[] buscaInfo() {
 
         String[] informacoesAlimentos = new String[3];
 

@@ -3,15 +3,11 @@ package pt.ulusofona.lp2.deisiJungle;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
 import java.util.Scanner;
 
 
 public class GameManager {
-
 
     Especie elefante = new Elefante();
     Especie leao = new Leao();
@@ -154,13 +150,11 @@ public class GameManager {
         jogadores = ordenarJogadoresPorID();
 
         mapa = new MapaJogo(jungleSize);
-        for (int i = 0; i < jogadores.size(); i++) {
-            mapa.adicionaJogadorInicio(jogadores.get(i));
+        for (Jogador jogador : jogadores) {
+            mapa.adicionaJogadorInicio(jogador);
         }
 
-        InitializationError resultadoAlimentos = verificacaoAlimentos(jungleSize, mapa, foodsInfo);
-
-        return resultadoAlimentos;
+        return verificacaoAlimentos(jungleSize, mapa, foodsInfo);
     }
 
     //DONE
@@ -287,12 +281,13 @@ public class GameManager {
         } else {
             for (Jogador j : jogadores) {
                 j.buscarId();
-                if (j.id == playerId) {
-                    resultado[0] = String.valueOf(j.id);
+                if (j.buscarId() == playerId) {
+                    resultado[0] = String.valueOf(j.buscarId());
                     resultado[1] = j.buscarNomeJogador();
-                    resultado[2] = String.valueOf(j.especie.buscarIdentificador());
+                    resultado[2] = String.valueOf(j.buscarEspecie().buscarIdentificador());
                     resultado[3] = String.valueOf(j.buscarEnergia());
-                    resultado[4] = "" + j.especie.buscarVelocidadeMinima() + ".." + j.especie.buscarVelocidadeMaxima();
+                    resultado[4] = "" + j.buscarEspecie().buscarVelocidadeMinima() + ".." +
+                            j.buscarEspecie().buscarVelocidadeMaxima();
                 }
             }
             return resultado;
@@ -304,12 +299,12 @@ public class GameManager {
         Jogador jogadorAtual = jogadores.get(turno % jogadores.size());
         String[] resultado = new String[5];
 
-        resultado[0] = String.valueOf(jogadorAtual.id);
+        resultado[0] = String.valueOf(jogadorAtual.buscarId());
         resultado[1] = jogadorAtual.buscarNomeJogador();
-        resultado[2] = String.valueOf(jogadorAtual.especie.buscarIdentificador());
+        resultado[2] = String.valueOf(jogadorAtual.buscarEspecie().buscarIdentificador());
         resultado[3] = String.valueOf(jogadorAtual.buscarEnergia());
-        resultado[4] = "" + jogadorAtual.especie.buscarVelocidadeMinima() + ".." +
-                jogadorAtual.especie.buscarVelocidadeMaxima();
+        resultado[4] = "" + jogadorAtual.buscarEspecie().buscarVelocidadeMinima() + ".." +
+                jogadorAtual.buscarEspecie().buscarVelocidadeMaxima();
 
         return resultado;
 
@@ -317,15 +312,15 @@ public class GameManager {
 
     int buscarJogadorAtualID() {
         Jogador jogadorAtual = jogadores.get(turno % jogadores.size());
-        return jogadorAtual.id;
+        return jogadorAtual.buscarId();
     }
 
-    //DONE -  AINDA NAO ESTA A PASSAR
+    //DONE
     public String[] getCurrentPlayerEnergyInfo(int nrPositions) {
         Jogador jogadorAtual = jogadores.get(turno % jogadores.size());
 
-        return new String[]{String.valueOf(jogadorAtual.especie.buscarConsumoEnergia() * Math.abs(nrPositions)),
-                String.valueOf(jogadorAtual.especie.buscarGanhoEnergiaEmDescanso())};
+        return new String[]{String.valueOf(jogadorAtual.buscarEspecie().buscarConsumoEnergia() * Math.abs(nrPositions)),
+                String.valueOf(jogadorAtual.buscarEspecie().buscarGanhoEnergiaEmDescanso())};
     }
 
     //DONE
@@ -336,19 +331,19 @@ public class GameManager {
             return null;
         } else {
             for (int i = 0; i < jogadores.size(); i++) {
-                resultado[i][0] = String.valueOf(jogadores.get(i).id);
-                resultado[i][1] = jogadores.get(i).nome;
-                resultado[i][2] = String.valueOf(jogadores.get(i).especie.buscarIdentificador());
+                resultado[i][0] = String.valueOf(jogadores.get(i).buscarId());
+                resultado[i][1] = jogadores.get(i).buscarNome();
+                resultado[i][2] = String.valueOf(jogadores.get(i).buscarEspecie().buscarIdentificador());
                 resultado[i][3] = String.valueOf(jogadores.get(i).buscarEnergia());
-                resultado[i][4] = "" + jogadores.get(i).especie.buscarVelocidadeMinima() + ".." +
-                        jogadores.get(i).especie.buscarVelocidadeMaxima();
+                resultado[i][4] = "" + jogadores.get(i).buscarEspecie().buscarVelocidadeMinima() + ".." +
+                        jogadores.get(i).buscarEspecie().buscarVelocidadeMaxima();
             }
         }
 
         return resultado;
     }
 
-    //DONE - ver caught food e valid movement
+    //DONE
     public MovementResult moveCurrentPlayer(int nrSquares, boolean bypassValidations) {
 
         Jogador jogadorAtual = jogadores.get((turno++ % jogadores.size()));
@@ -358,17 +353,17 @@ public class GameManager {
         if (!bypassValidations && (nrSquares < -6 || nrSquares > 6)) {
             return new MovementResult(MovementResultCode.INVALID_MOVEMENT, null);
         }
-        if (jogadorAtual.posicaoAtual + nrSquares < 1) {
+        if (jogadorAtual.buscarPosicaoAtual() + nrSquares < 1) {
             return new MovementResult(MovementResultCode.INVALID_MOVEMENT, null);
         }
 
-        Casa casaAntiga = this.mapa.buscarCasa(jogadorAtual.posicaoAtual);
+        Casa casaAntiga = this.mapa.buscarCasa(jogadorAtual.buscarPosicaoAtual());
 
         //ACAO DE MOVIMENTO
         if (nrSquares == 0) {
             jogadorAtual.ficar();
         } else {
-            MovementResultCode movementResultCode = jogadorAtual.mover(nrSquares,!bypassValidations);
+            MovementResultCode movementResultCode = jogadorAtual.mover(nrSquares, !bypassValidations);
 
             if (movementResultCode == MovementResultCode.NO_ENERGY) {
                 return new MovementResult(MovementResultCode.NO_ENERGY, null);
@@ -380,19 +375,20 @@ public class GameManager {
         }
 
         //GARANTIR QUE O JOGADOR NAO VAI SE MOVER PARA FORA DO MAPA
-        if (jogadorAtual.posicaoAtual > mapa.tamanhoMapa()) {
-            jogadorAtual.posicaoAtual = mapa.tamanhoMapa();
+        if (jogadorAtual.buscarPosicaoAtual() > mapa.buscarTamanhoMapa()) {
+            jogadorAtual.setPosicaoAtual(mapa.buscarTamanhoMapa());
         }
 
-        Casa casaAtualDoJogador = this.mapa.buscarCasa(jogadorAtual.posicaoAtual);
-        if (casaAntiga.indexCasa != casaAtualDoJogador.indexCasa) {
+        Casa casaAtualDoJogador = this.mapa.buscarCasa(jogadorAtual.buscarPosicaoAtual());
+        if (casaAntiga.buscarIndexCasa() != casaAtualDoJogador.buscarIndexCasa()) {
             casaAntiga.removerJogador(jogadorAtual);
             casaAtualDoJogador.adicionarJogador(jogadorAtual);
         }
 
-        if (casaAtualDoJogador.alimento != null && jogadorAtual.consumirAlimento(casaAtualDoJogador.alimento, turno)) {
+        if (casaAtualDoJogador.buscarAlimento() != null &&
+                jogadorAtual.consumirAlimento(casaAtualDoJogador.buscarAlimento(), turno)) {
             return new MovementResult(MovementResultCode.CAUGHT_FOOD,
-                    "Apanhou " + casaAtualDoJogador.alimento.buscarNomeAlimento());
+                    "Apanhou " + casaAtualDoJogador.buscarAlimento().buscarNomeAlimento());
         } else {
             return new MovementResult(MovementResultCode.VALID_MOVEMENT, null);
         }
@@ -443,11 +439,12 @@ public class GameManager {
             return null;
         }
 
-        resultado[0] = String.valueOf(jogador.id);
-        resultado[1] = jogador.nome;
-        resultado[2] = String.valueOf(jogador.especie.buscarIdentificador());
+        resultado[0] = String.valueOf(jogador.buscarId());
+        resultado[1] = jogador.buscarNome();
+        resultado[2] = String.valueOf(jogador.buscarEspecie().buscarIdentificador());
         resultado[3] = String.valueOf(jogador.buscarEnergia());
-        resultado[4] = "" + jogador.especie.buscarVelocidadeMinima() + ".." + jogador.especie.buscarVelocidadeMaxima();
+        resultado[4] = "" + jogador.buscarEspecie().buscarVelocidadeMinima() + ".." +
+                jogador.buscarEspecie().buscarVelocidadeMaxima();
         return resultado;
     }
 
@@ -456,15 +453,15 @@ public class GameManager {
         ArrayList<String> resultado = new ArrayList<>();
         int posicaoChegada = 1;
 
-        for (int i = mapa.tamanhoMapa(); i > 0; i--) {
+        for (int i = mapa.buscarTamanhoMapa(); i > 0; i--) {
             ArrayList<Jogador> jogadores = mapa.buscarCasa(i).ordernarIds();
 
-            for (int j = 0; j < jogadores.size(); j++) {
-                String nomeJogador = jogadores.get(j).buscarNomeJogador();
-                String nomeEspecie = jogadores.get(j).buscarNomeEspecie();
-                int posicaoNoMapa = jogadores.get(j).buscarPosicaoAtual();
+            for (Jogador jogadore : jogadores) {
+                String nomeJogador = jogadore.buscarNomeJogador();
+                String nomeEspecie = jogadore.buscarNomeEspecie();
+                int posicaoNoMapa = jogadore.buscarPosicaoAtual();
                 String res = "#" + posicaoChegada + " " + nomeJogador + ", " + nomeEspecie + ", " + posicaoNoMapa +
-                        ", " + jogadores.get(j).buscarPosicaoPercorrida() + ", " + jogadores.get(j).buscarSomarComida();
+                        ", " + jogadore.buscarPosicaoPercorrida() + ", " + jogadore.buscarSomarComida();
                 resultado.add(res);
                 posicaoChegada += 1;
             }
@@ -520,9 +517,9 @@ public class GameManager {
                 } else {
                     Jogador jogadorAtual = jogadores.get(i);
 
-                    buff.write(jogadorAtual.especie.identificador + ":" + jogadorAtual.id + ":" +
-                            jogadorAtual.nome + ":" + jogadorAtual.posicaoAtual + ":" +
-                            jogadorAtual.buscarEnergia() + ":" + jogadorAtual.qtdDeBananasIngeridas + "\n");
+                    buff.write(jogadorAtual.buscarEspecie().buscarIdentificador() + ":" + jogadorAtual.buscarId() +
+                            ":" + jogadorAtual.buscarNomeJogador() + ":" + jogadorAtual.buscarPosicaoAtual() + ":" +
+                            jogadorAtual.buscarEnergia() + ":" + jogadorAtual.buscarQtdDeBananasIngeridas() + "\n");
                 }
 
             }
@@ -533,24 +530,25 @@ public class GameManager {
 
             for (Casa casa : mapa.casas) {
 
-                if (casa.alimento == null) {
+                if (casa.buscarAlimento() == null) {
 
-                    buff.write(casa.indexCasa + ":" + "NONE" + ":" + "NONE" + ":" + "NONE" + "\n");
+                    buff.write(casa.buscarIndexCasa() + ":" + "NONE" + ":" + "NONE" + ":" + "NONE" + "\n");
 
-                } else if (casa.alimento.identificadorAlimento == 'm') {
+                } else if (casa.buscarAlimento().buscarIdentificadorAlimento() == 'm') {
 
-                    buff.write(casa.indexCasa + ":" + casa.alimento.identificadorAlimento +
-                            ":" + casa.alimento.buscarEnergiaCogumelo((CogumelosMagicos) casa.alimento) +
+                    buff.write(casa.buscarIndexCasa() + ":" + casa.buscarAlimento().buscarIdentificadorAlimento() +
+                            ":" + casa.buscarAlimento().buscarEnergiaCogumelo((CogumelosMagicos) casa.buscarAlimento()) +
                             ":" + "NONE" + "\n");
 
-                } else if (casa.alimento.identificadorAlimento == 'b') {
+                } else if (casa.buscarAlimento().buscarIdentificadorAlimento() == 'b') {
 
-                    buff.write(casa.indexCasa + ":" + casa.alimento.identificadorAlimento +
-                            ":" + "NONE" + ":" + casa.alimento.buscarBananasNoCacho((CachoDeBananas) casa.alimento)
+                    buff.write(casa.buscarIndexCasa() + ":" + casa.buscarAlimento().buscarIdentificadorAlimento() +
+                            ":" + "NONE" + ":" +
+                            casa.buscarAlimento().buscarBananasNoCacho((CachoDeBananas) casa.buscarAlimento())
                             + "\n");
 
                 } else {
-                    buff.write(casa.indexCasa + ":" + casa.alimento.identificadorAlimento +
+                    buff.write(casa.buscarIndexCasa() + ":" + casa.buscarAlimento().buscarIdentificadorAlimento() +
                             ":" + "NONE" + ":" + "NONE" + "\n");
                 }
 
@@ -602,7 +600,7 @@ public class GameManager {
 
                     char idEspecie = splited[0].charAt(0);
 
-                    Especie especie = auxiliarEspecie(idEspecie);
+                    Especie especie = criaEspecie(idEspecie);
 
 
                     Jogador jogador = new Jogador(Integer.parseInt(splited[1]), splited[2], especie,
@@ -632,7 +630,7 @@ public class GameManager {
 
                     if (idAlimento != 'N') {
 
-                        Alimento alimento = criaAlimento(splited,idAlimento);
+                        Alimento alimento = criaAlimento(splited, idAlimento);
 
                         Casa casa = mapa.buscarCasa(Integer.parseInt(splited[0]));
 
@@ -659,7 +657,6 @@ public class GameManager {
         jogadores = new ArrayList<>();
     }
 
-
     public ArrayList<Jogador> ordenarJogadoresPorID() {
 
         ArrayList<Jogador> resultado = jogadores;
@@ -683,7 +680,7 @@ public class GameManager {
         return resultado;
     }
 
-    Especie auxiliarEspecie(char idEspecie ){
+    Especie criaEspecie(char idEspecie) {
 
         if (idEspecie == 'E') {
             return new Elefante();
@@ -707,22 +704,29 @@ public class GameManager {
         Alimento alimento = null;
         if (idAlimento == 'b') {
             alimento = new CachoDeBananas();
+
             int nrBananas = Integer.parseInt(splitted[3]);
+
             ((CachoDeBananas) alimento).alteraBananas(nrBananas);
+
         } else if (idAlimento == 'c') {
             alimento = new Carne();
+
         } else if (idAlimento == 'm') {
             alimento = new CogumelosMagicos();
+
             int nrCogumelos = Integer.parseInt(splitted[2]);
+
             ((CogumelosMagicos) alimento).alteraCogumelos(nrCogumelos);
+
         } else if (idAlimento == 'e') {
             alimento = new Erva();
+
         } else if (idAlimento == 'a') {
             alimento = new Agua();
         }
         return alimento;
     }
-
 
     int jogoAcabado() {
 
@@ -733,7 +737,7 @@ public class GameManager {
             return 1;
         }
 
-        for (int j = mapa.tamanhoMapa() - 1; j > 0; j--) {
+        for (int j = mapa.buscarTamanhoMapa() - 1; j > 0; j--) {
 
             Casa casa = mapa.buscarCasa(j);
 
@@ -754,7 +758,7 @@ public class GameManager {
             }
         }
 
-        if ((primeiraMaiorPosicao - segundaMaiorPosicao) > mapa.tamanhoMapa() / 2) {
+        if ((primeiraMaiorPosicao - segundaMaiorPosicao) > mapa.buscarTamanhoMapa() / 2) {
             return 2;
         }
         return 0;

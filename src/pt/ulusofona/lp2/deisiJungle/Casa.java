@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class Casa {
 
-    int indexCasa;
-    String tipoCasa;
-    String imagemCasa;
-    ArrayList<Jogador> jogadores = new ArrayList<>();
-    Alimento alimento;
+    private int indexCasa;
+    private String tipoCasa;
+    private String imagemCasa;
+    private ArrayList<Jogador> jogadores = new ArrayList<>();
+    private Alimento alimento;
 
     public Casa(int indexCasa, String tipoCasa, String imagemCasa, Alimento alimento) {
         this.indexCasa = indexCasa;
@@ -17,8 +17,24 @@ public class Casa {
         this.alimento = alimento;
     }
 
-    public void receberAlimento(Alimento a){
-        if(a != null){
+    public int buscarIndexCasa() {
+        return indexCasa;
+    }
+
+    public String buscarImagemCasa() {
+        return imagemCasa;
+    }
+
+    public ArrayList<Jogador> buscarJogadores() {
+        return jogadores;
+    }
+
+    public Alimento buscarAlimento() {
+        return alimento;
+    }
+
+    public void receberAlimento(Alimento a) {
+        if (a != null) {
             this.alimento = a;
             this.tipoCasa = a.buscarTooltip();
             this.imagemCasa = a.buscarImagem();
@@ -50,18 +66,15 @@ public class Casa {
     int[] buscaJogadoresIds() {
         int[] ids = new int[jogadores.size()];
         for (int l = 0; l < jogadores.size(); l++) {
-            ids[l] = jogadores.get(l).id;
+            ids[l] = jogadores.get(l).buscarId();
         }
         return ids;
     }
 
-    int buscarIndexCasa() {
-        return indexCasa;
-    }
 
     String buscarTipoCasa(int turno) {
-        if(alimento != null){
-            if(alimento.buscarIdentificadorAlimento() == 'c'){
+        if (alimento != null) {
+            if (alimento.buscarIdentificadorAlimento() == 'c') {
                 Carne carne = (Carne) alimento;
                 carne.insereTooltipCarne(turno);
             }
@@ -70,9 +83,6 @@ public class Casa {
         return this.tipoCasa;
     }
 
-    String buscarImagemCasa() {
-        return this.imagemCasa;
-    }
 
     ArrayList<Integer> buscaIds() {
         ArrayList<Integer> guardarIds = new ArrayList<>();
@@ -94,7 +104,7 @@ public class Casa {
         return resultado;
     }
 
-    int buscaNrJogadoresNaCasa(){
+    int buscaNrJogadoresNaCasa() {
         return jogadores.size();
     }
 

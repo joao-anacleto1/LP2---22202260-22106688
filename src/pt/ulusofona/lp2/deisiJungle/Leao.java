@@ -16,16 +16,16 @@ class Leao extends Especie {
 
     @Override
     public boolean eHerbivoro() {
-       return false;
+        return false;
     }
 
     @Override
     public boolean eCarnivoro() {
-       return true;
+        return true;
     }
 
     @Override
     public boolean eOmnivoro() {
-       return false;
+        return false;
     }
 }

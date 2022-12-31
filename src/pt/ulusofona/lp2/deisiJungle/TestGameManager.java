@@ -91,7 +91,7 @@ public class TestGameManager {
         playersinfo[1][1] = "Luiza";
         playersinfo[1][2] = "L";
 
-        String[][] foodsInfo =  new String[2][2];
+        String[][] foodsInfo = new String[2][2];
 
         foodsInfo[0][0] = "c";
         foodsInfo[0][1] = "6";
@@ -99,24 +99,24 @@ public class TestGameManager {
         foodsInfo[1][0] = "b";
         foodsInfo[1][1] = "5";
 
-        jogo.createInitialJungle(30,playersinfo,foodsInfo);
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
         int idCurrentPlayerEsperado = 2;
         int idCurrentPlayerObtido = jogo.buscarJogadorAtualID();
 
-        Assert.assertEquals(idCurrentPlayerEsperado,idCurrentPlayerObtido);
+        Assert.assertEquals(idCurrentPlayerEsperado, idCurrentPlayerObtido);
 
-        MovementResult move = jogo.moveCurrentPlayer(-8,false);
+        MovementResult move = jogo.moveCurrentPlayer(-8, false);
         Assert.assertEquals(MovementResultCode.INVALID_MOVEMENT, move.code());
 
-        move = jogo.moveCurrentPlayer(-2,false);
+        move = jogo.moveCurrentPlayer(-2, false);
         Assert.assertEquals(MovementResultCode.INVALID_MOVEMENT, move.code());
 
-        move = jogo.moveCurrentPlayer(5,false);
-        Assert.assertEquals(MovementResultCode.CAUGHT_FOOD,move.code());
+        move = jogo.moveCurrentPlayer(5, false);
+        Assert.assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        move = jogo.moveCurrentPlayer(0,false);
-        Assert.assertEquals(MovementResultCode.VALID_MOVEMENT,move.code());
+        move = jogo.moveCurrentPlayer(0, false);
+        Assert.assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
 
     }
 
@@ -137,47 +137,47 @@ public class TestGameManager {
         playersinfo[1][2] = "L";
         playersinfo[1][3] = "80";
 
-        String[][] foodsInfo =  new String[1][2];
+        String[][] foodsInfo = new String[1][2];
 
         foodsInfo[0][0] = "a";
         foodsInfo[0][1] = "4";
 
-        jogo.createInitialJungle(30,playersinfo,foodsInfo);
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
         int idCurrentPlayerEsperado = 1;
         int idCurrentPlayerObtido = jogo.buscarJogadorAtualID();
 
         int energiaEsperada = 70;
-        int energiaObtida =  jogo.jogadores.get(0).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        int energiaObtida = jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada, energiaObtida);
 
-        Assert.assertEquals(idCurrentPlayerEsperado,idCurrentPlayerObtido);
+        Assert.assertEquals(idCurrentPlayerEsperado, idCurrentPlayerObtido);
 
-        MovementResult move = jogo.moveCurrentPlayer(3,false);
+        MovementResult move = jogo.moveCurrentPlayer(3, false);
         Assert.assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
         energiaEsperada = 76;
-        energiaObtida =  jogo.jogadores.get(0).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        energiaObtida = jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada, energiaObtida);
 
 
-        move = jogo.moveCurrentPlayer(5,false);
-        Assert.assertEquals(MovementResultCode.VALID_MOVEMENT,move.code());
+        move = jogo.moveCurrentPlayer(5, false);
+        Assert.assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
 
         energiaEsperada = 70;
-        energiaObtida =  jogo.jogadores.get(1).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        energiaObtida = jogo.jogadores.get(1).buscarEnergia();
+        assertEquals(energiaEsperada, energiaObtida);
 
-        move = jogo.moveCurrentPlayer(0,false);
-        Assert.assertEquals(MovementResultCode.CAUGHT_FOOD,move.code());
+        move = jogo.moveCurrentPlayer(0, false);
+        Assert.assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        move = jogo.moveCurrentPlayer(4,false);
-        Assert.assertEquals(MovementResultCode.VALID_MOVEMENT,move.code());
+        move = jogo.moveCurrentPlayer(4, false);
+        Assert.assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
 
     }
 
     @Test
-    public void test_07_moveCurrentPlayer_HerbivorosAndOmnivorosEatGrass(){
+    public void test_07_moveCurrentPlayer_HerbivorosAndOmnivorosEatGrass() {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -194,36 +194,36 @@ public class TestGameManager {
         playersinfo[1][3] = "180";
 
 
-        String[][] foodsInfo =  new String[1][2];
+        String[][] foodsInfo = new String[1][2];
 
         foodsInfo[0][0] = "e";
         foodsInfo[0][1] = "4";
 
 
-        jogo.createInitialJungle(30,playersinfo,foodsInfo);
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
         int energiaEsperada = 70;
-        int energiaObtida =  jogo.jogadores.get(0).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        int energiaObtida = jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada, energiaObtida);
 
-        MovementResult move = jogo.moveCurrentPlayer(3,false);
+        MovementResult move = jogo.moveCurrentPlayer(3, false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = (70 - (2*3)) + 20;
+        energiaEsperada = (70 - (2 * 3)) + 20;
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        assertEquals(energiaEsperada, energiaObtida);
 
-        move = jogo.moveCurrentPlayer(3,false);
+        move = jogo.moveCurrentPlayer(3, false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = (180 - (4*3) + 20);
+        energiaEsperada = (180 - (4 * 3) + 20);
         energiaObtida = jogo.jogadores.get(1).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        assertEquals(energiaEsperada, energiaObtida);
 
     }
 
     @Test
-    public void test_08_moveCurrentPlayer_CarnivorosEatGrass(){
+    public void test_08_moveCurrentPlayer_CarnivorosEatGrass() {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -240,28 +240,28 @@ public class TestGameManager {
         playersinfo[1][3] = "80";
 
 
-        String[][] foodsInfo =  new String[1][2];
+        String[][] foodsInfo = new String[1][2];
 
         foodsInfo[0][0] = "e";
         foodsInfo[0][1] = "5";
 
 
-        jogo.createInitialJungle(30,playersinfo,foodsInfo);
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
         int energiaEsperada = 80;
-        int energiaObtida =  jogo.jogadores.get(0).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        int energiaObtida = jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada, energiaObtida);
 
-        MovementResult move = jogo.moveCurrentPlayer(4,false);
+        MovementResult move = jogo.moveCurrentPlayer(4, false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = (80 - (2*4)) - 20;
+        energiaEsperada = (80 - (2 * 4)) - 20;
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        assertEquals(energiaEsperada, energiaObtida);
     }
 
     @Test
-    public void test_09_moveCurrentPlayer_CarnivorosAndHerbivorosDrinkWater(){
+    public void test_09_moveCurrentPlayer_CarnivorosAndHerbivorosDrinkWater() {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -278,35 +278,35 @@ public class TestGameManager {
         playersinfo[1][3] = "180";
 
 
-        String[][] foodsInfo =  new String[1][2];
+        String[][] foodsInfo = new String[1][2];
 
         foodsInfo[0][0] = "a";
         foodsInfo[0][1] = "5";
 
 
-        jogo.createInitialJungle(30,playersinfo,foodsInfo);
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
         int energiaEsperada = 80;
-        int energiaObtida =  jogo.jogadores.get(0).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        int energiaObtida = jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada, energiaObtida);
 
-        MovementResult move = jogo.moveCurrentPlayer(4,false);
+        MovementResult move = jogo.moveCurrentPlayer(4, false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = (80 - (2*4)) + 15;
+        energiaEsperada = (80 - (2 * 4)) + 15;
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        assertEquals(energiaEsperada, energiaObtida);
 
-        move = jogo.moveCurrentPlayer(4,false);
-        assertEquals(MovementResultCode.CAUGHT_FOOD,move.code());
+        move = jogo.moveCurrentPlayer(4, false);
+        assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = (180 - (4*4)) + 15;
+        energiaEsperada = (180 - (4 * 4)) + 15;
         energiaObtida = jogo.jogadores.get(1).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        assertEquals(energiaEsperada, energiaObtida);
     }
 
     @Test
-    public void test_10_moveCurrentPlayer_OmnivorosDrinkWater(){
+    public void test_10_moveCurrentPlayer_OmnivorosDrinkWater() {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -323,29 +323,29 @@ public class TestGameManager {
         playersinfo[1][3] = "70";
 
 
-        String[][] foodsInfo =  new String[1][2];
+        String[][] foodsInfo = new String[1][2];
 
         foodsInfo[0][0] = "a";
         foodsInfo[0][1] = "4";
 
 
-        jogo.createInitialJungle(30,playersinfo,foodsInfo);
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
         int energiaEsperada = 70;
-        int energiaObtida =  jogo.jogadores.get(0).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        int energiaObtida = jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada, energiaObtida);
 
-        MovementResult move = jogo.moveCurrentPlayer(3,false);
+        MovementResult move = jogo.moveCurrentPlayer(3, false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = (int) ((70 - (2*3)) + ((70 - (2*3)) * 0.20));
+        energiaEsperada = (int) ((70 - (2 * 3)) + ((70 - (2 * 3)) * 0.20));
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        assertEquals(energiaEsperada, energiaObtida);
 
     }
 
     @Test
-    public void test_11_moveCurrentPlayer_EatBananas_LastPlayerDontEatBecauseDontHaveMoreBananasInBunchAndInvalidMov(){
+    public void test_11_moveCurrentPlayer_EatBananas_LastPlayerDontEatBecauseDontHaveMoreBananasInBunchAndInvalidMov() {
 
         GameManager jogo = new GameManager();
         jogo.reset();
@@ -373,51 +373,51 @@ public class TestGameManager {
         playersinfo[3][3] = "70";
 
 
-        String[][] foodsInfo =  new String[1][2];
+        String[][] foodsInfo = new String[1][2];
 
         foodsInfo[0][0] = "b";
         foodsInfo[0][1] = "6";
 
 
-        jogo.createInitialJungle(30,playersinfo,foodsInfo);
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
         int energiaEsperada = 80;
-        int energiaObtida =  jogo.jogadores.get(0).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        int energiaObtida = jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada, energiaObtida);
 
-        MovementResult move = jogo.moveCurrentPlayer(5,false);
+        MovementResult move = jogo.moveCurrentPlayer(5, false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = (80 - (2*5) + 40);
+        energiaEsperada = (80 - (2 * 5) + 40);
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        assertEquals(energiaEsperada, energiaObtida);
 
-        move = jogo.moveCurrentPlayer(5,false);
+        move = jogo.moveCurrentPlayer(5, false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
         energiaEsperada = 200; //200 porque (180 - (4*3)) + 40 ultrapassa os 200 e o maxEnergia = 200
         energiaObtida = jogo.jogadores.get(1).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        assertEquals(energiaEsperada, energiaObtida);
 
-        move = jogo.moveCurrentPlayer(5,false);
-        assertEquals(MovementResultCode.CAUGHT_FOOD,move.code());
+        move = jogo.moveCurrentPlayer(5, false);
+        assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = (70 - (2*5)) + 40;
+        energiaEsperada = (70 - (2 * 5)) + 40;
         energiaObtida = jogo.jogadores.get(2).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        assertEquals(energiaEsperada, energiaObtida);
 
-        move = jogo.moveCurrentPlayer(5,false);
-        assertEquals(MovementResultCode.CAUGHT_FOOD,move.code());
+        move = jogo.moveCurrentPlayer(5, false);
+        assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
         //INVALID_MOVEMENT pq o passaro só pode andar 5 a 6 squares,por causa da velocidade min e max, deste modo
         //o movimento é invalido
 
-        energiaEsperada = (70 - (4*5)); //JA NAO EXISTEM MAIS BANANAS NO CACHO!
+        energiaEsperada = (70 - (4 * 5)); //JA NAO EXISTEM MAIS BANANAS NO CACHO!
         energiaObtida = jogo.jogadores.get(3).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        assertEquals(energiaEsperada, energiaObtida);
     }
 
     @Test
-    public void test_12_moveCurrentPlayer_EatBananas_LastPlayerDontEatBecauseDontHaveMoreBananasInBunchAndCaughtFood(){
+    public void test_12_moveCurrentPlayer_EatBananas_LastPlayerDontEatBecauseDontHaveMoreBananasInBunchAndCaughtFood() {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -444,50 +444,50 @@ public class TestGameManager {
         playersinfo[3][3] = "70";
 
 
-        String[][] foodsInfo =  new String[1][2];
+        String[][] foodsInfo = new String[1][2];
 
         foodsInfo[0][0] = "b";
         foodsInfo[0][1] = "6";
 
 
-        jogo.createInitialJungle(30,playersinfo,foodsInfo);
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
         int energiaEsperada = 80;
-        int energiaObtida =  jogo.jogadores.get(0).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        int energiaObtida = jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada, energiaObtida);
 
-        MovementResult move = jogo.moveCurrentPlayer(5,false);
+        MovementResult move = jogo.moveCurrentPlayer(5, false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = (80 - (2*5) + 40);
+        energiaEsperada = (80 - (2 * 5) + 40);
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        assertEquals(energiaEsperada, energiaObtida);
 
-        move = jogo.moveCurrentPlayer(5,false);
+        move = jogo.moveCurrentPlayer(5, false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
         energiaEsperada = 200; //200 porque (180 - (4*3)) + 40 ultrapassa os 200 e o maxEnergia = 200
         energiaObtida = jogo.jogadores.get(1).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        assertEquals(energiaEsperada, energiaObtida);
 
-        move = jogo.moveCurrentPlayer(5,false);
-        assertEquals(MovementResultCode.CAUGHT_FOOD,move.code());
+        move = jogo.moveCurrentPlayer(5, false);
+        assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = (70 - (2*5)) + 40;
+        energiaEsperada = (70 - (2 * 5)) + 40;
         energiaObtida = jogo.jogadores.get(2).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        assertEquals(energiaEsperada, energiaObtida);
 
-        move = jogo.moveCurrentPlayer(5,false);
-        assertEquals(MovementResultCode.CAUGHT_FOOD,move.code());
+        move = jogo.moveCurrentPlayer(5, false);
+        assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
 
-        energiaEsperada = (70 - (4*5)); //JA NAO EXISTEM MAIS BANANAS NO CACHO!
+        energiaEsperada = (70 - (4 * 5)); //JA NAO EXISTEM MAIS BANANAS NO CACHO!
         energiaObtida = jogo.jogadores.get(3).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        assertEquals(energiaEsperada, energiaObtida);
     }
 
     @Test
-    public void test_13_moveCurrentPlayer_EatBananas_BananasGastricDifficulties(){
+    public void test_13_moveCurrentPlayer_EatBananas_BananasGastricDifficulties() {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -504,43 +504,43 @@ public class TestGameManager {
         playersinfo[1][3] = "70";
 
 
-        String[][] foodsInfo =  new String[1][2];
+        String[][] foodsInfo = new String[1][2];
 
         foodsInfo[0][0] = "b";
         foodsInfo[0][1] = "5";
 
 
-        jogo.createInitialJungle(30,playersinfo,foodsInfo);
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
         int energiaEsperada = 80;
-        int energiaObtida =  jogo.jogadores.get(0).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        int energiaObtida = jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada, energiaObtida);
 
-        MovementResult move = jogo.moveCurrentPlayer(4,false);
+        MovementResult move = jogo.moveCurrentPlayer(4, false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = (80 - (2*4)) + 40; //= 112
+        energiaEsperada = (80 - (2 * 4)) + 40; //= 112
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        assertEquals(energiaEsperada, energiaObtida);
 
-        move = jogo.moveCurrentPlayer(4,false);
+        move = jogo.moveCurrentPlayer(4, false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = (70 - (2*4)) + 40; //= 102
+        energiaEsperada = (70 - (2 * 4)) + 40; //= 102
         energiaObtida = jogo.jogadores.get(1).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        assertEquals(energiaEsperada, energiaObtida);
 
-        move = jogo.moveCurrentPlayer(0,false);
-        assertEquals(MovementResultCode.CAUGHT_FOOD,move.code());
+        move = jogo.moveCurrentPlayer(0, false);
+        assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
         energiaEsperada = (112 + 10) - 40; //+10 porque ficou em descanso e -40 pq comeu 2 bananas
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        assertEquals(energiaEsperada, energiaObtida);
 
     }
 
     @Test
-    public void test_13_moveCurrentPlayer_MoveWitBypass(){
+    public void test_13_moveCurrentPlayer_MoveWitBypass() {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -557,26 +557,22 @@ public class TestGameManager {
         playersinfo[1][3] = "70";
 
 
-        String[][] foodsInfo =  new String[1][2];
+        String[][] foodsInfo = new String[1][2];
 
         foodsInfo[0][0] = "b";
         foodsInfo[0][1] = "8";
 
-        jogo.createInitialJungle(30,playersinfo,foodsInfo);
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
 
-        MovementResult move = jogo.moveCurrentPlayer(7,true);
+        MovementResult move = jogo.moveCurrentPlayer(7, true);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
-
-
-
-
 
     }
 
 
     @Test
-    public void test_20_moveCurrentPlayer_EatCogumelos(){
+    public void test_20_moveCurrentPlayer_EatCogumelos() {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -593,33 +589,30 @@ public class TestGameManager {
         playersinfo[1][3] = "80";
 
 
-        String[][] foodsInfo =  new String[1][2];
+        String[][] foodsInfo = new String[1][2];
 
         foodsInfo[0][0] = "m";
         foodsInfo[0][1] = "4";
 
 
-        jogo.createInitialJungle(30,playersinfo,foodsInfo);
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
         int energiaEsperada = 70;
-        int energiaObtida =  jogo.jogadores.get(0).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        int energiaObtida = jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada, energiaObtida);
 
-        MovementResult move = jogo.moveCurrentPlayer(3,false);
+        MovementResult move = jogo.moveCurrentPlayer(3, false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        Alimento alimento = jogo.mapa.buscarCasa(4).alimento;
-        int nrRandom = ((CogumelosMagicos)alimento).buscarNrCogumelo();
+        Alimento alimento = jogo.mapa.buscarCasa(4).buscarAlimento();
+        int nrRandom = ((CogumelosMagicos) alimento).buscarNrCogumelo();
 
-        energiaEsperada = (70 - (3*2)) - ((int) ((70 - (3*2)) * (nrRandom / 100.0)));
+        energiaEsperada = (70 - (3 * 2)) - ((int) ((70 - (3 * 2)) * (nrRandom / 100.0)));
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
-        assertEquals(energiaEsperada,energiaObtida);
+        assertEquals(energiaEsperada, energiaObtida);
 
 
     }
-
-
-
 
 
 }

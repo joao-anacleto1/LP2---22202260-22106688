@@ -11,14 +11,14 @@ public class Jogador {
      */
     private static final int MAX_BANANAS = 1;
 
-    int id;
+    private int id;
     private int energia;
-    String nome;
-    Especie especie;
-    int posicaoAtual;
-    int posicaoPercorrida = 0;
-    int somarComida = 0;
-    int qtdDeBananasIngeridas;
+    private String nome;
+    private Especie especie;
+    private int posicaoAtual;
+    private int posicaoPercorrida = 0;
+    private int somarComida = 0;
+    private int qtdDeBananasIngeridas;
 
     public Jogador() {
     }
@@ -30,6 +30,23 @@ public class Jogador {
         this.energia = especie.buscarEnergiaInicial();
         this.posicaoAtual = posicaoAtual;
         this.qtdDeBananasIngeridas = 0;
+    }
+
+    public int buscarId() {
+        return id;
+    }
+
+    public String buscarNome() {
+        return nome;
+    }
+
+    public Especie buscarEspecie() {
+        return especie;
+    }
+
+
+    public int buscarQtdDeBananasIngeridas() {
+        return qtdDeBananasIngeridas;
     }
 
     public int buscarPosicaoPercorrida() {
@@ -71,9 +88,6 @@ public class Jogador {
         return nome.length() > 0;
     }
 
-    int buscarId() {
-        return id;
-    }
 
     int buscarPosicaoAtual() {
         return posicaoAtual;
@@ -81,28 +95,28 @@ public class Jogador {
 
     int buscarEnergia() {
 
-        if(this.energia < 0){
+        if (this.energia < 0) {
             return this.energia * -1;
         }
 
-        if(this.energia > 200) {
+        if (this.energia > 200) {
             return this.energia = 200;
         }
         return this.energia;
     }
 
-    MovementResultCode mover(int nrSquares , boolean verificacao){
+    MovementResultCode mover(int nrSquares, boolean verificacao) {
 
-        if(this.energia < this.especie.consumoEnergia){
+        if (this.energia < this.especie.consumoEnergia) {
             return MovementResultCode.NO_ENERGY;
         }
 
-        if(!(Math.abs(nrSquares) >= especie.buscarVelocidadeMinima() && Math.abs(nrSquares) <=
-                especie.buscarVelocidadeMaxima()) && verificacao){
+        if (!(Math.abs(nrSquares) >= especie.buscarVelocidadeMinima() && Math.abs(nrSquares) <=
+                especie.buscarVelocidadeMaxima()) && verificacao) {
 
             return MovementResultCode.INVALID_MOVEMENT;
 
-        }else{
+        } else {
             this.energia -= especie.consumoEnergia * Math.abs(nrSquares);
             this.posicaoAtual += nrSquares;
             this.posicaoPercorrida += Math.abs(nrSquares);
@@ -112,9 +126,9 @@ public class Jogador {
 
     }
 
-    void ficar(){
+    void ficar() {
         this.energia += this.especie.buscarGanhoEnergiaEmDescanso();
-        if (this.energia > 200){
+        if (this.energia > 200) {
             this.energia = 200;
         }
     }
@@ -127,11 +141,11 @@ public class Jogador {
         this.posicaoAtual = casaPretendida;
     }
 
-    String buscarNomeJogador(){
+    String buscarNomeJogador() {
         return this.nome;
     }
 
-    String buscarNomeEspecie(){
+    String buscarNomeEspecie() {
         return especie.buscarNome();
     }
 
@@ -139,7 +153,7 @@ public class Jogador {
 
         switch (a.buscarIdentificadorAlimento()) {
             case 'c':
-                if (especie.eCarnivoro() || especie.eOmnivoro()){
+                if (especie.eCarnivoro() || especie.eOmnivoro()) {
                     ingereCarne(turno);
                     this.somarComida++;
                     return true;
@@ -167,10 +181,10 @@ public class Jogador {
         }
     }
 
-    void ingereErva(){
+    void ingereErva() {
 
-        if(especie.eHerbivoro() || especie.eOmnivoro()){
-            if (this.energia > 200){
+        if (especie.eHerbivoro() || especie.eOmnivoro()) {
+            if (this.energia > 200) {
                 this.energia = 200;
             }
             this.energia += 20;
@@ -180,10 +194,10 @@ public class Jogador {
 
     }
 
-    void ingereAgua(){
+    void ingereAgua() {
 
-        if(especie.eCarnivoro() || especie.eHerbivoro()){
-            if (this.energia > 200){
+        if (especie.eCarnivoro() || especie.eHerbivoro()) {
+            if (this.energia > 200) {
                 this.energia = 200;
             }
             this.energia += 15;
@@ -193,49 +207,49 @@ public class Jogador {
 
     }
 
-    void ingereCarne(int turno){
+    void ingereCarne(int turno) {
 
         Carne carne = new Carne();
 
-        if (!carne.eToxica(turno)){
-            if (especie.eCarnivoro() || especie.eOmnivoro()){
-                if (this.energia > 200){
+        if (!carne.eToxica(turno)) {
+            if (especie.eCarnivoro() || especie.eOmnivoro()) {
+                if (this.energia > 200) {
                     this.energia = 200;
                 }
                 this.energia += 50;
             }
         } else {
-            this.energia -= (this.energia/2); // carne toxica
+            this.energia -= (this.energia / 2); // carne toxica
         }
     }
 
-    void ingereCogumelosMagicos(int turno, CogumelosMagicos cogumelosMagicos){
+    void ingereCogumelosMagicos(int turno, CogumelosMagicos cogumelosMagicos) {
 
-        int valor = (int) ((this.energia/100.0f) * cogumelosMagicos.buscarNrCogumelo());
+        int valor = (int) ((this.energia / 100.0f) * cogumelosMagicos.buscarNrCogumelo());
 
-        if (turno % 2 == 0){
+        if (turno % 2 == 0) {
             this.energia += valor;
-            if (this.energia > 200){
+            if (this.energia > 200) {
                 this.energia = 200;
             }
         } else {
             this.energia -= valor;
-            if(this.energia < 0){
+            if (this.energia < 0) {
                 this.energia = 0;
             }
         }
     }
 
-    void ingereCachoDeBananas(CachoDeBananas cachoDeBananas){
+    void ingereCachoDeBananas(CachoDeBananas cachoDeBananas) {
 
-        if(cachoDeBananas.buscarBananasNoCacho()){
+        if (cachoDeBananas.buscarBananasNoCacho()) {
             qtdDeBananasIngeridas++;
             int energiaASomar = 0;
 
             if (this.energia > 200) {
                 this.energia = 200;
 
-            }else if(qtdDeBananasIngeridas <= MAX_BANANAS){
+            } else if (qtdDeBananasIngeridas <= MAX_BANANAS) {
                 energiaASomar = 40;
             } else {
                 energiaASomar = -40;
@@ -248,12 +262,12 @@ public class Jogador {
     public String toString() {
         return
                 "id=" + id +
-                ", energia=" + energia +
-                ", nome='" + nome + '\'' +
-                ", especie=" + especie +
-                ", posicaoAtual=" + posicaoAtual +
-                ", qtdDeBananasIngeridas=" + qtdDeBananasIngeridas +
-                '}' + "\n";
+                        ", energia=" + energia +
+                        ", nome='" + nome + '\'' +
+                        ", especie=" + especie +
+                        ", posicaoAtual=" + posicaoAtual +
+                        ", qtdDeBananasIngeridas=" + qtdDeBananasIngeridas +
+                        '}' + "\n";
     }
 }
 
