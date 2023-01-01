@@ -493,7 +493,7 @@ public class GameManager {
         return "Wrestling"; // luta livre :D
     }
 
-    //NOT DONE
+    //DONE
     public boolean saveGame(File file) {
 
         try (BufferedWriter buff = new BufferedWriter(new FileWriter(file));) {
@@ -563,7 +563,7 @@ public class GameManager {
 
     }
 
-    //NOT DONE
+    //DONE
     public boolean loadGame(File file) {
 
         try {

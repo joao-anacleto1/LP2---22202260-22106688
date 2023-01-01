@@ -107,7 +107,7 @@ public class Jogador {
 
     MovementResultCode mover(int nrSquares, boolean verificacao) {
 
-        if (this.energia < this.especie.consumoEnergia) {
+        if (this.energia < this.especie.consumoEnergia * Math.abs(nrSquares)) {
             return MovementResultCode.NO_ENERGY;
         }
 
