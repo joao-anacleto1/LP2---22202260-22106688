@@ -4,7 +4,7 @@ class Passaro extends Especie {
 
 
     public Passaro() {
-        this.nome = "Pássaro";
+        this.nome = "Passaro";
         this.identificador = 'P';
         this.imagem = "bird.png";
         this.energiaInicial = 70;
