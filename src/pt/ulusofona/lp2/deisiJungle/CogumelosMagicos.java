@@ -4,7 +4,7 @@ import java.util.Random;
 
 class CogumelosMagicos extends Alimento {
 
-     int nrCogumelo;
+    int nrCogumelo;
 
     public CogumelosMagicos(){
         this.identificadorAlimento = 'm';

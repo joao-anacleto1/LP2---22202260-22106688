@@ -6,6 +6,3 @@ public enum MovementResultCode {
     VALID_MOVEMENT,
     CAUGHT_FOOD;
 }
-
-
-
