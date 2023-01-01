@@ -1,8 +1,6 @@
 package pt.ulusofona.lp2.deisiJungle;
 
 
-import java.util.Random;
-
 public class Jogador {
 
     /**
@@ -165,7 +163,7 @@ public class Jogador {
                 this.somarComida++;
                 return true;
             case 'm':
-                ingereCogumelosMagicos(turno, (CogumelosMagicos) a);
+                ingereCogumelosMagicos(turno, (CogumeloMagico) a);
                 this.somarComida++;
                 return true;
             case 'e':
@@ -223,7 +221,7 @@ public class Jogador {
         }
     }
 
-    void ingereCogumelosMagicos(int turno, CogumelosMagicos cogumelosMagicos) {
+    void ingereCogumelosMagicos(int turno, CogumeloMagico cogumelosMagicos) {
 
         int valor = (int) ((this.energia / 100.0f) * cogumelosMagicos.buscarNrCogumelo());
 

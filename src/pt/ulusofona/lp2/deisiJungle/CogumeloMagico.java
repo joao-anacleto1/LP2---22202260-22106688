@@ -2,11 +2,11 @@ package pt.ulusofona.lp2.deisiJungle;
 
 import java.util.Random;
 
-class CogumelosMagicos extends Alimento {
+class CogumeloMagico extends Alimento {
 
     int nrCogumelo;
 
-    public CogumelosMagicos(){
+    public CogumeloMagico(){
         this.identificadorAlimento = 'm';
         this.nomeAlimento = "Cogumelo Magico";
         this.imagem = "mushroom.png";

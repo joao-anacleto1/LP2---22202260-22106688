@@ -29,7 +29,7 @@ public class GameManager {
     Alimento agua = new Agua();
     Alimento cachoDeBananas = new CachoDeBananas();
     Alimento carne = new Carne();
-    Alimento cogumelosMagicos = new CogumelosMagicos();
+    Alimento cogumelosMagicos = new CogumeloMagico();
 
     ArrayList<Alimento> alimentos = new ArrayList<>() {
         {
@@ -201,7 +201,7 @@ public class GameManager {
                             alimento = new Carne();
 
                         } else if (idAlimento == 'm') {
-                            alimento = new CogumelosMagicos();
+                            alimento = new CogumeloMagico();
 
                         } else if (idAlimento == 'e') {
                             alimento = new Erva();
@@ -569,7 +569,7 @@ public class GameManager {
                 } else if (casa.buscarAlimento().buscarIdentificadorAlimento() == 'm') {
 
                     buff.write(casa.buscarIndexCasa() + ":" + casa.buscarAlimento().buscarIdentificadorAlimento() +
-                            ":" + casa.buscarAlimento().buscarEnergiaCogumelo((CogumelosMagicos) casa.buscarAlimento()) +
+                            ":" + casa.buscarAlimento().buscarEnergiaCogumelo((CogumeloMagico) casa.buscarAlimento()) +
                             ":" + "NONE" + "\n");
 
                 } else if (casa.buscarAlimento().buscarIdentificadorAlimento() == 'b') {
@@ -745,11 +745,11 @@ public class GameManager {
             alimento = new Carne();
 
         } else if (idAlimento == 'm') {
-            alimento = new CogumelosMagicos();
+            alimento = new CogumeloMagico();
 
             int nrCogumelos = Integer.parseInt(splitted[2]);
 
-            ((CogumelosMagicos) alimento).alteraCogumelos(nrCogumelos);
+            ((CogumeloMagico) alimento).alteraCogumelos(nrCogumelos);
 
         } else if (idAlimento == 'e') {
             alimento = new Erva();

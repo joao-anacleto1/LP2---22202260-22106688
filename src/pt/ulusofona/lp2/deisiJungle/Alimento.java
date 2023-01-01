@@ -28,7 +28,7 @@ public abstract class Alimento {
         return this.tooltip;
     }
 
-    public int buscarEnergiaCogumelo(CogumelosMagicos cogumelo) {
+    public int buscarEnergiaCogumelo(CogumeloMagico cogumelo) {
         return cogumelo.buscarNrCogumelo();
     }
 

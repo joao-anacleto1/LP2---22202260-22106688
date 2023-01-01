@@ -3,9 +3,6 @@ package pt.ulusofona.lp2.deisiJungle;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import static org.junit.Assert.*;
 
 public class TestGameManager {
@@ -785,7 +782,7 @@ public class TestGameManager {
 
         jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
-        ((CogumelosMagicos) jogo.mapa.buscarCasa(5).buscarAlimento()).setNrCogumelo(25);
+        ((CogumeloMagico) jogo.mapa.buscarCasa(5).buscarAlimento()).setNrCogumelo(25);
 
         int energiaEsperada = 80;
         int energiaObtida = jogo.jogadores.get(0).buscarEnergia();
@@ -832,7 +829,7 @@ public class TestGameManager {
 
         jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
-        ((CogumelosMagicos) jogo.mapa.buscarCasa(5).buscarAlimento()).setNrCogumelo(25);
+        ((CogumeloMagico) jogo.mapa.buscarCasa(5).buscarAlimento()).setNrCogumelo(25);
 
         int energiaEsperada = 180;
         int energiaObtida = jogo.jogadores.get(0).buscarEnergia();
@@ -877,7 +874,7 @@ public class TestGameManager {
 
         jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
-        ((CogumelosMagicos) jogo.mapa.buscarCasa(5).buscarAlimento()).setNrCogumelo(25);
+        ((CogumeloMagico) jogo.mapa.buscarCasa(5).buscarAlimento()).setNrCogumelo(25);
 
         int energiaEsperada = 70;
         int energiaObtida = jogo.jogadores.get(0).buscarEnergia();
@@ -1099,7 +1096,6 @@ public class TestGameManager {
         assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
     }
 
-
     @Test
     public void test_30_moveCurrentPlayer_MoveWitBypass() {
         GameManager jogo = new GameManager();
@@ -1130,7 +1126,6 @@ public class TestGameManager {
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
     }
-
 
     @Test
     public void test_31_moveCurrentPlayer_EatCogumelos() {
@@ -1166,13 +1161,12 @@ public class TestGameManager {
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
         Alimento alimento = jogo.mapa.buscarCasa(4).buscarAlimento();
-        int nrRandom = ((CogumelosMagicos) alimento).buscarNrCogumelo();
+        int nrRandom = ((CogumeloMagico) alimento).buscarNrCogumelo();
 
         energiaEsperada = (70 - (3 * 2)) - ((int) ((70 - (3 * 2)) * (nrRandom / 100.0)));
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
         assertEquals(energiaEsperada, energiaObtida);
 
     }
-
 
 }
