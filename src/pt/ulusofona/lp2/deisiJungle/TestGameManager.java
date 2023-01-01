@@ -766,7 +766,7 @@ public class TestGameManager {
         GameManager jogo = new GameManager();
         jogo.reset();
 
-        String[][] playersinfo = new String[3][4];
+        String[][] playersinfo = new String[2][4];
 
         playersinfo[0][0] = "1";
         playersinfo[0][1] = "Leao";
@@ -774,23 +774,19 @@ public class TestGameManager {
         playersinfo[0][3] = "80";
 
         playersinfo[1][0] = "2";
-        playersinfo[1][1] = "Tarzan";
-        playersinfo[1][2] = "Z";
-        playersinfo[1][3] = "70";
-
-        playersinfo[2][0] = "2";
-        playersinfo[2][1] = "Tarzan";
-        playersinfo[2][2] = "Z";
-        playersinfo[2][3] = "70";
+        playersinfo[1][1] = "Elefante";
+        playersinfo[1][2] = "E";
+        playersinfo[1][3] = "180";
 
 
         String[][] foodsInfo = new String[1][2];
 
-        foodsInfo[0][0] = "c";
+        foodsInfo[0][0] = "m";
         foodsInfo[0][1] = "5";
 
-
         jogo.createInitialJungle(30, playersinfo, foodsInfo);
+
+        ((CogumelosMagicos)jogo.mapa.buscarCasa(5).buscarAlimento()).setNrCogumelo(25);
 
         int energiaEsperada = 80;
         int energiaObtida = jogo.jogadores.get(0).buscarEnergia();
@@ -799,24 +795,14 @@ public class TestGameManager {
         MovementResult move = jogo.moveCurrentPlayer(4, false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = (80 - (2 * 4)) + 50;
+        ((CogumelosMagicos)jogo.mapa.buscarCasa(5).buscarAlimento()).setNrCogumelo(25);
+
+        energiaEsperada = (int) ((80 - (2 * 4)) - ((80 - (2 * 4)) * 0.25)); //54
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
         assertEquals(energiaEsperada, energiaObtida);
 
-        move = jogo.moveCurrentPlayer(4, false);
-        assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
-
-        energiaEsperada = (70 - (2 * 4)) + 50;
-        energiaObtida = jogo.jogadores.get(1).buscarEnergia();
-        assertEquals(energiaEsperada, energiaObtida);
-
-
     }
-
-
-
-
-
+    
     @Test
     public void test_13_moveCurrentPlayer_MoveWitBypass() {
         GameManager jogo = new GameManager();

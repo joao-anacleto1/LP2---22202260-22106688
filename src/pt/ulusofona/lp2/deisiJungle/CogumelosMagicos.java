@@ -21,6 +21,10 @@ class CogumelosMagicos extends Alimento {
         return this.nrCogumelo;
     }
 
+    public void setNrCogumelo(int nrCogumelo) {
+        this.nrCogumelo = nrCogumelo;
+    }
+
     public void alteraCogumelos(int valor){
         this.nrCogumelo = valor;
     }
