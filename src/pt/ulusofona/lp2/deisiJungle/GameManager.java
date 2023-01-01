@@ -468,7 +468,7 @@ public class GameManager {
             resultado.add(res);
             posicaoChegada += 1;
 
-            for (int i = jogadores.get(0).buscarPosicaoAtual() - 1; i > 0; i--) {
+            for (int i = jogadores.get(1).buscarPosicaoAtual() - 1; i > 0; i--) {
                 ArrayList<Jogador> jogadores = mapa.buscarCasa(i).ordernarIds();
 
                 for (Jogador jogador : jogadores) {
