@@ -4,7 +4,7 @@ class Leao extends Especie {
 
 
     public Leao() {
-        this.nome = "Leão";
+        this.nome = "Leao";
         this.identificador = 'L';
         this.imagem = "lion.png";
         this.energiaInicial = 80;
