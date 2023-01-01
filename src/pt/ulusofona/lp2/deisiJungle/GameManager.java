@@ -453,17 +453,17 @@ public class GameManager {
         ArrayList<String> resultado = new ArrayList<>();
         int posicaoChegada = 1;
 
-        if (jogadores.get(0).buscarPosicaoAtual() - jogadores.get(1).buscarPosicaoAtual() > mapa.buscarTamanhoMapa() / 2) {
+        if (jogadores.get(0).buscarPosicaoAtual() - jogadores.get(1).buscarPosicaoAtual() > mapa.buscarTamanhoMapa()/2) {
 
-            
+
             String res = "#" + posicaoChegada + " " + jogadores.get(1).buscarNome() + ", " +
-                    jogadores.get(1).buscarEspecie() + ", " + jogadores.get(1).buscarPosicaoAtual() +
+                    jogadores.get(1).buscarNomeEspecie() + ", " + jogadores.get(1).buscarPosicaoAtual() +
                     ", " + jogadores.get(1).buscarPosicaoPercorrida() + ", " + jogadores.get(1).buscarSomarComida();
             resultado.add(res);
             posicaoChegada += 1;
 
             res = "#" + posicaoChegada + " " + jogadores.get(0).buscarNome() + ", " +
-                    jogadores.get(0).buscarEspecie() + ", " + jogadores.get(0).buscarPosicaoAtual() +
+                    jogadores.get(0).buscarNomeEspecie()+ ", " + jogadores.get(0).buscarPosicaoAtual() +
                     ", " + jogadores.get(0).buscarPosicaoPercorrida() + ", " + jogadores.get(0).buscarSomarComida();
             resultado.add(res);
             posicaoChegada += 1;
