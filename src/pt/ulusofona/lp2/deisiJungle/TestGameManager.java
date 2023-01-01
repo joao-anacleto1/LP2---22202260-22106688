@@ -75,7 +75,6 @@ public class TestGameManager {
         assertEquals(resultadoEsperado, resultadoReal);
     }
 
-
     @Test
     public void test_04_MoveCurrentPlayer() {
         GameManager jogo = new GameManager();
@@ -619,14 +618,14 @@ public class TestGameManager {
         MovementResult move = jogo.moveCurrentPlayer(4, false);
         assertEquals(MovementResultCode.VALID_MOVEMENT, move.code()); //o elefante ignora a carne pois é herbivoro
 
-        energiaEsperada = (180 - (4*4)) ;
+        energiaEsperada = (180 - (4 * 4));
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
         assertEquals(energiaEsperada, energiaObtida);
 
         move = jogo.moveCurrentPlayer(4, false);
         assertEquals(MovementResultCode.VALID_MOVEMENT, move.code()); //o elefante ignora a carne pois é herbivoro
 
-        energiaEsperada = (180 - (4*4));
+        energiaEsperada = (180 - (4 * 4));
         energiaObtida = jogo.jogadores.get(1).buscarEnergia();
         assertEquals(energiaEsperada, energiaObtida);
 
@@ -748,35 +747,35 @@ public class TestGameManager {
         move = jogo.moveCurrentPlayer(4, false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = (190 - (2*4))/2;
+        energiaEsperada = (190 - (2 * 4)) / 2;
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
         assertEquals(energiaEsperada, energiaObtida);
 
         move = jogo.moveCurrentPlayer(4, false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        energiaEsperada = (190 - (2*4))/2;
+        energiaEsperada = (190 - (2 * 4)) / 2;
         energiaObtida = jogo.jogadores.get(1).buscarEnergia();
         assertEquals(energiaEsperada, energiaObtida);
 
     }
 
     @Test
-    public void test_17_moveCurrentPlayer_AllEspeciesEatCogumelosMagicos() {
+    public void test_17_moveCurrentPlayer_CarnivorosEatCogumelosMagicos() {
         GameManager jogo = new GameManager();
         jogo.reset();
 
         String[][] playersinfo = new String[2][4];
 
         playersinfo[0][0] = "1";
-        playersinfo[0][1] = "Leao";
+        playersinfo[0][1] = "Leao1";
         playersinfo[0][2] = "L";
         playersinfo[0][3] = "80";
 
         playersinfo[1][0] = "2";
-        playersinfo[1][1] = "Elefante";
-        playersinfo[1][2] = "E";
-        playersinfo[1][3] = "180";
+        playersinfo[1][1] = "Leao2";
+        playersinfo[1][2] = "L";
+        playersinfo[1][3] = "80";
 
 
         String[][] foodsInfo = new String[1][2];
@@ -786,7 +785,7 @@ public class TestGameManager {
 
         jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
-        ((CogumelosMagicos)jogo.mapa.buscarCasa(5).buscarAlimento()).setNrCogumelo(25);
+        ((CogumelosMagicos) jogo.mapa.buscarCasa(5).buscarAlimento()).setNrCogumelo(25);
 
         int energiaEsperada = 80;
         int energiaObtida = jogo.jogadores.get(0).buscarEnergia();
@@ -795,16 +794,314 @@ public class TestGameManager {
         MovementResult move = jogo.moveCurrentPlayer(4, false);
         assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
-        ((CogumelosMagicos)jogo.mapa.buscarCasa(5).buscarAlimento()).setNrCogumelo(25);
+        energiaEsperada = (int) ((80 - (2 * 4)) - ((80 - (2 * 4)) * 0.25)); //54
+        energiaObtida = jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada, energiaObtida);
+
+        move = jogo.moveCurrentPlayer(4, false);
+        assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
 
         energiaEsperada = (int) ((80 - (2 * 4)) - ((80 - (2 * 4)) * 0.25)); //54
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
         assertEquals(energiaEsperada, energiaObtida);
 
+
     }
-    
+
     @Test
-    public void test_13_moveCurrentPlayer_MoveWitBypass() {
+    public void test_18_moveCurrentPlayer_HerbivorosEatCogumelosMagicos() {
+        GameManager jogo = new GameManager();
+        jogo.reset();
+
+        String[][] playersinfo = new String[2][4];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Elefante1";
+        playersinfo[0][2] = "E";
+        playersinfo[0][3] = "180";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Elefante2";
+        playersinfo[1][2] = "E";
+        playersinfo[1][3] = "180";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "m";
+        foodsInfo[0][1] = "5";
+
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
+
+        ((CogumelosMagicos) jogo.mapa.buscarCasa(5).buscarAlimento()).setNrCogumelo(25);
+
+        int energiaEsperada = 180;
+        int energiaObtida = jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada, energiaObtida);
+
+        MovementResult move = jogo.moveCurrentPlayer(4, false);
+        assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
+
+        energiaEsperada = (int) ((180 - (4 * 4)) - ((180 - (4 * 4)) * 0.25)); //54
+        energiaObtida = jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada, energiaObtida);
+
+        move = jogo.moveCurrentPlayer(4, false);
+        assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
+
+        energiaEsperada = (int) ((180 - (4 * 4)) - ((180 - (4 * 4)) * 0.25)); //54
+        energiaObtida = jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada, energiaObtida);
+    }
+
+    @Test
+    public void test_19_moveCurrentPlayer_OmnivorosEatCogumelosMagicos() {
+        GameManager jogo = new GameManager();
+        jogo.reset();
+
+        String[][] playersinfo = new String[2][4];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Tarzan1";
+        playersinfo[0][2] = "Z";
+        playersinfo[0][3] = "70";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Tarzan2";
+        playersinfo[1][2] = "Z";
+        playersinfo[1][3] = "70";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "m";
+        foodsInfo[0][1] = "5";
+
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
+
+        ((CogumelosMagicos) jogo.mapa.buscarCasa(5).buscarAlimento()).setNrCogumelo(25);
+
+        int energiaEsperada = 70;
+        int energiaObtida = jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada, energiaObtida);
+
+        MovementResult move = jogo.moveCurrentPlayer(4, false);
+        assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
+
+        energiaEsperada = 47;
+        energiaObtida = jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada, energiaObtida);
+
+
+    }
+
+    @Test
+    public void test_20_CreateInitialJungle_InvalidPlayersId() {
+        GameManager jogo = new GameManager();
+        jogo.reset();
+        InitializationError resultadoReal = jogo.createInitialJungle(5, new String[][]{
+
+                        {"1", "David Neres", "Z"},
+                        {"1", "Enzo Fernandez", "T"}
+                }
+                , new String[][]
+                        {
+                                {"e", "3"},
+                                {"e", "4"}
+                        }
+
+        );
+        InitializationError resultadoEsperado = new InitializationError("Id de jogador inválido");
+        assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
+    }
+
+    @Test
+    public void test_21_CreateInitialJungle_InvalidPlayersId() {
+        GameManager jogo = new GameManager();
+        jogo.reset();
+        InitializationError resultadoReal = jogo.createInitialJungle(5, new String[][]{
+
+                        {"100000000000000000000123243342431321312231", "David Neres", "Z"},
+                        {"2", "Enzo Fernandez", "T"}
+                }
+                , new String[][]
+                        {
+                                {"e", "3"},
+                                {"e", "4"}
+                        }
+
+        );
+        InitializationError resultadoEsperado = new InitializationError("Id de jogador inválido");
+        assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
+    }
+
+    @Test
+    public void test_22_CreateInitialJungle_NamePlayersNull() {
+        GameManager jogo = new GameManager();
+        jogo.reset();
+        InitializationError resultadoReal = jogo.createInitialJungle(5, new String[][]{
+
+                        {"1", null, "Z"},
+                        {"2", "Enzo Fernandez", "T"}
+                }
+                , new String[][]
+                        {
+                                {"e", "3"},
+                                {"e", "4"}
+                        }
+
+        );
+        InitializationError resultadoEsperado = new InitializationError("Nome de jogador inválido");
+        assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
+    }
+
+    @Test
+    public void test_23_CreateInitialJungle_NoneNamePlayers() {
+        GameManager jogo = new GameManager();
+        jogo.reset();
+        InitializationError resultadoReal = jogo.createInitialJungle(5, new String[][]{
+
+                        {"1", "Joao Felix", "Z"},
+                        {"2", "", "T"}
+                }
+                , new String[][]
+                        {
+                                {"e", "3"},
+                                {"e", "4"}
+                        }
+
+        );
+        InitializationError resultadoEsperado = new InitializationError("Nome de jogador inválido");
+        assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
+    }
+
+    @Test
+    public void test_24_CreateInitialJungle_InvalidSpecie() {
+        GameManager jogo = new GameManager();
+        jogo.reset();
+        InitializationError resultadoReal = jogo.createInitialJungle(5, new String[][]{
+
+                        {"1", "Pepe Porto", "C"},
+                        {"2", "Enzo Fernandez", "T"}
+                }
+                , new String[][]
+                        {
+                                {"e", "3"},
+                                {"e", "4"}
+                        }
+
+        );
+        InitializationError resultadoEsperado = new InitializationError("Não existe espécie válida");
+        assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
+    }
+
+    @Test
+    public void test_25_CreateInitialJungle_PassTerrainLimits() {
+        GameManager jogo = new GameManager();
+        jogo.reset();
+        InitializationError resultadoReal = jogo.createInitialJungle(5, new String[][]{
+
+                        {"1", "Pepe Porto", "Z"},
+                        {"2", "Enzo Fernandez", "T"}
+                }
+                , new String[][]
+                        {
+                                {"e", "20"}, //fora dos limites do terreno, jungleSize = 5
+                                {"e", "4"}
+                        }
+
+        );
+        InitializationError resultadoEsperado =
+                new InitializationError("O alimento não está posicionado dentro dos limites do terreno");
+        assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
+    }
+
+    @Test
+    public void test_26_CreateInitialJungle_FoodInInicialPosition() {
+        GameManager jogo = new GameManager();
+        jogo.reset();
+        InitializationError resultadoReal = jogo.createInitialJungle(5, new String[][]{
+
+                        {"1", "Pepe Porto", "Z"},
+                        {"2", "Enzo Fernandez", "T"}
+                }
+                , new String[][]
+                        {
+                                {"e", "1"}, //alimento na posicao inicial
+                                {"e", "4"}
+                        }
+
+        );
+        InitializationError resultadoEsperado =
+                new InitializationError("O alimento não está posicionado dentro dos limites do terreno");
+        assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
+    }
+
+    @Test
+    public void test_27_CreateInitialJungle_FoodInFinalPosition() {
+        GameManager jogo = new GameManager();
+        jogo.reset();
+        InitializationError resultadoReal = jogo.createInitialJungle(5, new String[][]{
+
+                        {"1", "Pepe Porto", "Z"},
+                        {"2", "Enzo Fernandez", "T"}
+                }
+                , new String[][]
+                        {
+                                {"e", "2"},
+                                {"e", "5"} //alimento na posicao final
+                        }
+
+        );
+        InitializationError resultadoEsperado =
+                new InitializationError("O alimento não está posicionado dentro dos limites do terreno");
+        assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
+    }
+
+    @Test
+    public void test_28_CreateInitialJungle_NumbersOfPlayersInvalid() {
+        GameManager jogo = new GameManager();
+        jogo.reset();
+        InitializationError resultadoReal = jogo.createInitialJungle(5, new String[][]{
+
+                        {"1", "Pepe Porto", "Z"}
+
+                }
+                , new String[][]
+                        {
+                                {"e", "2"},
+                                {"e", "3"}
+                        }
+
+        );
+        InitializationError resultadoEsperado =
+                new InitializationError("O número de jogadores não é válido");
+        assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
+    }
+
+    @Test
+    public void test_29_CreateInitialJungle_NumbersOfPositionsInvalidForPlayers() {
+        GameManager jogo = new GameManager();
+        jogo.reset();
+        InitializationError resultadoReal = jogo.createInitialJungle(2, new String[][]{
+
+                        {"1", "Pepe Porto", "Z"},
+                        {"2", "Alexander Bah", "T"}
+
+                }
+                , new String[][]
+                        {
+                                {"e", "2"},
+                                {"e", "3"}
+                        }
+
+        );
+        InitializationError resultadoEsperado =
+                new InitializationError("Não existem pelo menos duas posições para se jogar no mapa");
+        assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
+    }
+
+
+    @Test
+    public void test_30_moveCurrentPlayer_MoveWitBypass() {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -836,7 +1133,7 @@ public class TestGameManager {
 
 
     @Test
-    public void test_20_moveCurrentPlayer_EatCogumelos() {
+    public void test_31_moveCurrentPlayer_EatCogumelos() {
         GameManager jogo = new GameManager();
         jogo.reset();
 
