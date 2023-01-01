@@ -761,6 +761,58 @@ public class TestGameManager {
 
     }
 
+    @Test
+    public void test_17_moveCurrentPlayer_AllEspeciesEatCogumelosMagicos() {
+        GameManager jogo = new GameManager();
+        jogo.reset();
+
+        String[][] playersinfo = new String[3][4];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Leao";
+        playersinfo[0][2] = "L";
+        playersinfo[0][3] = "80";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Tarzan";
+        playersinfo[1][2] = "Z";
+        playersinfo[1][3] = "70";
+
+        playersinfo[2][0] = "2";
+        playersinfo[2][1] = "Tarzan";
+        playersinfo[2][2] = "Z";
+        playersinfo[2][3] = "70";
+
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "c";
+        foodsInfo[0][1] = "5";
+
+
+        jogo.createInitialJungle(30, playersinfo, foodsInfo);
+
+        int energiaEsperada = 80;
+        int energiaObtida = jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada, energiaObtida);
+
+        MovementResult move = jogo.moveCurrentPlayer(4, false);
+        assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
+
+        energiaEsperada = (80 - (2 * 4)) + 50;
+        energiaObtida = jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada, energiaObtida);
+
+        move = jogo.moveCurrentPlayer(4, false);
+        assertEquals(MovementResultCode.CAUGHT_FOOD, move.code());
+
+        energiaEsperada = (70 - (2 * 4)) + 50;
+        energiaObtida = jogo.jogadores.get(1).buscarEnergia();
+        assertEquals(energiaEsperada, energiaObtida);
+
+
+    }
+
 
 
 

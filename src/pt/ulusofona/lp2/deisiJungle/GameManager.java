@@ -453,17 +453,49 @@ public class GameManager {
         ArrayList<String> resultado = new ArrayList<>();
         int posicaoChegada = 1;
 
-        for (int i = mapa.buscarTamanhoMapa(); i > 0; i--) {
-            ArrayList<Jogador> jogadores = mapa.buscarCasa(i).ordernarIds();
+        if (jogadores.get(0).buscarPosicaoAtual() - jogadores.get(1).buscarPosicaoAtual() > mapa.buscarTamanhoMapa() / 2) {
 
-            for (Jogador jogadore : jogadores) {
-                String nomeJogador = jogadore.buscarNomeJogador();
-                String nomeEspecie = jogadore.buscarNomeEspecie();
-                int posicaoNoMapa = jogadore.buscarPosicaoAtual();
-                String res = "#" + posicaoChegada + " " + nomeJogador + ", " + nomeEspecie + ", " + posicaoNoMapa +
-                        ", " + jogadore.buscarPosicaoPercorrida() + ", " + jogadore.buscarSomarComida();
-                resultado.add(res);
-                posicaoChegada += 1;
+            
+            String res = "#" + posicaoChegada + " " + jogadores.get(1).buscarNome() + ", " +
+                    jogadores.get(1).buscarEspecie() + ", " + jogadores.get(1).buscarPosicaoAtual() +
+                    ", " + jogadores.get(1).buscarPosicaoPercorrida() + ", " + jogadores.get(1).buscarSomarComida();
+            resultado.add(res);
+            posicaoChegada += 1;
+
+            res = "#" + posicaoChegada + " " + jogadores.get(0).buscarNome() + ", " +
+                    jogadores.get(0).buscarEspecie() + ", " + jogadores.get(0).buscarPosicaoAtual() +
+                    ", " + jogadores.get(0).buscarPosicaoPercorrida() + ", " + jogadores.get(0).buscarSomarComida();
+            resultado.add(res);
+            posicaoChegada += 1;
+
+            for (int i = jogadores.get(0).buscarPosicaoAtual() - 1; i > 0; i--) {
+                ArrayList<Jogador> jogadores = mapa.buscarCasa(i).ordernarIds();
+
+                for (Jogador jogador : jogadores) {
+                    String nomeJogador = jogador.buscarNomeJogador();
+                    String nomeEspecie = jogador.buscarNomeEspecie();
+                    int posicaoNoMapa = jogador.buscarPosicaoAtual();
+
+                    res = "#" + posicaoChegada + " " + nomeJogador + ", " + nomeEspecie + ", " + posicaoNoMapa +
+                            ", " + jogador.buscarPosicaoPercorrida() + ", " + jogador.buscarSomarComida();
+                    resultado.add(res);
+                    posicaoChegada += 1;
+                }
+            }
+        } else {
+
+            for (int i = mapa.buscarTamanhoMapa(); i > 0; i--) {
+                ArrayList<Jogador> jogadores = mapa.buscarCasa(i).ordernarIds();
+
+                for (Jogador jogador : jogadores) {
+                    String nomeJogador = jogador.buscarNomeJogador();
+                    String nomeEspecie = jogador.buscarNomeEspecie();
+                    int posicaoNoMapa = jogador.buscarPosicaoAtual();
+                    String res = "#" + posicaoChegada + " " + nomeJogador + ", " + nomeEspecie + ", " + posicaoNoMapa +
+                            ", " + jogador.buscarPosicaoPercorrida() + ", " + jogador.buscarSomarComida();
+                    resultado.add(res);
+                    posicaoChegada += 1;
+                }
             }
         }
 
