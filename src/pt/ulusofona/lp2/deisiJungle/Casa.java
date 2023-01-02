@@ -51,7 +51,6 @@ public class Casa {
         return true;
     }
 
-
     boolean removerJogador(Jogador j) {
         for (int i = 0; i < this.jogadores.size(); i++) {
             if (this.jogadores.get(i).buscarId() == j.buscarId()) {
@@ -62,7 +61,6 @@ public class Casa {
         return false;
     }
 
-
     int[] buscaJogadoresIds() {
         int[] ids = new int[jogadores.size()];
         for (int l = 0; l < jogadores.size(); l++) {
@@ -70,7 +68,6 @@ public class Casa {
         }
         return ids;
     }
-
 
     String buscarTipoCasa(int turno) {
         if (alimento != null) {
@@ -82,7 +79,6 @@ public class Casa {
         }
         return this.tipoCasa;
     }
-
 
     ArrayList<Integer> buscaIds() {
         ArrayList<Integer> guardarIds = new ArrayList<>();

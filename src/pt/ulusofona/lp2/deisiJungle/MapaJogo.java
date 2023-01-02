@@ -10,7 +10,6 @@ public class MapaJogo {
         this.casas = criadorMapa(tamanho);
     }
 
-
     ArrayList<Casa> criadorMapa(int tamanho) {
 
         ArrayList<Casa> mapa = new ArrayList<>();
@@ -70,7 +69,6 @@ public class MapaJogo {
         jogador.removeEnergia(energiaPorJogada);
         return true;
     }
-
 
     void adicionaJogadorInicio(Jogador jogador) {
         casas.get(0).adicionarJogador(jogador);

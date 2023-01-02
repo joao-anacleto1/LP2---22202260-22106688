@@ -12,7 +12,6 @@ public abstract class Especie {
     protected int velocidadeMinima;
     protected int velocidadeMaxima;
 
-
     Especie() {}
 
     String buscarNome() {
@@ -57,7 +56,6 @@ public abstract class Especie {
 
 
     }
-
 
     public abstract boolean eHerbivoro();
 

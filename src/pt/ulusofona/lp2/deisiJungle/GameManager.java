@@ -310,11 +310,6 @@ public class GameManager {
 
     }
 
-    int buscarJogadorAtualID() {
-        Jogador jogadorAtual = jogadores.get(turno % jogadores.size());
-        return jogadorAtual.buscarId();
-    }
-
     //DONE
     public String[] getCurrentPlayerEnergyInfo(int nrPositions) {
         Jogador jogadorAtual = jogadores.get(turno % jogadores.size());
@@ -687,6 +682,11 @@ public class GameManager {
     public void reset() {
         mapa = null;
         jogadores = new ArrayList<>();
+    }
+
+    int buscarJogadorAtualID() {
+        Jogador jogadorAtual = jogadores.get(turno % jogadores.size());
+        return jogadorAtual.buscarId();
     }
 
     public ArrayList<Jogador> ordenarJogadoresPorID() {

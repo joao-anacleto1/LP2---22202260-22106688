@@ -42,7 +42,6 @@ public class Jogador {
         return especie;
     }
 
-
     public int buscarQtdDeBananasIngeridas() {
         return qtdDeBananasIngeridas;
     }
@@ -85,7 +84,6 @@ public class Jogador {
         }
         return nome.length() > 0;
     }
-
 
     int buscarPosicaoAtual() {
         return posicaoAtual;

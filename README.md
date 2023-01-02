@@ -1,5 +1,5 @@
-# DEISI-JUNGLE
-### *Projeto realizado por: Luiza Vidal & João Anacleto*
+# DEISI - JUNGLE
+### *Projeto realizado por: Luiza Vidal & João Anacleto* - jan/2023
 
 
 ### Introdução
@@ -12,4 +12,7 @@ A primeira prova a disputar é a prova de atletismo. Os animais vão-se reunir n
 competir para determinar qual o melhor atleta.
 
 ### Diagrama UML
-![](diagramaUML.png?raw=true "Diagrama UML")
+![](diagramaUMLFinal.png?raw=true "Diagrama UML")
+
+### Link do Vídeo
+https://youtu.be/o23i7NEcDi4
