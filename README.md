@@ -13,6 +13,7 @@ competir para determinar qual o melhor atleta.
 
 ### Diagrama UML
 ![](diagramaUMLFinal.png?raw=true "Diagrama UML")
+Como o diagrama tem grande dimensão, recomendamos dar zoom.
 
 ### Link do Vídeo
 https://youtu.be/o23i7NEcDi4
