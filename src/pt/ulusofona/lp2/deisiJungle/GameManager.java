@@ -84,18 +84,20 @@ public class GameManager {
     }
 
     //DONE
-    public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo, String[][] foodsInfo) {
+    public void createInitialJungle(int jungleSize, String[][] playersInfo, String[][] foodsInfo)
+            throws InvalidInitialJungleException {
         reset();
         ArrayList<Integer> resultado = new ArrayList<>();
         turno = 0;
         nrCasasMapa = jungleSize;
 
         if (!(playersInfo.length >= 2 && playersInfo.length <= 4)) {
-            return new InitializationError("O número de jogadores não é válido");
+            throw new InvalidInitialJungleException("O número de jogadores não é válido",true,false);
         }
 
         if (!(jungleSize >= 2 * playersInfo.length)) {
-            return new InitializationError("Não existem pelo menos duas posições para se jogar no mapa");
+            throw new InvalidInitialJungleException("Não existem pelo menos duas posições para se jogar no mapa",true,
+                    false);
         }
 
         for (String[] dadosJogador : playersInfo) {
@@ -105,13 +107,13 @@ public class GameManager {
                 if (!resultado.contains(Integer.parseInt(dadosJogador[0]))) {
                     resultado.add(Integer.parseInt(dadosJogador[0]));
                 } else {
-                    return new InitializationError("Id de jogador inválido");
+                    throw new InvalidInitialJungleException("Id de jogador inválido",true,false);
                 }
             } catch (NumberFormatException e) {
-                return new InitializationError("Id de jogador inválido");
+                throw new InvalidInitialJungleException("Id de jogador inválido",true,false);
             }
             if (dadosJogador[1] == null || dadosJogador[1].equals("")) {
-                return new InitializationError("Nome de jogador inválido");
+                throw new InvalidInitialJungleException("Nome de jogador inválido",true,false);
             }
 
             boolean existeEspecie = false; // verificação final para ver se tem ou não uma especie válida
@@ -122,7 +124,7 @@ public class GameManager {
                 }
             }
             if (!existeEspecie) {
-                return new InitializationError("Não existe espécie válida");
+                throw new InvalidInitialJungleException("Não existe espécie válida",true,false);
             }
             Especie especie;
 
@@ -154,11 +156,12 @@ public class GameManager {
             mapa.adicionaJogadorInicio(jogador);
         }
 
-        return verificacaoAlimentos(jungleSize, mapa, foodsInfo);
+        verificacaoAlimentos(jungleSize, mapa, foodsInfo);
     }
 
     //DONE
-    InitializationError verificacaoAlimentos(int jungleSize, MapaJogo mapaJogo, String[][] foodsInfo) {
+    void verificacaoAlimentos(int jungleSize, MapaJogo mapaJogo, String[][] foodsInfo) throws
+            InvalidInitialJungleException {
 
         nrCasasMapa = jungleSize;
 
@@ -174,7 +177,7 @@ public class GameManager {
 
 
                 if (dadosAlimentos[0] == null) {
-                    return new InitializationError("O id do tipo de alimento é inválido");
+                    throw new InvalidInitialJungleException("O id do tipo de alimento é inválido",false,true);
                 }
 
                 boolean existeAlimento = false; // verifica se existe comida válida
@@ -186,7 +189,7 @@ public class GameManager {
                     }
                 }
                 if (!existeAlimento) {
-                    return new InitializationError("Não existe comida válida");
+                    throw new InvalidInitialJungleException("Não existe comida válida",false,true);
                 }
                 try {
                     if (Integer.parseInt(dadosAlimentos[1]) > 1 && Integer.parseInt(dadosAlimentos[1]) < jungleSize) {
@@ -216,21 +219,20 @@ public class GameManager {
                         casa.receberAlimento(alimento);
 
                     } else {
-                        return new InitializationError("O alimento não está posicionado dentro " +
-                                "dos limites do terreno");
+                        throw new InvalidInitialJungleException("O alimento não está posicionado dentro " +
+                                "dos limites do terreno",false,true);
                     }
                 } catch (NumberFormatException e) {
-                    return new InitializationError("O alimento não está posicionado dentro " +
-                            "dos limites do terreno");
+                    throw new InvalidInitialJungleException("O alimento não está posicionado dentro " +
+                            "dos limites do terreno",false,true);
                 }
             }
         }
-        return null;
     }
 
     //DONE
-    public InitializationError createInitialJungle(int jungleSize, String[][] playersInfo) {
-        return createInitialJungle(jungleSize, playersInfo, null);
+    public void createInitialJungle(int jungleSize, String[][] playersInfo) throws InvalidInitialJungleException {
+        createInitialJungle(jungleSize, playersInfo, null);
     }
 
     //DONE

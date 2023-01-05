@@ -12,20 +12,29 @@ public class TestGameManager {
     public void test_01_CreateInitialJungle_InvalidFoodID() {
         GameManager jogo = new GameManager();
         jogo.reset();
-        InitializationError resultadoReal = jogo.createInitialJungle(5, new String[][]{
 
-                        {"38", "David Neres", "Z"},
-                        {"13", "Enzo Fernandez", "T"}
-                }
-                , new String[][]
-                        {
-                                {null, "5"},
-                                {null, "6"}
-                        }
+        try {
+            jogo.createInitialJungle(5, new String[][]{
 
-        );
-        InitializationError resultadoEsperado = new InitializationError("O id do tipo de alimento é inválido");
-        assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
+                            {"38", "David Neres", "Z"},
+                            {"13", "Enzo Fernandez", "T"}
+                    }
+                    , new String[][]
+                            {
+                                    {null, "5"},
+                                    {null, "6"}
+                            }
+
+            );
+
+
+        } catch (InvalidInitialJungleException ex) {
+            assertFalse(ex.isInvalidPlayer());
+            assertTrue(ex.isInvalidFood());
+            assertEquals("O id do tipo de alimento é inválido",ex.getMessage());
+        }
+
+
     }
 
 
@@ -33,47 +42,56 @@ public class TestGameManager {
     public void test_02_CreateInitialJungle_FoodInvalidPosition() {
         GameManager jogo = new GameManager();
         jogo.reset();
-        InitializationError resultadoReal = jogo.createInitialJungle(5, new String[][]{
 
-                        {"38", "David Neres", "Z"},
-                        {"13", "Enzo Fernandez", "T"}
-                }
-                , new String[][]
-                        {
-                                {"e", "-20"},
-                                {"e", "2"}
-                        }
+        try {
+            jogo.createInitialJungle(5, new String[][]{
 
-        );
-        InitializationError resultadoEsperado = new InitializationError(
-                "O alimento não está posicionado dentro dos limites do terreno");
+                            {"38", "David Neres", "Z"},
+                            {"13", "Enzo Fernandez", "T"}
+                    }
+                    , new String[][]
+                            {
+                                    {"e", "-20"},
+                                    {"e", "2"}
+                            }
 
-        assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
+            );
+
+        } catch (InvalidInitialJungleException ex) {
+            assertFalse(ex.isInvalidPlayer());
+            assertTrue(ex.isInvalidFood());
+            assertEquals("O alimento não está posicionado dentro dos limites do terreno",ex.getMessage());
+        }
     }
 
     @Test
     public void test_03_CreateInitialJungle_Initialization() {
         GameManager jogo = new GameManager();
         jogo.reset();
-        InitializationError resultadoReal = jogo.createInitialJungle(5, new String[][]{
 
-                        {"38", "David Neres", "Z"},
-                        {"13", "Enzo Fernandez", "T"}
-                }
-                , new String[][]
-                        {
-                                {"e", "3"},
-                                {"e", "2"}
-                        }
+        try {
+            jogo.createInitialJungle(5, new String[][]{
 
-        );
-        InitializationError resultadoEsperado = null;
+                            {"38", "David Neres", "Z"},
+                            {"13", "Enzo Fernandez", "T"}
+                    }
+                    , new String[][]
+                            {
+                                    {"e", "3"},
+                                    {"e", "2"}
+                            }
 
-        assertEquals(resultadoEsperado, resultadoReal);
+            );
+
+        } catch (InvalidInitialJungleException ex) {
+            assertFalse(ex.isInvalidPlayer());
+            assertTrue(ex.isInvalidFood());
+            assertNull(ex.getMessage());
+        }
     }
 
     @Test
-    public void test_04_MoveCurrentPlayer() {
+    public void test_04_MoveCurrentPlayer()  throws InvalidInitialJungleException {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -117,7 +135,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_05_MoveCurrentPlayer() {
+    public void test_05_MoveCurrentPlayer()  throws InvalidInitialJungleException {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -173,7 +191,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_07_moveCurrentPlayer_HerbivorosAndOmnivorosEatGrass() {
+    public void test_07_moveCurrentPlayer_HerbivorosAndOmnivorosEatGrass()  throws InvalidInitialJungleException {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -219,7 +237,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_08_moveCurrentPlayer_CarnivorosEatGrass() {
+    public void test_08_moveCurrentPlayer_CarnivorosEatGrass()  throws InvalidInitialJungleException {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -257,7 +275,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_09_moveCurrentPlayer_CarnivorosAndHerbivorosDrinkWater() {
+    public void test_09_moveCurrentPlayer_CarnivorosAndHerbivorosDrinkWater()  throws InvalidInitialJungleException {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -302,7 +320,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_10_moveCurrentPlayer_OmnivorosDrinkWater() {
+    public void test_10_moveCurrentPlayer_OmnivorosDrinkWater()  throws InvalidInitialJungleException {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -340,8 +358,11 @@ public class TestGameManager {
 
     }
 
+
     @Test
-    public void test_11_moveCurrentPlayer_EatBananas_LastPlayerDontEatBecauseDontHaveMoreBananasInBunchAndInvalidMov() {
+    public void test_11_moveCurrentPlayer_EatBananas_LastPlayerDontEatBecauseDontHaveMoreBananasInBunchAndInvalidMov
+            ()
+            throws InvalidInitialJungleException {
 
         GameManager jogo = new GameManager();
         jogo.reset();
@@ -373,7 +394,6 @@ public class TestGameManager {
 
         foodsInfo[0][0] = "b";
         foodsInfo[0][1] = "6";
-
 
         jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
@@ -410,10 +430,13 @@ public class TestGameManager {
         energiaEsperada = (70 - (4 * 5)); //JA NAO EXISTEM MAIS BANANAS NO CACHO!
         energiaObtida = jogo.jogadores.get(3).buscarEnergia();
         assertEquals(energiaEsperada, energiaObtida);
+
     }
 
+
     @Test
-    public void test_12_moveCurrentPlayer_EatBananas_LastPlayerDontEatBecauseDontHaveMoreBananasInBunchAndCaughtFood() {
+    public void test_12_moveCurrentPlayer_EatBananas_LastPlayerDontEatBecauseDontHaveMoreBananasInBunchAndCaughtFood()
+            throws InvalidInitialJungleException {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -483,7 +506,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_13_moveCurrentPlayer_EatBananas_BananasGastricDifficulties() {
+    public void test_13_moveCurrentPlayer_EatBananas_BananasGastricDifficulties() throws InvalidInitialJungleException {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -536,7 +559,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_14_moveCurrentPlayer_CarnivorosAndOmnivorosEatMeat() {
+    public void test_14_moveCurrentPlayer_CarnivorosAndOmnivorosEatMeat() throws InvalidInitialJungleException {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -583,7 +606,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_15_moveCurrentPlayer_HerbivorosEatMeat() {
+    public void test_15_moveCurrentPlayer_HerbivorosEatMeat() throws InvalidInitialJungleException {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -629,7 +652,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_16_moveCurrentPlayer_CarnivorosAndOmnivorosEatMeat() {
+    public void test_16_moveCurrentPlayer_CarnivorosAndOmnivorosEatMeat() throws InvalidInitialJungleException {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -758,7 +781,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_17_moveCurrentPlayer_CarnivorosEatCogumelosMagicos() {
+    public void test_17_moveCurrentPlayer_CarnivorosEatCogumelosMagicos() throws InvalidInitialJungleException {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -806,7 +829,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_18_moveCurrentPlayer_HerbivorosEatCogumelosMagicos() {
+    public void test_18_moveCurrentPlayer_HerbivorosEatCogumelosMagicos() throws InvalidInitialJungleException {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -851,7 +874,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_19_moveCurrentPlayer_OmnivorosEatCogumelosMagicos() {
+    public void test_19_moveCurrentPlayer_OmnivorosEatCogumelosMagicos() throws InvalidInitialJungleException {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -894,210 +917,274 @@ public class TestGameManager {
     public void test_20_CreateInitialJungle_InvalidPlayersId() {
         GameManager jogo = new GameManager();
         jogo.reset();
-        InitializationError resultadoReal = jogo.createInitialJungle(5, new String[][]{
 
-                        {"1", "David Neres", "Z"},
-                        {"1", "Enzo Fernandez", "T"}
-                }
-                , new String[][]
-                        {
-                                {"e", "3"},
-                                {"e", "4"}
-                        }
+        try{
+            jogo.createInitialJungle(5, new String[][]{
 
-        );
-        InitializationError resultadoEsperado = new InitializationError("Id de jogador inválido");
-        assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
+                            {"1", "David Neres", "Z"},
+                            {"1", "Enzo Fernandez", "T"}
+                    }
+                    , new String[][]
+                            {
+                                    {"e", "3"},
+                                    {"e", "4"}
+                            }
+
+            );
+
+        }catch (InvalidInitialJungleException ex){
+            assertTrue(ex.isInvalidPlayer());
+            assertFalse(ex.isInvalidFood());
+            assertEquals("Id de jogador inválido",ex.getMessage());
+        }
+
     }
 
     @Test
     public void test_21_CreateInitialJungle_InvalidPlayersId() {
         GameManager jogo = new GameManager();
         jogo.reset();
-        InitializationError resultadoReal = jogo.createInitialJungle(5, new String[][]{
 
-                        {"100000000000000000000123243342431321312231", "David Neres", "Z"},
-                        {"2", "Enzo Fernandez", "T"}
-                }
-                , new String[][]
-                        {
-                                {"e", "3"},
-                                {"e", "4"}
-                        }
+        try{
+            jogo.createInitialJungle(5, new String[][]{
 
-        );
-        InitializationError resultadoEsperado = new InitializationError("Id de jogador inválido");
-        assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
+                            {"100000000000000000000123243342431321312231", "David Neres", "Z"},
+                            {"2", "Enzo Fernandez", "T"}
+                    }
+                    , new String[][]
+                            {
+                                    {"e", "3"},
+                                    {"e", "4"}
+                            }
+
+            );
+
+        }catch (InvalidInitialJungleException ex){
+            assertTrue(ex.isInvalidPlayer());
+            assertFalse(ex.isInvalidFood());
+            assertEquals("Id de jogador inválido",ex.getMessage());
+        }
+
     }
 
     @Test
     public void test_22_CreateInitialJungle_NamePlayersNull() {
         GameManager jogo = new GameManager();
         jogo.reset();
-        InitializationError resultadoReal = jogo.createInitialJungle(5, new String[][]{
 
-                        {"1", null, "Z"},
-                        {"2", "Enzo Fernandez", "T"}
-                }
-                , new String[][]
-                        {
-                                {"e", "3"},
-                                {"e", "4"}
-                        }
+        try{
+            jogo.createInitialJungle(5, new String[][]{
 
-        );
-        InitializationError resultadoEsperado = new InitializationError("Nome de jogador inválido");
-        assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
+                            {"1", null, "Z"},
+                            {"2", "Enzo Fernandez", "T"}
+                    }
+                    , new String[][]
+                            {
+                                    {"e", "3"},
+                                    {"e", "4"}
+                            }
+
+            );
+
+        }catch (InvalidInitialJungleException ex){
+            assertTrue(ex.isInvalidPlayer());
+            assertFalse(ex.isInvalidFood());
+            assertEquals("Nome de jogador inválido",ex.getMessage());
+        }
+
     }
 
     @Test
     public void test_23_CreateInitialJungle_NoneNamePlayers() {
         GameManager jogo = new GameManager();
         jogo.reset();
-        InitializationError resultadoReal = jogo.createInitialJungle(5, new String[][]{
 
-                        {"1", "Joao Felix", "Z"},
-                        {"2", "", "T"}
-                }
-                , new String[][]
-                        {
-                                {"e", "3"},
-                                {"e", "4"}
-                        }
+        try{
+            jogo.createInitialJungle(5, new String[][]{
 
-        );
-        InitializationError resultadoEsperado = new InitializationError("Nome de jogador inválido");
-        assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
+                            {"1", "Joao Felix", "Z"},
+                            {"2", "", "T"}
+                    }
+                    , new String[][]
+                            {
+                                    {"e", "3"},
+                                    {"e", "4"}
+                            }
+
+            );
+
+        }catch (InvalidInitialJungleException ex){
+            assertTrue(ex.isInvalidPlayer());
+            assertFalse(ex.isInvalidFood());
+            assertEquals("Nome de jogador inválido",ex.getMessage());
+        }
+
     }
 
     @Test
     public void test_24_CreateInitialJungle_InvalidSpecie() {
         GameManager jogo = new GameManager();
         jogo.reset();
-        InitializationError resultadoReal = jogo.createInitialJungle(5, new String[][]{
 
-                        {"1", "Pepe Porto", "C"},
-                        {"2", "Enzo Fernandez", "T"}
-                }
-                , new String[][]
-                        {
-                                {"e", "3"},
-                                {"e", "4"}
-                        }
+        try{
+            jogo.createInitialJungle(5, new String[][]{
 
-        );
-        InitializationError resultadoEsperado = new InitializationError("Não existe espécie válida");
-        assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
+                            {"1", "Pepe Porto", "C"},
+                            {"2", "Enzo Fernandez", "T"}
+                    }
+                    , new String[][]
+                            {
+                                    {"e", "3"},
+                                    {"e", "4"}
+                            }
+
+            );
+
+        }catch (InvalidInitialJungleException ex){
+            assertTrue(ex.isInvalidPlayer());
+            assertFalse(ex.isInvalidFood());
+            assertEquals("Não existe espécie válida",ex.getMessage());
+        }
+
     }
 
     @Test
     public void test_25_CreateInitialJungle_PassTerrainLimits() {
         GameManager jogo = new GameManager();
         jogo.reset();
-        InitializationError resultadoReal = jogo.createInitialJungle(5, new String[][]{
+        try{
+            jogo.createInitialJungle(5, new String[][]{
 
-                        {"1", "Pepe Porto", "Z"},
-                        {"2", "Enzo Fernandez", "T"}
-                }
-                , new String[][]
-                        {
-                                {"e", "20"}, //fora dos limites do terreno, jungleSize = 5
-                                {"e", "4"}
-                        }
+                            {"1", "Pepe Porto", "Z"},
+                            {"2", "Enzo Fernandez", "T"}
+                    }
+                    , new String[][]
+                            {
+                                    {"e", "20"}, //fora dos limites do terreno, jungleSize = 5
+                                    {"e", "4"}
+                            }
 
-        );
-        InitializationError resultadoEsperado =
-                new InitializationError("O alimento não está posicionado dentro dos limites do terreno");
-        assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
+            );
+        }catch (InvalidInitialJungleException ex){
+            assertFalse(ex.isInvalidPlayer());
+            assertTrue(ex.isInvalidFood());
+            assertEquals("O alimento não está posicionado dentro dos limites do terreno",ex.getMessage());
+        }
+
+
     }
 
     @Test
     public void test_26_CreateInitialJungle_FoodInInicialPosition() {
         GameManager jogo = new GameManager();
         jogo.reset();
-        InitializationError resultadoReal = jogo.createInitialJungle(5, new String[][]{
 
-                        {"1", "Pepe Porto", "Z"},
-                        {"2", "Enzo Fernandez", "T"}
-                }
-                , new String[][]
-                        {
-                                {"e", "1"}, //alimento na posicao inicial
-                                {"e", "4"}
-                        }
+        try{
+            jogo.createInitialJungle(5, new String[][]{
 
-        );
-        InitializationError resultadoEsperado =
-                new InitializationError("O alimento não está posicionado dentro dos limites do terreno");
-        assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
+                            {"1", "Pepe Porto", "Z"},
+                            {"2", "Enzo Fernandez", "T"}
+                    }
+                    , new String[][]
+                            {
+                                    {"e", "1"}, //alimento na posicao inicial
+                                    {"e", "4"}
+                            }
+
+            );
+
+        }catch (InvalidInitialJungleException ex){
+            assertFalse(ex.isInvalidPlayer());
+            assertTrue(ex.isInvalidFood());
+            assertEquals("O alimento não está posicionado dentro dos limites do terreno",ex.getMessage());
+        }
+
     }
 
     @Test
     public void test_27_CreateInitialJungle_FoodInFinalPosition() {
         GameManager jogo = new GameManager();
         jogo.reset();
-        InitializationError resultadoReal = jogo.createInitialJungle(5, new String[][]{
 
-                        {"1", "Pepe Porto", "Z"},
-                        {"2", "Enzo Fernandez", "T"}
-                }
-                , new String[][]
-                        {
-                                {"e", "2"},
-                                {"e", "5"} //alimento na posicao final
-                        }
+        try {
+            jogo.createInitialJungle(5, new String[][]{
 
-        );
-        InitializationError resultadoEsperado =
-                new InitializationError("O alimento não está posicionado dentro dos limites do terreno");
-        assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
+                            {"1", "Pepe Porto", "Z"},
+                            {"2", "Enzo Fernandez", "T"}
+                    }
+                    , new String[][]
+                            {
+                                    {"e", "2"},
+                                    {"e", "5"} //alimento na posicao final
+                            }
+
+            );
+
+        } catch (InvalidInitialJungleException ex) {
+            assertFalse(ex.isInvalidPlayer());
+            assertTrue(ex.isInvalidFood());
+            assertEquals("O alimento não está posicionado dentro dos limites do terreno",ex.getMessage());
+        }
     }
 
     @Test
     public void test_28_CreateInitialJungle_NumbersOfPlayersInvalid() {
         GameManager jogo = new GameManager();
         jogo.reset();
-        InitializationError resultadoReal = jogo.createInitialJungle(5, new String[][]{
 
-                        {"1", "Pepe Porto", "Z"}
+        try{
+            jogo.createInitialJungle(5, new String[][]{
 
-                }
-                , new String[][]
-                        {
-                                {"e", "2"},
-                                {"e", "3"}
-                        }
+                            {"1", "Pepe Porto", "Z"}
 
-        );
-        InitializationError resultadoEsperado =
-                new InitializationError("O número de jogadores não é válido");
-        assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
+                    }
+                    , new String[][]
+                            {
+                                    {"e", "2"},
+                                    {"e", "3"}
+                            }
+
+            );
+
+        }catch (InvalidInitialJungleException ex){
+        assertTrue(ex.isInvalidPlayer());
+        assertFalse(ex.isInvalidFood());
+        assertEquals("O número de jogadores não é válido",ex.getMessage());
+    }
+
     }
 
     @Test
     public void test_29_CreateInitialJungle_NumbersOfPositionsInvalidForPlayers() {
         GameManager jogo = new GameManager();
         jogo.reset();
-        InitializationError resultadoReal = jogo.createInitialJungle(2, new String[][]{
 
-                        {"1", "Pepe Porto", "Z"},
-                        {"2", "Alexander Bah", "T"}
+        try {
+            jogo.createInitialJungle(2, new String[][]{
 
-                }
-                , new String[][]
-                        {
-                                {"e", "2"},
-                                {"e", "3"}
-                        }
+                            {"1", "Pepe Porto", "Z"},
+                            {"2", "Alexander Bah", "T"}
 
-        );
-        InitializationError resultadoEsperado =
-                new InitializationError("Não existem pelo menos duas posições para se jogar no mapa");
-        assertEquals(resultadoEsperado.getMessage(), resultadoReal.getMessage());
+                    }
+                    , new String[][]
+                            {
+                                    {"e", "2"},
+                                    {"e", "3"}
+                            }
+
+            );
+
+
+        }catch (InvalidInitialJungleException ex){
+            assertTrue(ex.isInvalidPlayer());
+            assertFalse(ex.isInvalidFood());
+            assertEquals("Não existem pelo menos duas posições para se jogar no mapa",ex.getMessage());
+        }
+
     }
 
     @Test
-    public void test_30_moveCurrentPlayer_MoveWitBypass() {
+    public void test_30_moveCurrentPlayer_MoveWitBypass()  throws InvalidInitialJungleException {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -1128,7 +1215,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test_31_moveCurrentPlayer_EatCogumelos() {
+    public void test_31_moveCurrentPlayer_EatCogumelos()  throws InvalidInitialJungleException {
         GameManager jogo = new GameManager();
         jogo.reset();
 
@@ -1168,5 +1255,7 @@ public class TestGameManager {
         assertEquals(energiaEsperada, energiaObtida);
 
     }
+
+
 
 }
