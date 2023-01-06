@@ -25,12 +25,14 @@ fun tipoComando(comando:CommandType, lista: ArrayList<String>) : CommandType {
 
 }
 
-
+/*
 fun router(comando:CommandType, lista: ArrayList<String>): Function { //dá erro ainda, ainda nao está feito
 
     return tipoComando(comando, lista)
 
 }
+
+ */
 
 //FUNCOES PARA DEPOIS COLOCAR NO TIPOGET
 
