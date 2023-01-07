@@ -32,6 +32,10 @@ fun router(comando:CommandType, lista: ArrayList<String>): Function { //dá erro
 
 }
 
+/* fun router (): Function1<CommandType, Function2<GameManager, List<String>, String?>> {
+    return tipoComando(comando, lista)
+} */
+
  */
 
 //FUNCOES PARA DEPOIS COLOCAR NO TIPOGET

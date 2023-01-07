@@ -17,20 +17,11 @@ public class InvalidInitialJungleException extends Exception {
     }
 
     public boolean isInvalidPlayer() {
-
         return jogadorEInvalido;
-
     }
 
     public boolean isInvalidFood() {
-
         return comidaEInvalida;
     }
 
 }
-
-
-
-
-
-
