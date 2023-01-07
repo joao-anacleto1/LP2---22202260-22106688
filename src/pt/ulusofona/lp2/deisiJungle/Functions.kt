@@ -5,21 +5,21 @@ enum class CommandType{
 }
 
 
-fun tipoGet(game:GameManager, lista:ArrayList<String>) : String {
+fun tipoGet(game:GameManager, lista:List<String>) : String {
 
     return ""
 }
 
-fun tipoPost(game:GameManager, lista:ArrayList<String>): String{
+fun tipoPost(game:GameManager, lista:List<String>): String{
 
     return ""
 }
 
-fun tipoComando(comando:CommandType, lista: ArrayList<String>) : CommandType {
+fun tipoComando(comando:CommandType, lista: List<String>) : CommandType {
 
     if(comando == CommandType.GET){
         return CommandType.GET; //está mal é so para n dar erro
-    } else{
+    } else {
         return CommandType.POST; //está mal é so para n dar erro
     }
 
@@ -41,6 +41,3 @@ fun router(comando:CommandType, lista: ArrayList<String>): Function { //dá erro
 
 
 //FUNCOES PARA DEPOIS COLOCAR NO TIPOPOST
-
-
-
