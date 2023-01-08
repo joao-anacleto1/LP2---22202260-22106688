@@ -7,38 +7,55 @@ enum class CommandType{
 
 fun tipoGet(game:GameManager, lista:List<String>) : String {
 
+    when (lista[0]) {
+        "PLAYER_INFO" -> getPlayerInfo(game, lista[1])
+
+        "PLAYERS_BY_SPECIE" -> print("x == 2")
+
+        else -> { // Note the block
+            print("x is neither 1 nor 2")
+        }
+    }
     return ""
 }
 
-fun tipoPost(game:GameManager, lista:List<String>): String{
+    fun tipoPost(game: GameManager, lista: List<String>): String {
 
-    return ""
-}
-
-fun tipoComando(comando:CommandType, lista: List<String>) : CommandType {
-
-    if(comando == CommandType.GET){
-        return CommandType.GET; //está mal é so para n dar erro
-    } else {
-        return CommandType.POST; //está mal é so para n dar erro
+        return ""
     }
 
-}
+    fun tipoComando(comando: CommandType): Function2<GameManager, List<String>, String> {
 
-/*
-fun router(comando:CommandType, lista: ArrayList<String>): Function { //dá erro ainda, ainda nao está feito
+        if (comando == CommandType.GET) {
+            return ::tipoGet
+        } else {
+            return ::tipoPost
+        }
 
-    return tipoComando(comando, lista)
+    }
 
-}
 
-/* fun router (): Function1<CommandType, Function2<GameManager, List<String>, String?>> {
-    return tipoComando(comando, lista)
-} */
+    fun router(): Function1<CommandType, Function2<GameManager, List<String>, String>> {
 
- */
+        return ::tipoComando
+    }
+
 
 //FUNCOES PARA DEPOIS COLOCAR NO TIPOGET
+
+    fun getPlayerInfo(game: GameManager, lista: String): String {
+
+        return game.buscarNomeJogadorIgualAoParametro(lista)
+
+    }
+
+/*
+    fun getPlayersBySpecie(game: GameManager, lista: String): String{
+
+
+    }
+
+ */
 
 
 

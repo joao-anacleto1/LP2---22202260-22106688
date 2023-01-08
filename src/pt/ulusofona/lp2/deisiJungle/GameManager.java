@@ -798,4 +798,22 @@ public class GameManager {
         return 0;
     }
 
+    //FUNCOES PARA A PARTE DO KOTLIN
+
+    public String buscarNomeJogadorIgualAoParametro(String nome){
+
+        for(Jogador jogador : jogadores){
+
+            if(jogador.buscarNomeJogador() == nome){
+                return "" + jogador.buscarId() + " | " + jogador.buscarNome() + " | " +
+                        jogador.buscarEspecie().buscarNome() + " | " +
+                        jogador.buscarEspecie().buscarEnergiaInicial() + " | " +
+                        jogador.buscarPosicaoAtual();
+
+            }
+        }
+            return "“Inexistent player";
+    }
+
+
 }
