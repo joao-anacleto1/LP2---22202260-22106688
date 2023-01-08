@@ -823,7 +823,6 @@ public class GameManager {
             }
         }
         return "";
-    } // incompleta
-
+    } // incompleta pq tem q ordenar mas nsei se ordena aqui ou lá
 
 }
