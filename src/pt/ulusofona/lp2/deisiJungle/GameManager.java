@@ -815,5 +815,15 @@ public class GameManager {
             return "“Inexistent player";
     }
 
+    public String buscarJogadoresDeUmaEspecie(char idEspecie){
+
+        for (Jogador j: jogadores){
+            if (j.buscarEspecie().buscarIdentificador() == idEspecie){
+                return j.buscarNomeJogador();
+            }
+        }
+        return "";
+    } // incompleta
+
 
 }
