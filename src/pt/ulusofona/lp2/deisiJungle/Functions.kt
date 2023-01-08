@@ -19,43 +19,36 @@ fun tipoGet(game:GameManager, lista:List<String>) : String {
     return ""
 }
 
-    fun tipoPost(game: GameManager, lista: List<String>): String {
+fun tipoPost(game: GameManager, lista: List<String>): String {
 
-        return ""
+    return ""
+}
+
+fun tipoComando(comando: CommandType): Function2<GameManager, List<String>, String> {
+
+    if (comando == CommandType.GET) {
+        return ::tipoGet
+    } else {
+        return ::tipoPost
     }
 
-    fun tipoComando(comando: CommandType): Function2<GameManager, List<String>, String> {
-
-        if (comando == CommandType.GET) {
-            return ::tipoGet
-        } else {
-            return ::tipoPost
-        }
-
-    }
+}
 
 
-    fun router(): Function1<CommandType, Function2<GameManager, List<String>, String>> {
+fun router(): Function1<CommandType, Function2<GameManager, List<String>, String>> {
 
-        return ::tipoComando
-    }
+    return ::tipoComando
+}
 
 
 //FUNCOES PARA DEPOIS COLOCAR NO TIPOGET
 
-    fun getPlayerInfo(game: GameManager, lista: String): String {
+fun getPlayerInfo(game: GameManager, param: String): String {
 
-        return game.buscarNomeJogadorIgualAoParametro(lista)
+    return game.buscarNomeJogadorIgualAoParametro(param)
 
-    }
+}
 
-/*
-    fun getPlayersBySpecie(game: GameManager, lista: String): String{
-
-
-    }
-
- */
 
 
 
