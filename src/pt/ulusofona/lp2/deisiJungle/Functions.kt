@@ -21,9 +21,9 @@ fun tipoGet(game:GameManager, lista:List<String>) : String? {
     return null
 }
 
-fun tipoPost(game: GameManager, lista: List<String>): String {
+fun tipoPost(game: GameManager, lista: List<String>): String? {
 
-    return ""
+    return null
 }
 
 fun tipoComando(comando: CommandType): Function2<GameManager, List<String>, String?> {
