@@ -11,6 +11,11 @@ fun tipoGet(game:GameManager, lista:List<String>) : String? {
         "PLAYER_INFO" -> return :: get_Player_Info.invoke(game, lista[1])
 
         "PLAYERS_BY_SPECIE" -> print("x == 2")
+
+        "MOST_TRAVELED" -> return :: get_most_traveled.invoke(game,"")
+
+        "TOP_ENERGETIC_OMNIVORES" -> return :: get_Top_Energetic_Omnivoros.invoke(game,lista[1])
+
         else -> return null
     }
     return null
@@ -75,7 +80,6 @@ fun getPlayersBySpecies(game: GameManager, param: String): String{
 
     return "" //game.buscarJogadoresDeUmaEspecie(param); parametro da funcao é char
 }
-
 
 fun get_most_traveled(game: GameManager, param : String) : String{
 
