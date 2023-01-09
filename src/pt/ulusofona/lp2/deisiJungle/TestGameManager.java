@@ -1256,6 +1256,42 @@ public class TestGameManager {
 
     }
 
+    @Test
+    public void test_32_moveCurrentPlayer_Fora_Do_Mapa()  throws InvalidInitialJungleException {
+        GameManager jogo = new GameManager();
+        jogo.reset();
+
+        String[][] playersinfo = new String[2][4];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Tarzannnnnnnnnnnnnnnnnn";
+        playersinfo[0][2] = "Z";
+        playersinfo[0][3] = "70";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Leaooo";
+        playersinfo[1][2] = "L";
+        playersinfo[1][3] = "80";
+
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "m";
+        foodsInfo[0][1] = "4";
+
+
+        jogo.createInitialJungle(8, playersinfo, foodsInfo);
+
+        int energiaEsperada = 70;
+        int energiaObtida = jogo.jogadores.get(0).buscarEnergia();
+        assertEquals(energiaEsperada, energiaObtida);
+
+        MovementResult move = jogo.moveCurrentPlayer(8, false);
+        assertEquals(MovementResultCode.INVALID_MOVEMENT, move.code());
+
+    }
+
+
 
 
 }

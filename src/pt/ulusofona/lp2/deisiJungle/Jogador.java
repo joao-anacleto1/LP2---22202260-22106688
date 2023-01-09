@@ -107,9 +107,8 @@ public class Jogador {
             return MovementResultCode.NO_ENERGY;
         }
 
-        if (!(Math.abs(nrSquares) >= especie.buscarVelocidadeMinima() && Math.abs(nrSquares) <=
-                especie.buscarVelocidadeMaxima()) && verificacao) {
-
+        if (((Math.abs(nrSquares) < especie.buscarVelocidadeMinima()) || (Math.abs(nrSquares) >
+                especie.buscarVelocidadeMaxima())) && verificacao) {
             return MovementResultCode.INVALID_MOVEMENT;
 
         } else {

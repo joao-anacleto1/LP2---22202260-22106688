@@ -23,6 +23,11 @@ fun tipoGet(game:GameManager, lista:List<String>) : String? {
 
 fun tipoPost(game: GameManager, lista: List<String>): String? {
 
+    when (lista[0]) {
+        "MOVE" -> return :: post_move.invoke(game, lista[1])
+
+        else -> return null
+    }
     return null
 }
 
@@ -126,6 +131,22 @@ fun get_Top_Energetic_Omnivoros(game: GameManager , param : String) : String{
 
 
     return lista
+}
+
+fun post_move(game: GameManager, param: String) : String{
+
+    var result: String = game.moveCurrentPlayer(param.toInt(), true).let { when (it.code){
+
+        MovementResultCode.INVALID_MOVEMENT -> "Movimento invalido"
+        MovementResultCode.CAUGHT_FOOD -> "Apanhou comida"
+        MovementResultCode.NO_ENERGY -> "Sem energia"
+        MovementResultCode.VALID_MOVEMENT -> "OK"
+
+        else -> ""
+    } }
+
+    return result
+
 }
 
 

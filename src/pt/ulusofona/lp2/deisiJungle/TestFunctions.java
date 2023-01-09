@@ -178,7 +178,7 @@ public class TestFunctions {
     }
 
     @Test
-    public void test_05_get_Players_By_Species_No__Player_Associated() throws InvalidInitialJungleException {
+    public void test_06_get_Players_By_Species_No__Player_Associated() throws InvalidInitialJungleException {
 
         GameManager jogo = new GameManager();
 
@@ -208,5 +208,38 @@ public class TestFunctions {
         Assert.assertEquals(resultadoEsperado,resultadoObtido);
     }
 
+
+    @Test
+    public void test_07_post_Move_Invalid_Movement() throws InvalidInitialJungleException {
+
+        GameManager jogo = new GameManager();
+
+        String param = "10";
+
+        FunctionsKt.router();
+
+        jogo.createInitialJungle(8, new String[][]{
+
+                        {"10", "Igor", "L"},
+                        {"11", "Luiza", "L"},
+                        {"12", "Pedro","Z"},
+                        {"13", "Joao", "P"}
+                }
+                , new String[][]
+                        {
+                                {"a", "2"},
+                                {"a", "3"}
+                        }
+
+        );
+
+
+
+
+        String resultadoEsperado = "Movimento invalido";
+        String resultadoObtido = FunctionsKt.post_move(jogo, param);
+
+        Assert.assertEquals(resultadoEsperado,resultadoObtido);
+    }
 
 }

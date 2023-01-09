@@ -354,6 +354,9 @@ public class GameManager {
         if (jogadorAtual.buscarPosicaoAtual() + nrSquares < 1) {
             return new MovementResult(MovementResultCode.INVALID_MOVEMENT, null);
         }
+        if (jogadorAtual.buscarPosicaoAtual() + nrSquares > mapa.buscarTamanhoMapa()) {
+            return new MovementResult(MovementResultCode.INVALID_MOVEMENT, null);
+        }
 
         Casa casaAntiga = this.mapa.buscarCasa(jogadorAtual.buscarPosicaoAtual());
 
@@ -372,10 +375,6 @@ public class GameManager {
 
         }
 
-        //GARANTIR QUE O JOGADOR NAO VAI SE MOVER PARA FORA DO MAPA
-        if (jogadorAtual.buscarPosicaoAtual() > mapa.buscarTamanhoMapa()) {
-            jogadorAtual.setPosicaoAtual(mapa.buscarTamanhoMapa());
-        }
 
         Casa casaAtualDoJogador = this.mapa.buscarCasa(jogadorAtual.buscarPosicaoAtual());
         if (casaAntiga.buscarIndexCasa() != casaAtualDoJogador.buscarIndexCasa()) {
