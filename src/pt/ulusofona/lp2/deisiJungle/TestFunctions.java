@@ -141,7 +141,7 @@ public class TestFunctions {
 
 
         String resultadoEsperado = "Luiza,Joao,Igor";
-        String resultadoObtido = FunctionsKt.getPlayersBySpecies(jogo,especie);
+        String resultadoObtido = FunctionsKt.get_Players_By_Species(jogo,especie);
 
         Assert.assertEquals(resultadoEsperado,resultadoObtido);
     }
@@ -172,7 +172,7 @@ public class TestFunctions {
 
 
         String resultadoEsperado = "";
-        String resultadoObtido = FunctionsKt.getPlayersBySpecies(jogo,especie);
+        String resultadoObtido = FunctionsKt.get_Players_By_Species(jogo,especie);
 
         Assert.assertEquals(resultadoEsperado,resultadoObtido);
     }
@@ -203,7 +203,7 @@ public class TestFunctions {
 
 
         String resultadoEsperado = "";
-        String resultadoObtido = FunctionsKt.getPlayersBySpecies(jogo,especie);
+        String resultadoObtido = FunctionsKt.get_Players_By_Species(jogo,especie);
 
         Assert.assertEquals(resultadoEsperado,resultadoObtido);
     }
@@ -340,5 +340,68 @@ public class TestFunctions {
 
         Assert.assertEquals(resultadoEsperado,resultadoObtido);
     }
+
+    @Test
+    public void test_11_get_Consumed_Foods() throws InvalidInitialJungleException {
+
+        GameManager jogo = new GameManager();
+
+        FunctionsKt.router();
+
+        jogo.createInitialJungle(8, new String[][]{
+
+                        {"10", "Igor", "L"},
+                        {"11", "Luiza", "L"},
+                        {"12", "Pedro","Z"},
+                        {"13", "Joao", "P"}
+                }
+                , new String[][]
+                        {
+                                {"a", "6"},
+                                {"c", "3"}
+                        }
+
+        );
+
+        FunctionsKt.post_move(jogo, "2");
+        FunctionsKt.post_move(jogo, "5");
+
+
+        String resultadoEsperado = "Agua\nCarne";
+        String resultadoObtido = FunctionsKt.get_consumed_foods(jogo);
+
+        Assert.assertEquals(resultadoEsperado,resultadoObtido);
+    }
+    @Test
+    public void test_12_get_Consumed_Foods_No_Food_Consumed() throws InvalidInitialJungleException {
+
+        GameManager jogo = new GameManager();
+
+        FunctionsKt.router();
+
+        jogo.createInitialJungle(8, new String[][]{
+
+                        {"10", "Igor", "L"},
+                        {"11", "Luiza", "L"},
+                        {"12", "Pedro","Z"},
+                        {"13", "Joao", "P"}
+                }
+                , new String[][]
+                        {
+                                {"a", "6"},
+                                {"c", "3"}
+                        }
+
+        );
+
+        FunctionsKt.post_move(jogo, "3");
+
+
+        String resultadoEsperado = "";
+        String resultadoObtido = FunctionsKt.get_consumed_foods(jogo);
+
+        Assert.assertEquals(resultadoEsperado,resultadoObtido);
+    }
+
 
 }

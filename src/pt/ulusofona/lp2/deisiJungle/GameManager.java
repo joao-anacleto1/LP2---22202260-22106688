@@ -44,6 +44,8 @@ public class GameManager {
 
     ArrayList<Jogador> jogadores = new ArrayList<>(); // jogadores que estao jogoAtual jogar
 
+    ArrayList<Alimento> alimentosConsumidos = new ArrayList<>();
+
     Jogador jogadorInfo;
 
     MapaJogo mapa;
@@ -382,10 +384,13 @@ public class GameManager {
             casaAtualDoJogador.adicionarJogador(jogadorAtual);
         }
 
-        if (casaAtualDoJogador.buscarAlimento() != null &&
-                jogadorAtual.consumirAlimento(casaAtualDoJogador.buscarAlimento(), turno)) {
+        Alimento alimentoCasaAtual = casaAtualDoJogador.buscarAlimento();
+
+        if (alimentoCasaAtual != null &&
+                jogadorAtual.consumirAlimento(alimentoCasaAtual, turno)) {
+            alimentosConsumidos.add(alimentoCasaAtual);
             return new MovementResult(MovementResultCode.CAUGHT_FOOD,
-                    "Apanhou " + casaAtualDoJogador.buscarAlimento().buscarNomeAlimento());
+                    "Apanhou " + alimentoCasaAtual.buscarNomeAlimento());
         } else {
             return new MovementResult(MovementResultCode.VALID_MOVEMENT, null);
         }
