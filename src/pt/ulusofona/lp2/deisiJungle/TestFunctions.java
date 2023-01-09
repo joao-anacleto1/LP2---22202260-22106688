@@ -178,7 +178,7 @@ public class TestFunctions {
     }
 
     @Test
-    public void test_06_get_Players_By_Species_No__Player_Associated() throws InvalidInitialJungleException {
+    public void test_06_get_Players_By_Species_No_Player_Associated() throws InvalidInitialJungleException {
 
         GameManager jogo = new GameManager();
 
@@ -203,6 +203,36 @@ public class TestFunctions {
 
 
         String resultadoEsperado = "";
+        String resultadoObtido = FunctionsKt.get_Players_By_Species(jogo,especie);
+
+        Assert.assertEquals(resultadoEsperado,resultadoObtido);
+    }
+
+    @Test
+    public void test_07_get_Players_By_Species_Name_With_Same_Letter() throws InvalidInitialJungleException {
+
+        GameManager jogo = new GameManager();
+
+        String especie = "E";
+
+        FunctionsKt.router();
+
+        jogo.createInitialJungle(8, new String[][]{
+
+                        {"10", "Lais", "E"},
+                        {"11", "Luiza", "E"},
+                        {"12", "Pedro","Z"}
+                }
+                , new String[][]
+                        {
+                                {"a", "2"},
+                                {"a", "3"}
+                        }
+
+        );
+
+
+        String resultadoEsperado = "Luiza,Lais";
         String resultadoObtido = FunctionsKt.get_Players_By_Species(jogo,especie);
 
         Assert.assertEquals(resultadoEsperado,resultadoObtido);
@@ -398,6 +428,41 @@ public class TestFunctions {
 
 
         String resultadoEsperado = "";
+        String resultadoObtido = FunctionsKt.get_consumed_foods(jogo);
+
+        Assert.assertEquals(resultadoEsperado,resultadoObtido);
+    }
+
+
+    @Test
+    public void test_13_get_Consumed_Foods_Order_Bug() throws InvalidInitialJungleException {
+
+        GameManager jogo = new GameManager();
+
+        FunctionsKt.router();
+
+        jogo.createInitialJungle(8, new String[][]{
+
+                        {"10", "Igor", "L"},
+                        {"11", "Luiza", "L"},
+                        {"12", "Pedro","Z"},
+                        {"13", "Joao", "P"}
+                }
+                , new String[][]
+                        {
+                                {"a", "2"},
+                                {"m", "3"},
+                                {"c", "4"}
+                        }
+
+        );
+
+        FunctionsKt.post_move(jogo, "1");
+        FunctionsKt.post_move(jogo, "2");
+        FunctionsKt.post_move(jogo, "3");
+
+
+        String resultadoEsperado = "Agua\nCarne\nCogumelo Magico";
         String resultadoObtido = FunctionsKt.get_consumed_foods(jogo);
 
         Assert.assertEquals(resultadoEsperado,resultadoObtido);

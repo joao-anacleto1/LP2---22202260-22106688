@@ -74,7 +74,7 @@ fun get_Players_By_Species(game: GameManager, param: String): String{
 
     result += game.jogadores
             .filter{ it.buscarEspecie().buscarIdentificador().equals(param[0]) }
-            .sortedWith(Comparator<Jogador> { j1, j2 -> j2.buscarNome()[0].lowercaseChar() - j1.buscarNome()[0].lowercaseChar()})
+            .sortedBy { it.buscarNome() }.reversed()
             .joinToString (","){ it.buscarNome() }
 
     return result
@@ -125,7 +125,7 @@ fun get_consumed_foods(game: GameManager) : String{
     var result: String = ""
 
     result += game.alimentosConsumidos.distinctBy { it.buscarNomeAlimento() }
-            .sortedWith(Comparator<Alimento>{a1, a2 -> a1.buscarIdentificadorAlimento() - a2.buscarIdentificadorAlimento()})
+            .sortedBy { it.buscarNomeAlimento() }
             .joinToString ("\n"){ it.buscarNomeAlimento() }
 
     return result
