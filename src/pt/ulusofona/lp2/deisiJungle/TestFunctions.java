@@ -71,7 +71,7 @@ public class TestFunctions {
 
         lista = "2";
 
-        String resultadoEsperado = "Enzo Fernandez : 177" + "\n" + "David Neres : 64";
+        String resultadoEsperado = "Enzo Fernandez:177" + "\n" + "David Neres:64";
         String resultadoObtido = FunctionsKt.get_Top_Energetic_Omnivoros(jogo,lista);
 
         Assert.assertNotNull(resultadoObtido);
@@ -109,7 +109,7 @@ public class TestFunctions {
 
 
 
-        String resultadoEsperado = "Joao Mario : Z : 4" + "\n" + "Enzo Fernandez : T : 3"+ "\n" + "David Neres : Z : 2"+
+        String resultadoEsperado = "Joao Mario:Z:4" + "\n" + "Enzo Fernandez:T:3"+ "\n" + "David Neres:Z:2"+
                 "\n" + "Total:9";
         String resultadoObtido = FunctionsKt.get_most_traveled(jogo,lista);
 

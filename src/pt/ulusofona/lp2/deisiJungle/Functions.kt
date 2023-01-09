@@ -98,7 +98,7 @@ fun get_most_traveled(game: GameManager, param : String) : String{
 
     val lista =  game.jogadores
         .sortedWith({i1, i2->i2.buscarPosicaoPercorrida() - i1.buscarPosicaoPercorrida()})
-        .map{"${it.buscarNome()} : ${it.buscarEspecie().buscarIdentificador()} : ${it.buscarPosicaoPercorrida()}"}
+        .map{"${it.buscarNome()}:${it.buscarEspecie().buscarIdentificador()}:${it.buscarPosicaoPercorrida()}"}
         .joinToString ("\n") + "\n" + "Total" + ":" + distanciaPercorrida
 
 
@@ -111,7 +111,7 @@ fun get_Top_Energetic_Omnivoros(game: GameManager , param : String) : String{
     val lista = game.jogadores
                 .filter {it.buscarEspecie().eOmnivoro()}
                 .sortedWith({i1 , i2 -> i2.buscarEnergia() - i1.buscarEnergia() })
-                .map{"${it.buscarNome()} : ${it.buscarEnergia()}"}
+                .map{"${it.buscarNome()}:${it.buscarEnergia()}"}
                 .take(paramNumero)
                 .joinToString ("\n" )
 
