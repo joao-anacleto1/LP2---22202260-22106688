@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 
@@ -800,11 +801,12 @@ public class GameManager {
 
     //FUNCOES PARA A PARTE DO KOTLIN
 
+    /*
     public String buscarNomeJogadorIgualAoParametro(String nome){
 
         for(Jogador jogador : jogadores){
 
-            if(jogador.buscarNomeJogador() == nome){
+            if(Objects.equals(jogador.buscarNomeJogador(), nome)){
                 return "" + jogador.buscarId() + " | " + jogador.buscarNome() + " | " +
                         jogador.buscarEspecie().buscarNome() + " | " +
                         jogador.buscarEspecie().buscarEnergiaInicial() + " | " +
@@ -812,7 +814,7 @@ public class GameManager {
 
             }
         }
-            return "“Inexistent player";
+            return "Inexistent player";
     }
 
     public String buscarJogadoresDeUmaEspecie(char idEspecie){
@@ -824,5 +826,26 @@ public class GameManager {
         }
         return "";
     } // incompleta pq tem q ordenar mas nsei se ordena aqui ou lá
+
+
+    public String resultTopEnergeticOmnivores(){
+
+        String resultado = "";
+
+        for(Jogador jogador : jogadores){
+
+            if(jogador.buscarEspecie().buscarIdentificador() == 'o'){
+
+                resultado =  "" + jogador.buscarNome() + " : " + jogador.buscarEnergia();
+
+            }
+        }
+
+        return resultado;
+
+    }
+
+     */
+
 
 }

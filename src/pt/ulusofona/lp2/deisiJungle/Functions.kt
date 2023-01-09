@@ -44,22 +44,34 @@ fun getPlayerInfo(game: GameManager, param: List<String>): String? {
 
     // game.buscarNomeJogadorIgualAoParametro(param);
 
-    val resultado: String? = game.jogadores.filter { it.buscarNome().equals(param[1]) }.joinToString {
-        it.buscarId().toString()+ " | " + it.buscarNome() + " | " + it.buscarEspecie().buscarNome() + " | " +
-                it.buscarEnergia().toString() + " | " + it.buscarPosicaoAtual().toString() }
+        val resultado: String? = game.jogadores.filter { it.buscarNome().equals(param[1]) }.joinToString {
+            it.buscarId().toString()+ " | " + it.buscarNome() + " | " + it.buscarEspecie().buscarNome() + " | " +
+                    it.buscarEnergia().toString() + " | " + it.buscarPosicaoAtual().toString() }
 
     if(resultado == null){
         return "Inexistent player"
     } else {
         return resultado
     }
+
+
 }
+
 
 
 fun getPlayersBySpecies(game: GameManager, param: String): String{
 
     return "" //game.buscarJogadoresDeUmaEspecie(param); parametro da funcao é char
 }
+
+
+fun getTopEnergeticOmnivoros(game: GameManager , param : String) : String{
+
+    return "";
+
+}
+
+
 
 
 
