@@ -242,4 +242,103 @@ public class TestFunctions {
         Assert.assertEquals(resultadoEsperado,resultadoObtido);
     }
 
+    @Test
+    public void test_08_post_Move_Caught_Food() throws InvalidInitialJungleException {
+
+        GameManager jogo = new GameManager();
+
+        String param = "2";
+
+        FunctionsKt.router();
+
+        jogo.createInitialJungle(8, new String[][]{
+
+                        {"10", "Igor", "L"},
+                        {"11", "Luiza", "L"},
+                        {"12", "Pedro","Z"},
+                        {"13", "Joao", "P"}
+                }
+                , new String[][]
+                        {
+                                {"a", "2"},
+                                {"a", "3"}
+                        }
+
+        );
+
+
+
+
+        String resultadoEsperado = "Apanhou comida";
+        String resultadoObtido = FunctionsKt.post_move(jogo, param);
+
+        Assert.assertEquals(resultadoEsperado,resultadoObtido);
+    }
+
+    @Test
+    public void test_09_post_Move_No_Energy() throws InvalidInitialJungleException {
+
+        GameManager jogo = new GameManager();
+
+        String param = "48";
+
+        FunctionsKt.router();
+
+        jogo.createInitialJungle(50, new String[][]{
+
+                        {"10", "Igor", "L"},
+                        {"11", "Luiza", "L"},
+                        {"12", "Pedro","Z"},
+                        {"13", "Joao", "P"}
+                }
+                , new String[][]
+                        {
+                                {"a", "2"},
+                                {"a", "3"}
+                        }
+
+        );
+
+
+
+
+        String resultadoEsperado = "Sem energia";
+        String resultadoObtido = FunctionsKt.post_move(jogo, param);
+
+        Assert.assertEquals(resultadoEsperado,resultadoObtido);
+    }
+
+    @Test
+    public void test_10_post_Move_Valid_Movement() throws InvalidInitialJungleException {
+
+        GameManager jogo = new GameManager();
+
+        String param = "1";
+
+        FunctionsKt.router();
+
+        jogo.createInitialJungle(8, new String[][]{
+
+                        {"10", "Igor", "L"},
+                        {"11", "Luiza", "L"},
+                        {"12", "Pedro","Z"},
+                        {"13", "Joao", "P"}
+                }
+                , new String[][]
+                        {
+                                {"a", "6"},
+                                {"a", "3"}
+                        }
+
+        );
+
+
+
+
+        String resultadoEsperado = "OK";
+        String resultadoObtido = FunctionsKt.post_move(jogo, param);
+
+        Assert.assertEquals(resultadoEsperado,resultadoObtido);
+    }
+
 }
