@@ -10,7 +10,7 @@ fun tipoGet(game:GameManager, lista:List<String>) : String? {
     when (lista[0]) {
         "PLAYER_INFO" -> return :: get_Player_Info.invoke(game, lista[1])
 
-        "PLAYERS_BY_SPECIE" -> print("x == 2")
+        "PLAYERS_BY_SPECIE" -> return ::getPlayersBySpecies.invoke(game, lista[1])
 
         "MOST_TRAVELED" -> return :: get_most_traveled.invoke(game,"")
 
@@ -64,7 +64,7 @@ fun get_Player_Info(game: GameManager, param: String): String {
     val resultado: String? = game.jogadores.filter { it.buscarNome().equals(param[1]) }.joinToString {
         it.buscarId().toString()+ " | " + it.buscarNome() + " | " + it.buscarEspecie().buscarNome() + " | " +
                 it.buscarEnergia().toString() + " | " + it.buscarPosicaoAtual().toString() }
-
+    
     if(resultado == null){
         return "Inexistent player"
     } else {
@@ -78,7 +78,15 @@ fun get_Player_Info(game: GameManager, param: String): String {
 
 fun getPlayersBySpecies(game: GameManager, param: String): String{
 
-    return "" //game.buscarJogadoresDeUmaEspecie(param); parametro da funcao é char
+    var r: String = ""
+
+    r += game.jogadores
+            .filter{ it.buscarEspecie().buscarIdentificador().equals(param[0]) }
+            .sortedWith(Comparator<Jogador> { j1, j2 -> j2.buscarNome()[0].lowercaseChar() - j1.buscarNome()[0].lowercaseChar()})
+            .joinToString (","){ it.buscarNome() }
+
+    return r
+
 }
 
 fun get_most_traveled(game: GameManager, param : String) : String{

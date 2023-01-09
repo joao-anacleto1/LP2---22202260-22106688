@@ -107,8 +107,6 @@ public class TestFunctions {
         jogo.moveCurrentPlayer(4,false);
 
 
-
-
         String resultadoEsperado = "Joao Mario:Z:4" + "\n" + "Enzo Fernandez:T:3"+ "\n" + "David Neres:Z:2"+
                 "\n" + "Total:9";
         String resultadoObtido = FunctionsKt.get_most_traveled(jogo,lista);
@@ -116,4 +114,99 @@ public class TestFunctions {
         Assert.assertNotNull(resultadoObtido);
         Assert.assertEquals(resultadoEsperado,resultadoObtido);
     }
+
+    @Test
+    public void test_04_get_Players_By_Species() throws InvalidInitialJungleException {
+
+        GameManager jogo = new GameManager();
+
+        String especie = "E";
+
+        FunctionsKt.router();
+
+        jogo.createInitialJungle(8, new String[][]{
+
+                        {"10", "Igor", "E"},
+                        {"11", "Luiza", "E"},
+                        {"12", "Pedro","Z"},
+                        {"13", "Joao", "E"}
+                }
+                , new String[][]
+                        {
+                                {"a", "2"},
+                                {"a", "3"}
+                        }
+
+        );
+
+
+        String resultadoEsperado = "Luiza,Joao,Igor";
+        String resultadoObtido = FunctionsKt.getPlayersBySpecies(jogo,especie);
+
+        Assert.assertEquals(resultadoEsperado,resultadoObtido);
+    }
+
+    @Test
+    public void test_05_get_Players_By_Species_Invalid_Species() throws InvalidInitialJungleException {
+
+        GameManager jogo = new GameManager();
+
+        String especie = "D";
+
+        FunctionsKt.router();
+
+        jogo.createInitialJungle(8, new String[][]{
+
+                        {"10", "Igor", "E"},
+                        {"11", "Luiza", "E"},
+                        {"12", "Pedro","Z"},
+                        {"13", "Joao", "E"}
+                }
+                , new String[][]
+                        {
+                                {"a", "2"},
+                                {"a", "3"}
+                        }
+
+        );
+
+
+        String resultadoEsperado = "";
+        String resultadoObtido = FunctionsKt.getPlayersBySpecies(jogo,especie);
+
+        Assert.assertEquals(resultadoEsperado,resultadoObtido);
+    }
+
+    @Test
+    public void test_05_get_Players_By_Species_No__Player_Associated() throws InvalidInitialJungleException {
+
+        GameManager jogo = new GameManager();
+
+        String especie = "E";
+
+        FunctionsKt.router();
+
+        jogo.createInitialJungle(8, new String[][]{
+
+                        {"10", "Igor", "L"},
+                        {"11", "Luiza", "L"},
+                        {"12", "Pedro","Z"},
+                        {"13", "Joao", "P"}
+                }
+                , new String[][]
+                        {
+                                {"a", "2"},
+                                {"a", "3"}
+                        }
+
+        );
+
+
+        String resultadoEsperado = "";
+        String resultadoObtido = FunctionsKt.getPlayersBySpecies(jogo,especie);
+
+        Assert.assertEquals(resultadoEsperado,resultadoObtido);
+    }
+
+
 }
