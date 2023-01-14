@@ -54,7 +54,7 @@ fun router(): Function1<CommandType, Function2<GameManager, List<String>, String
 fun get_Player_Info(game: GameManager, param: String): String {
 
     val lista = game.jogadores
-                .filter {it.buscarNome().equals(param)}
+        .filter {it.buscarNome().equals(param)}
 
 
     if(lista.isEmpty()){
@@ -62,8 +62,8 @@ fun get_Player_Info(game: GameManager, param: String): String {
     }
 
     return lista
-           .map { "${it.buscarId()} | ${it.buscarNome()} | ${it.buscarEspecie().buscarNome()} | ${it.buscarEnergia()}" +
-                   " | ${it.buscarPosicaoAtual()}"}[0]
+        .map { "${it.buscarId()} | ${it.buscarNome()} | ${it.buscarEspecie().buscarNome()} | ${it.buscarEnergia()}" +
+                " | ${it.buscarPosicaoAtual()}"}[0]
 
 }
 
@@ -73,9 +73,9 @@ fun get_Players_By_Species(game: GameManager, param: String): String{
     var result: String = ""
 
     result += game.jogadores
-            .filter{ it.buscarEspecie().buscarIdentificador().equals(param[0]) }
-            .sortedBy { it.buscarNome() }.reversed()
-            .joinToString (","){ it.buscarNome() }
+        .filter{ it.buscarEspecie().buscarIdentificador().equals(param[0]) }
+        .sortedBy { it.buscarNome() }.reversed()
+        .joinToString (","){ it.buscarNome() }
 
     return result
 
@@ -84,8 +84,8 @@ fun get_Players_By_Species(game: GameManager, param: String): String{
 fun get_most_traveled(game: GameManager, param : String) : String{
 
     val distanciaPercorrida = game.jogadores
-                            .map({it.buscarPosicaoPercorrida()})
-                            .sum()
+        .map({it.buscarPosicaoPercorrida()})
+        .sum()
 
     if(game.jogadores.isEmpty()){
         return ""
@@ -109,11 +109,11 @@ fun get_Top_Energetic_Omnivoros(game: GameManager , param : String) : String{
     val paramNumero = param.toInt()
 
     val lista = game.jogadores
-                .filter {it.buscarEspecie().eOmnivoro()}
-                .sortedWith({i1 , i2 -> i2.buscarEnergia() - i1.buscarEnergia() })
-                .map{"${it.buscarNome()}:${it.buscarEnergia()}"}
-                .take(paramNumero)
-                .joinToString ("\n" )
+        .filter {it.buscarEspecie().eOmnivoro()}
+        .sortedWith({i1 , i2 -> i2.buscarEnergia() - i1.buscarEnergia() })
+        .map{"${it.buscarNome()}:${it.buscarEnergia()}"}
+        .take(paramNumero)
+        .joinToString ("\n" )
 
 
 
@@ -125,12 +125,14 @@ fun get_consumed_foods(game: GameManager) : String{
     var result: String = ""
 
     result += game.alimentosConsumidos.distinctBy { it.buscarNomeAlimento() }
-            .sortedBy { it.buscarNomeAlimento() }
-            .joinToString ("\n"){ it.buscarNomeAlimento() }
+        .sortedBy { it.buscarNomeAlimento() }
+        .joinToString ("\n"){ it.buscarNomeAlimento() }
 
     return result
 
 }
+
+//FUNCOES PARA DEPOIS COLOCAR NO TIPOPOST
 
 fun post_move(game: GameManager, param: String) : String{
 
@@ -147,7 +149,3 @@ fun post_move(game: GameManager, param: String) : String{
     return result
 
 }
-
-
-
-//FUNCOES PARA DEPOIS COLOCAR NO TIPOPOST

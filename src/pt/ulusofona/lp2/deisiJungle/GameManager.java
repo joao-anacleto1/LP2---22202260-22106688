@@ -240,20 +240,6 @@ public class GameManager {
 
     //DONE
     public int[] getPlayerIds(int squareNr) {
-        /* ArrayList<Integer> jogs = new ArrayList<Integer>();
-        for(Jogador j : jogadores){
-            if(j.posicaoAtual == squareNr)
-                jogs.add(j.id);
-        }
-
-        if(jogs.isEmpty())
-            return new int[] {};
-
-        int[] result = new int[jogs.size()];
-        for(int i=0;i<jogs.size();i++)
-            result[i] = jogs.get(i);
-
-        return result;*/
         Casa casa;
         if (mapa.verificaCasa(squareNr)) {
             casa = mapa.buscarCasa(squareNr);
@@ -719,6 +705,26 @@ public class GameManager {
         return resultado;
     }
 
+    void ordenaJogadoresPorPosicao(){
+        //https://www.geeksforgeeks.org/sorting-in-java/--
+        for (int i = 0; i < jogadores.size(); i++) {
+
+            // Inner nested loop pointing 1 index ahead
+            for (int j = i + 1; j < jogadores.size(); j++) {
+
+                // Checking elements
+                Jogador temp;
+                if (jogadores.get(j).buscarPosicaoAtual() > jogadores.get(i).buscarPosicaoAtual()) {
+
+                    // Swapping
+                    temp = jogadores.get(i);
+                    jogadores.set(i, jogadores.get(j));
+                    jogadores.set(j, temp);
+                }
+            }
+        }
+    }
+
     Especie criaEspecie(char idEspecie) {
 
         if (idEspecie == 'E') {
@@ -802,54 +808,6 @@ public class GameManager {
         }
         return 0;
     }
-
-    //FUNCOES PARA A PARTE DO KOTLIN
-
-    /*
-    public String buscarNomeJogadorIgualAoParametro(String nome){
-
-        for(Jogador jogador : jogadores){
-
-            if(Objects.equals(jogador.buscarNomeJogador(), nome)){
-                return "" + jogador.buscarId() + " | " + jogador.buscarNome() + " | " +
-                        jogador.buscarEspecie().buscarNome() + " | " +
-                        jogador.buscarEspecie().buscarEnergiaInicial() + " | " +
-                        jogador.buscarPosicaoAtual();
-
-            }
-        }
-            return "Inexistent player";
-    }
-
-    public String buscarJogadoresDeUmaEspecie(char idEspecie){
-
-        for (Jogador j: jogadores){
-            if (j.buscarEspecie().buscarIdentificador() == idEspecie){
-                return j.buscarNomeJogador();
-            }
-        }
-        return "";
-    } // incompleta pq tem q ordenar mas nsei se ordena aqui ou lá
-
-
-    public String resultTopEnergeticOmnivores(){
-
-        String resultado = "";
-
-        for(Jogador jogador : jogadores){
-
-            if(jogador.buscarEspecie().buscarIdentificador() == 'o'){
-
-                resultado =  "" + jogador.buscarNome() + " : " + jogador.buscarEnergia();
-
-            }
-        }
-
-        return resultado;
-
-    }
-
-     */
 
 
 }
