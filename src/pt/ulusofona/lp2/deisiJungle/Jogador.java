@@ -132,6 +132,10 @@ public class Jogador {
         this.energia -= valor;
     }
 
+    void adicionaEnergiaUnicornios(){
+        this.energia += 2;
+    }
+
     void atualizarPosicao(int casaPretendida) {
         this.posicaoAtual = casaPretendida;
     }
@@ -144,7 +148,11 @@ public class Jogador {
         return especie.buscarNome();
     }
 
-    boolean consumirAlimento(Alimento a, int turno) {
+    boolean consumirAlimento(Alimento a, int turno, Especie especie) {
+
+        if(especie.eMitologico()){
+            return false;
+        }
 
         switch (a.buscarIdentificadorAlimento()) {
             case 'c':

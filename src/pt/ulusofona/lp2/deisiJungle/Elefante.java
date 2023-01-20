@@ -28,4 +28,9 @@ class Elefante extends Especie {
         return false;
     }
 
+    @Override
+    public boolean eMitologico() {
+        return false;
+    }
+
 }

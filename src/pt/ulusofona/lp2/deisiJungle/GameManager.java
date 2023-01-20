@@ -15,6 +15,7 @@ public class GameManager {
     Especie tartaruga = new Tartaruga();
     Especie passaro = new Passaro();
     Especie tarzan = new Tarzan();
+    Especie unicornio = new Unicornio();
 
     ArrayList<Especie> especies = new ArrayList<>() {
         {
@@ -23,6 +24,7 @@ public class GameManager {
             add(tartaruga);
             add(passaro);
             add(tarzan);
+            add(unicornio);
         }
     };
 
@@ -61,13 +63,14 @@ public class GameManager {
     //DONE
     public String[][] getSpecies() {
 
-        String[][] resultado = new String[5][7];
+        String[][] resultado = new String[6][7];
 
         resultado[0] = especies.get(0).buscaInfo();
         resultado[1] = especies.get(1).buscaInfo();
         resultado[2] = especies.get(2).buscaInfo();
         resultado[3] = especies.get(3).buscaInfo();
         resultado[4] = especies.get(4).buscaInfo();
+        resultado[5] = especies.get(5).buscaInfo();
 
         return resultado;
     }
@@ -129,6 +132,7 @@ public class GameManager {
             if (!existeEspecie) {
                 throw new InvalidInitialJungleException("Não existe espécie válida",true,false);
             }
+
             Especie especie;
 
             char idEspecie = dadosJogador[2].charAt(0);
@@ -145,8 +149,11 @@ public class GameManager {
             } else if (idEspecie == 'P') {
                 especie = new Passaro();
 
-            } else {
+            } else if (idEspecie == 'L'){
                 especie = new Leao();
+
+            }else{
+                especie = new Unicornio();
             }
 
             jogadores.add(new Jogador(Integer.parseInt(dadosJogador[0]), dadosJogador[1],
@@ -363,7 +370,6 @@ public class GameManager {
 
         }
 
-
         Casa casaAtualDoJogador = this.mapa.buscarCasa(jogadorAtual.buscarPosicaoAtual());
         if (casaAntiga.buscarIndexCasa() != casaAtualDoJogador.buscarIndexCasa()) {
             casaAntiga.removerJogador(jogadorAtual);
@@ -373,11 +379,15 @@ public class GameManager {
         Alimento alimentoCasaAtual = casaAtualDoJogador.buscarAlimento();
 
         if (alimentoCasaAtual != null &&
-                jogadorAtual.consumirAlimento(alimentoCasaAtual, turno)) {
+                jogadorAtual.consumirAlimento(alimentoCasaAtual, turno, jogadorAtual.buscarEspecie())) {
             alimentosConsumidos.add(alimentoCasaAtual);
             return new MovementResult(MovementResultCode.CAUGHT_FOOD,
                     "Apanhou " + alimentoCasaAtual.buscarNomeAlimento());
         } else {
+            if(jogadorAtual.buscarEspecie().eMitologico()){
+                jogadorAtual.adicionaEnergiaUnicornios();
+                return new MovementResult(MovementResultCode.VALID_MOVEMENT, null);
+            }
             return new MovementResult(MovementResultCode.VALID_MOVEMENT, null);
         }
     }
@@ -421,6 +431,30 @@ public class GameManager {
             }
             jogador = jogadores.get(1);
             ordenarJogadoresPorID();
+        }
+
+        if(jogoAcabado() == 3){
+
+            int metade;
+
+            if(mapa.buscarTamanhoMapa()/2 % 2 == 0){
+                metade = mapa.buscarTamanhoMapa()/2;
+            }else {
+                metade = mapa.buscarTamanhoMapa()/2 + 1;
+            }
+
+            jogador = mapa.buscarCasa(metade).buscarJogadores().get(0);
+
+            for(int i = 0; i < mapa.buscarCasa(metade).buscarJogadores().size(); i++){
+
+                if(mapa.buscarCasa(metade).buscarJogadores().get(i).buscarEnergia() >
+                        jogador.buscarEnergia() ){
+
+                    jogador = mapa.buscarCasa(metade).buscarJogadores().get(i);
+                }
+
+            }
+
         }
 
         if (jogoAcabado() == 0) {
@@ -705,7 +739,7 @@ public class GameManager {
         return resultado;
     }
 
-    void ordenaJogadoresPorPosicao(){
+    void ordenarJogadoresPorPosicao(){
         //https://www.geeksforgeeks.org/sorting-in-java/--
         for (int i = 0; i < jogadores.size(); i++) {
 
@@ -806,6 +840,23 @@ public class GameManager {
         if ((primeiraMaiorPosicao - segundaMaiorPosicao) > mapa.buscarTamanhoMapa() / 2) {
             return 2;
         }
+
+        ordenarJogadoresPorPosicao();
+
+        int metade;
+
+        if(mapa.buscarTamanhoMapa()/2 % 2 == 0){
+            metade = mapa.buscarTamanhoMapa()/2;
+        }else {
+            metade = mapa.buscarTamanhoMapa()/2 + 1;
+        }
+
+        if(mapa.buscarCasa(metade).buscarJogadores().size() >= 2 &&
+                jogadores.get(0).buscarPosicaoAtual() > metade){
+            return 3;
+        }
+        ordenarJogadoresPorID();
+
         return 0;
     }
 

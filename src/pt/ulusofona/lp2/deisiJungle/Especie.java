@@ -63,6 +63,8 @@ public abstract class Especie {
 
     public abstract boolean eOmnivoro();
 
+    public abstract boolean eMitologico();
+
     @Override
     public String toString() {
         return "nome='" + nome + '\'' +

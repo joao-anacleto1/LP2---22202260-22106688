@@ -28,4 +28,9 @@ class Passaro extends Especie {
     public boolean eOmnivoro() {
         return true;
     }
+
+    @Override
+    public boolean eMitologico() {
+        return false;
+    }
 }

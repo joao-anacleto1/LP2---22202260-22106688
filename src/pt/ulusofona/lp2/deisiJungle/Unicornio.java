@@ -1,16 +1,16 @@
 package pt.ulusofona.lp2.deisiJungle;
 
-class Tarzan extends Especie {
+class Unicornio extends Especie {
 
-    public Tarzan() {
 
-        this.nome = "Tarzan";
-        this.identificador = 'Z';
-        this.imagem = "tarzan.png";
-        this.energiaInicial = 70;
-        this.consumoEnergia = 2;
+    public Unicornio() {
+        this.nome = "Unicórnio";
+        this.identificador = 'U';
+        this.imagem = "unicorn.png";
+        this.energiaInicial = 200;
+        this.consumoEnergia = 8;
         this.ganhoEnergiaEmDescanso = 20;
-        this.velocidadeMinima = 1;
+        this.velocidadeMinima = 3;
         this.velocidadeMaxima = 6;
     }
 
@@ -26,11 +26,13 @@ class Tarzan extends Especie {
 
     @Override
     public boolean eOmnivoro() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean eMitologico() {
-        return false;
+        return true;
     }
+
+
 }

@@ -90,6 +90,7 @@ public class TestGameManager {
         }
     }
 
+
     @Test
     public void test_04_MoveCurrentPlayer()  throws InvalidInitialJungleException {
         GameManager jogo = new GameManager();
@@ -966,6 +967,7 @@ public class TestGameManager {
         }
 
     }
+
 
     @Test
     public void test_22_CreateInitialJungle_NamePlayersNull() {
