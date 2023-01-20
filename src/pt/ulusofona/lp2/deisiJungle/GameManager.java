@@ -861,9 +861,13 @@ public class GameManager {
             metade = mapa.buscarTamanhoMapa()/2 + 1;
         }
 
-        if(mapa.buscarCasa(metade).buscarJogadores().size() >= 2 &&
-                jogadores.get(0).buscarPosicaoAtual() > metade){
-            return 3;
+        if(mapa.buscarCasa(metade).buscarJogadores().size() >= 2){
+            for (Jogador jogadore : jogadores) {
+
+                if (jogadore.buscarPosicaoAtual() > metade) {
+                    return 3;
+                }
+            }
         }
         ordenarJogadoresPorID();
 
