@@ -132,8 +132,9 @@ public class Jogador {
         this.energia -= valor;
     }
 
-    void adicionaEnergiaUnicornios(){
-        this.energia += 2;
+    void adicionaEnergiaUnicornios(int nrSquares){
+
+            this.energia += 2 * nrSquares;
     }
 
     void atualizarPosicao(int casaPretendida) {

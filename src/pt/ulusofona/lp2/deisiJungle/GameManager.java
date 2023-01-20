@@ -381,11 +381,19 @@ public class GameManager {
         if (alimentoCasaAtual != null &&
                 jogadorAtual.consumirAlimento(alimentoCasaAtual, turno, jogadorAtual.buscarEspecie())) {
             alimentosConsumidos.add(alimentoCasaAtual);
+
             return new MovementResult(MovementResultCode.CAUGHT_FOOD,
                     "Apanhou " + alimentoCasaAtual.buscarNomeAlimento());
         } else {
+
             if(jogadorAtual.buscarEspecie().eMitologico()){
-                jogadorAtual.adicionaEnergiaUnicornios();
+                //verifica se existe alimento na ultima casa, se existir usa só o nrSquares
+                if(alimentoCasaAtual == null){
+                    jogadorAtual.adicionaEnergiaUnicornios(nrSquares);
+                    return new MovementResult(MovementResultCode.VALID_MOVEMENT, null);
+                }
+                //se não existe alimento na ultima casa, se existir usa i nrSquares - 1
+                jogadorAtual.adicionaEnergiaUnicornios(nrSquares - 1);
                 return new MovementResult(MovementResultCode.VALID_MOVEMENT, null);
             }
             return new MovementResult(MovementResultCode.VALID_MOVEMENT, null);
