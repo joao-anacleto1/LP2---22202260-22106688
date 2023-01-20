@@ -1326,7 +1326,7 @@ public class TestGameManager {
         MovementResult move = jogo.moveCurrentPlayer(3, false);
         assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
 
-        energiaEsperada = 180;
+        energiaEsperada = 176;
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
         assertEquals(energiaEsperada, energiaObtida);
 
@@ -1365,7 +1365,7 @@ public class TestGameManager {
         MovementResult move = jogo.moveCurrentPlayer(4, false);
         assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
 
-        energiaEsperada = 176;
+        energiaEsperada = 170;
         energiaObtida = jogo.jogadores.get(0).buscarEnergia();
         assertEquals(energiaEsperada, energiaObtida);
 

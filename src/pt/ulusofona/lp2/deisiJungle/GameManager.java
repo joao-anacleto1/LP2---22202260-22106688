@@ -387,13 +387,13 @@ public class GameManager {
         } else {
 
             if(jogadorAtual.buscarEspecie().eMitologico()){
-                //verifica se existe alimento na ultima casa, se existir usa só o nrSquares
+
+
                 if(alimentoCasaAtual == null){
-                    jogadorAtual.adicionaEnergiaUnicornios(nrSquares);
+                    jogadorAtual.adicionaEnergiaUnicornios();
                     return new MovementResult(MovementResultCode.VALID_MOVEMENT, null);
                 }
-                //se não existe alimento na ultima casa, se existir usa i nrSquares - 1
-                jogadorAtual.adicionaEnergiaUnicornios(nrSquares - 1);
+
                 return new MovementResult(MovementResultCode.VALID_MOVEMENT, null);
             }
             return new MovementResult(MovementResultCode.VALID_MOVEMENT, null);
