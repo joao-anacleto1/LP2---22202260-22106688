@@ -405,6 +405,31 @@ public class GameManager {
         String[] resultado = new String[5];
         Jogador jogador = jogadores.get(0);
 
+
+        if(jogoAcabado() == 3){
+
+            int metade;
+
+            if(mapa.buscarTamanhoMapa()/2 % 2 == 0){
+                metade = mapa.buscarTamanhoMapa()/2;
+            }else {
+                metade = mapa.buscarTamanhoMapa()/2 + 1;
+            }
+
+            jogador = mapa.buscarCasa(metade).buscarJogadores().get(0);
+
+            for(int i = 0; i < mapa.buscarCasa(metade).buscarJogadores().size(); i++){
+
+                if(mapa.buscarCasa(metade).buscarJogadores().get(i).buscarEnergia() >
+                        jogador.buscarEnergia() ){
+
+                    jogador = mapa.buscarCasa(metade).buscarJogadores().get(i);
+                }
+
+            }
+
+        }
+
         if (jogoAcabado() == 1) {
             int maisLonge = jogadores.get(0).buscarPosicaoAtual();
 
@@ -441,29 +466,6 @@ public class GameManager {
             ordenarJogadoresPorID();
         }
 
-        if(jogoAcabado() == 3){
-
-            int metade;
-
-            if(mapa.buscarTamanhoMapa()/2 % 2 == 0){
-                metade = mapa.buscarTamanhoMapa()/2;
-            }else {
-                metade = mapa.buscarTamanhoMapa()/2 + 1;
-            }
-
-            jogador = mapa.buscarCasa(metade).buscarJogadores().get(0);
-
-            for(int i = 0; i < mapa.buscarCasa(metade).buscarJogadores().size(); i++){
-
-                if(mapa.buscarCasa(metade).buscarJogadores().get(i).buscarEnergia() >
-                        jogador.buscarEnergia() ){
-
-                    jogador = mapa.buscarCasa(metade).buscarJogadores().get(i);
-                }
-
-            }
-
-        }
 
         if (jogoAcabado() == 0) {
             return null;
