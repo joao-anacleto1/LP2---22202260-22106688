@@ -28,4 +28,9 @@ class Leao extends Especie {
     public boolean eOmnivoro() {
         return false;
     }
+
+    @Override
+    public boolean eMitologico() {
+        return false;
+    }
 }
