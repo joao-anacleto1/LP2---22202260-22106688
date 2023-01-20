@@ -404,9 +404,11 @@ public class GameManager {
     public String[] getWinnerInfo() {
         String[] resultado = new String[5];
         Jogador jogador = jogadores.get(0);
+        int jogoAcabado = jogoAcabado();
 
+        //System.out.println(jogoAcabado);
 
-        if(jogoAcabado() == 3){
+        if(jogoAcabado == 3){
 
             int metade;
 
@@ -430,7 +432,7 @@ public class GameManager {
 
         }
 
-        if (jogoAcabado() == 1) {
+        if (jogoAcabado == 1) {
             int maisLonge = jogadores.get(0).buscarPosicaoAtual();
 
             for (int i = 1; i < jogadores.size(); i++) {
@@ -446,7 +448,7 @@ public class GameManager {
             }
         }
 
-        if (jogoAcabado() == 2) {
+        if (jogoAcabado == 2) {
             //ordenar por posicao
             for (int i = 0; i < jogadores.size(); i++) {
 
@@ -467,7 +469,7 @@ public class GameManager {
         }
 
 
-        if (jogoAcabado() == 0) {
+        if (jogoAcabado == 0) {
             return null;
         }
 
@@ -819,8 +821,30 @@ public class GameManager {
 
     int jogoAcabado() {
 
+        int metade;
+
+
+        if(mapa.buscarTamanhoMapa()/2 % 2 == 0){
+            metade = mapa.buscarTamanhoMapa()/2;
+        }else {
+            metade = mapa.buscarTamanhoMapa()/2 + 1;
+        }
+
+
+        if(mapa.buscarCasa(metade).buscarJogadores().size() > 1){
+
+            for (Jogador jogadore : jogadores) {
+
+                if (jogadore.buscarPosicaoAtual() > metade) {
+                    return 3;
+                }
+            }
+        }
+
+
         int primeiraMaiorPosicao = -1;
         int segundaMaiorPosicao = -1;
+
 
         if (!mapa.buscarCasa(mapa.casas.size()).casaVazia()) {
             return 1;
@@ -851,25 +875,6 @@ public class GameManager {
             return 2;
         }
 
-        ordenarJogadoresPorPosicao();
-
-        int metade;
-
-        if(mapa.buscarTamanhoMapa()/2 % 2 == 0){
-            metade = mapa.buscarTamanhoMapa()/2;
-        }else {
-            metade = mapa.buscarTamanhoMapa()/2 + 1;
-        }
-
-        if(mapa.buscarCasa(metade).buscarJogadores().size() >= 2){
-            for (Jogador jogadore : jogadores) {
-
-                if (jogadore.buscarPosicaoAtual() > metade) {
-                    return 3;
-                }
-            }
-        }
-        ordenarJogadoresPorID();
 
         return 0;
     }

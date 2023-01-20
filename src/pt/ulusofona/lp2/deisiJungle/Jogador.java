@@ -13,7 +13,7 @@ public class Jogador {
     private int energia;
     private String nome;
     private Especie especie;
-    private int posicaoAtual;
+    int posicaoAtual;
     private int posicaoPercorrida = 0;
     private int somarComida = 0;
     private int qtdDeBananasIngeridas;
