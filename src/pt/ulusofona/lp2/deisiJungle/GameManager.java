@@ -486,7 +486,8 @@ public class GameManager {
         ArrayList<String> resultado = new ArrayList<>();
         int posicaoChegada = 1;
 
-        if (jogoAcabado() == 1) {
+        if (jogadores.get(0).buscarPosicaoAtual() - jogadores.get(1).buscarPosicaoAtual() > mapa.buscarTamanhoMapa()/2) {
+
 
             String res = "#" + posicaoChegada + " " + jogadores.get(1).buscarNome() + ", " +
                     jogadores.get(1).buscarNomeEspecie() + ", " + jogadores.get(1).buscarPosicaoAtual() +
@@ -514,53 +515,7 @@ public class GameManager {
                     posicaoChegada += 1;
                 }
             }
-        } else if (jogoAcabado() == 3) {
-
-            int metade;
-
-            if(mapa.buscarTamanhoMapa()/2 % 2 == 0){
-                metade = mapa.buscarTamanhoMapa()/2;
-            }else {
-                metade = mapa.buscarTamanhoMapa()/2 + 1;
-            }
-
-            Jogador jogador = mapa.buscarCasa(metade).buscarJogadores().get(0);
-
-            for(int i = 0; i < mapa.buscarCasa(metade).buscarJogadores().size(); i++){
-
-                if(mapa.buscarCasa(metade).buscarJogadores().get(i).buscarEnergia() > jogador.buscarEnergia() ){
-
-                    jogador = mapa.buscarCasa(metade).buscarJogadores().get(i);
-                }
-
-            }
-
-            String res = "#" + posicaoChegada + " " + jogador.buscarNome() + ", " +
-                    jogador.buscarNomeEspecie() + ", " + jogador.buscarPosicaoAtual() +
-                    ", " + jogador.buscarPosicaoPercorrida() + ", " + jogador.buscarSomarComida();
-            resultado.add(res);
-            posicaoChegada += 1;
-
-            for (int i = mapa.buscarTamanhoMapa(); i > 0; i--) {
-                ArrayList<Jogador> jogadores = mapa.buscarCasa(i).ordernarIds();
-
-                for (Jogador jogadore : jogadores) {
-
-                    if(jogadore.buscarId() != jogador.buscarId()) {
-                        String nomeJogador = jogadore.buscarNomeJogador();
-                        String nomeEspecie = jogadore.buscarNomeEspecie();
-                        int posicaoNoMapa = jogadore.buscarPosicaoAtual();
-                        res = "#" + posicaoChegada + " " + nomeJogador + ", " + nomeEspecie + ", " + posicaoNoMapa +
-                                ", " + jogadore.buscarPosicaoPercorrida() + ", " + jogadore.buscarSomarComida();
-                        resultado.add(res);
-                        posicaoChegada += 1;
-                    }
-                }
-            }
-            
-        }
-
-        else {
+        } else {
 
             for (int i = mapa.buscarTamanhoMapa(); i > 0; i--) {
                 ArrayList<Jogador> jogadores = mapa.buscarCasa(i).ordernarIds();
