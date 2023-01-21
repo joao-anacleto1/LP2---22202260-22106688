@@ -1400,11 +1400,10 @@ public class TestGameManager {
 
         jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
-
-        MovementResult move = jogo.moveCurrentPlayer(15, true);
+        MovementResult move = jogo.moveCurrentPlayer(14, true);
         assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
 
-        move = jogo.moveCurrentPlayer(15, true);
+        move = jogo.moveCurrentPlayer(14, true);
         assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
 
         move = jogo.moveCurrentPlayer(20, true);
@@ -1416,7 +1415,6 @@ public class TestGameManager {
         String resultadoObtido = jogo.getWinnerInfo()[0];
 
         Assert.assertEquals(resultadoEsperado[0],resultadoObtido);
-
 
     }
 
@@ -1453,10 +1451,10 @@ public class TestGameManager {
         MovementResult move = jogo.moveCurrentPlayer(15, true);
         assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
 
-        move = jogo.moveCurrentPlayer(15, true);
+        move = jogo.moveCurrentPlayer(14, true);
         assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
 
-        move = jogo.moveCurrentPlayer(16, true);
+        move = jogo.moveCurrentPlayer(14, true);
         assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
 
         String[] resultadoEsperado = new String[1];
@@ -1499,10 +1497,10 @@ public class TestGameManager {
         jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
 
-        MovementResult move = jogo.moveCurrentPlayer(15, true);
+        MovementResult move = jogo.moveCurrentPlayer(14, true);
         assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
 
-        move = jogo.moveCurrentPlayer(15, true);
+        move = jogo.moveCurrentPlayer(14, true);
         assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
 
         jogo.jogadores.get(2).posicaoAtual = 30;
@@ -1547,10 +1545,10 @@ public class TestGameManager {
         jogo.createInitialJungle(30, playersinfo, foodsInfo);
 
 
-        MovementResult move = jogo.moveCurrentPlayer(15, true);
+        MovementResult move = jogo.moveCurrentPlayer(14, true);
         assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
 
-        move = jogo.moveCurrentPlayer(15, true);
+        move = jogo.moveCurrentPlayer(14, true);
         assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
 
         move = jogo.moveCurrentPlayer(18, true);
@@ -1565,6 +1563,159 @@ public class TestGameManager {
 
 
     }
+
+
+    @Test
+    public void test_39_getWinnerInfo_Third_Condition_05() throws InvalidInitialJungleException {
+        GameManager jogo = new GameManager();
+        jogo.reset();
+
+        String[][] playersinfo = new String[3][4];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Unicornio1";
+        playersinfo[0][2] = "U";
+        playersinfo[0][3] = "200";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Elefante";
+        playersinfo[1][2] = "E";
+        playersinfo[1][3] = "180";
+
+        playersinfo[2][0] = "3";
+        playersinfo[2][1] = "Unicornio2";
+        playersinfo[2][2] = "U";
+        playersinfo[2][3] = "200";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "a";
+        foodsInfo[0][1] = "7";
+
+        jogo.createInitialJungle(10, playersinfo, foodsInfo);
+
+        MovementResult move = jogo.moveCurrentPlayer(4, false);
+        assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
+
+        move = jogo.moveCurrentPlayer(4, false);
+        assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
+
+        move = jogo.moveCurrentPlayer(6, false);
+        assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
+
+        String[] resultadoEsperado = new String[1];
+        resultadoEsperado[0] = "1";
+
+        String resultadoObtido = jogo.getWinnerInfo()[0];
+
+        Assert.assertEquals(resultadoEsperado[0],resultadoObtido);
+
+    }
+
+    @Test
+    public void test_40_getWinnerInfo_Third_Condition_06() throws InvalidInitialJungleException {
+        GameManager jogo = new GameManager();
+        jogo.reset();
+
+        String[][] playersinfo = new String[3][4];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Unicornio";
+        playersinfo[0][2] = "U";
+        playersinfo[0][3] = "200";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Tartaruga1";
+        playersinfo[1][2] = "T";
+        playersinfo[1][3] = "150";
+
+        playersinfo[2][0] = "3";
+        playersinfo[2][1] = "Tartaruga2";
+        playersinfo[2][2] = "T";
+        playersinfo[2][3] = "150";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "m";
+        foodsInfo[0][1] = "5";
+
+        jogo.createInitialJungle(47, playersinfo, foodsInfo);
+
+        System.out.println(jogo.mapa.buscarTamanhoMapa()/2);
+
+        MovementResult move = jogo.moveCurrentPlayer(23, true);
+        assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
+
+        System.out.println(jogo.jogadores.get(0).buscarPosicaoAtual());
+
+        move = jogo.moveCurrentPlayer(23, true);
+        assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
+
+        move = jogo.moveCurrentPlayer(24, true);
+        assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
+
+        String[] resultadoEsperado = new String[1];
+        resultadoEsperado[0] = "2";
+
+        String resultadoObtido = jogo.getWinnerInfo()[0];
+
+        Assert.assertEquals(resultadoEsperado[0],resultadoObtido);
+
+
+    }
+
+    @Test
+    public void test_41_getWinnerInfo_Third_Condition_07() throws InvalidInitialJungleException {
+        GameManager jogo = new GameManager();
+        jogo.reset();
+
+        String[][] playersinfo = new String[3][4];
+
+        playersinfo[0][0] = "1";
+        playersinfo[0][1] = "Unicornio";
+        playersinfo[0][2] = "U";
+        playersinfo[0][3] = "200";
+
+        playersinfo[1][0] = "2";
+        playersinfo[1][1] = "Tartaruga1";
+        playersinfo[1][2] = "T";
+        playersinfo[1][3] = "150";
+
+        playersinfo[2][0] = "3";
+        playersinfo[2][1] = "Tartaruga2";
+        playersinfo[2][2] = "T";
+        playersinfo[2][3] = "150";
+
+        String[][] foodsInfo = new String[1][2];
+
+        foodsInfo[0][0] = "m";
+        foodsInfo[0][1] = "5";
+
+        jogo.createInitialJungle(46, playersinfo, foodsInfo);
+
+        System.out.println(jogo.mapa.buscarTamanhoMapa()/2);
+
+        MovementResult move = jogo.moveCurrentPlayer(22, true);
+        assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
+
+        System.out.println(jogo.jogadores.get(0).buscarPosicaoAtual());
+
+        move = jogo.moveCurrentPlayer(22, true);
+        assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
+
+        move = jogo.moveCurrentPlayer(23, true);
+        assertEquals(MovementResultCode.VALID_MOVEMENT, move.code());
+
+        String[] resultadoEsperado = new String[1];
+        resultadoEsperado[0] = "2";
+
+        String resultadoObtido = jogo.getWinnerInfo()[0];
+
+        Assert.assertEquals(resultadoEsperado[0],resultadoObtido);
+
+
+    }
+
 
 
 

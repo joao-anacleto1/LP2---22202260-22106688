@@ -412,7 +412,7 @@ public class GameManager {
 
             int metade;
 
-            if(mapa.buscarTamanhoMapa()/2 % 2 == 0){
+            if(mapa.buscarTamanhoMapa() % 2 == 0){
                 metade = mapa.buscarTamanhoMapa()/2;
             }else {
                 metade = mapa.buscarTamanhoMapa()/2 + 1;
@@ -823,7 +823,7 @@ public class GameManager {
         int metade;
 
 
-        if(mapa.buscarTamanhoMapa()/2 % 2 == 0){
+        if(mapa.buscarTamanhoMapa() % 2 == 0){
             metade = mapa.buscarTamanhoMapa()/2;
         }else {
             metade = mapa.buscarTamanhoMapa()/2 + 1;
