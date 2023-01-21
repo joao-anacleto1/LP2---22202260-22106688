@@ -505,40 +505,31 @@ public class GameManager {
                 }
             }
 
-            String res = "#" + posicaoChegada + " " + jogadorVencedor.buscarNome() + ", " +
-                    jogadorVencedor.buscarNomeEspecie() + ", " + jogadorVencedor.buscarPosicaoAtual() +
-                    ", " + jogadorVencedor.buscarPosicaoPercorrida() + ", " + jogadorVencedor.buscarSomarComida();
-            resultado.add(res);
-            posicaoChegada += 1;
 
         }else if(jogoAcabado()==2){
 
             jogadorVencedor = jogadores.get(1);
 
-            String res = "#" + posicaoChegada + " " + jogadorVencedor.buscarNome() + ", " +
-                    jogadorVencedor.buscarNomeEspecie() + ", " + jogadorVencedor.buscarPosicaoAtual() +
-                    ", " + jogadorVencedor.buscarPosicaoPercorrida() + ", " + jogadorVencedor.buscarSomarComida();
-            resultado.add(res);
-            posicaoChegada += 1;
 
         }else{
 
             jogadorVencedor = mapa.buscarCasa(mapa.buscarTamanhoMapa()).buscarJogadores().get(0);
 
-            String res = "#" + posicaoChegada + " " + jogadorVencedor.buscarNome() + ", " +
-                    jogadorVencedor.buscarNomeEspecie() + ", " + jogadorVencedor.buscarPosicaoAtual() +
-                    ", " + jogadorVencedor.buscarPosicaoPercorrida() + ", " + jogadorVencedor.buscarSomarComida();
-            resultado.add(res);
-            posicaoChegada += 1;
 
         }
+
+        String res = "#" + posicaoChegada + " " + jogadorVencedor.buscarNome() + ", " +
+                jogadorVencedor.buscarNomeEspecie() + ", " + jogadorVencedor.buscarPosicaoAtual() +
+                ", " + jogadorVencedor.buscarPosicaoPercorrida() + ", " + jogadorVencedor.buscarSomarComida();
+        resultado.add(res);
+        posicaoChegada += 1;
 
         for (int i = mapa.buscarTamanhoMapa(); i > 0; i--) {
             ArrayList<Jogador> jogadores = mapa.buscarCasa(i).ordernarIds();
 
             for (Jogador jogador : jogadores) {
                 if(jogadorVencedor.buscarId() != jogador.buscarId()){
-                    String res = "#" + posicaoChegada + " " + jogador.buscarNomeJogador() + ", " + jogador.buscarNomeEspecie()
+                    res = "#" + posicaoChegada + " " + jogador.buscarNomeJogador() + ", " + jogador.buscarNomeEspecie()
                             + ", " + jogador.buscarPosicaoAtual() + ", " + jogador.buscarPosicaoPercorrida() + ", "
                             + jogador.buscarSomarComida();
                     resultado.add(res);
