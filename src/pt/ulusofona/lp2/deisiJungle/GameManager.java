@@ -486,7 +486,8 @@ public class GameManager {
         ArrayList<String> resultado = new ArrayList<>();
         int posicaoChegada = 1;
 
-        if (jogoAcabado() == 1) {
+        if (jogadores.get(0).buscarPosicaoAtual() - jogadores.get(1).buscarPosicaoAtual() > mapa.buscarTamanhoMapa()/2) {
+
 
             String res = "#" + posicaoChegada + " " + jogadores.get(1).buscarNome() + ", " +
                     jogadores.get(1).buscarNomeEspecie() + ", " + jogadores.get(1).buscarPosicaoAtual() +
@@ -514,9 +515,7 @@ public class GameManager {
                     posicaoChegada += 1;
                 }
             }
-        }
-
-        else {
+        } else {
 
             for (int i = mapa.buscarTamanhoMapa(); i > 0; i--) {
                 ArrayList<Jogador> jogadores = mapa.buscarCasa(i).ordernarIds();
