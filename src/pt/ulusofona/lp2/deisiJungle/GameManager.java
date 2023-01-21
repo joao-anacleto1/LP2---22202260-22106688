@@ -98,11 +98,11 @@ public class GameManager {
         nrCasasMapa = jungleSize;
 
         if (!(playersInfo.length >= 2 && playersInfo.length <= 4)) {
-            throw new InvalidInitialJungleException("O número de jogadores não é válido",true,false);
+            throw new InvalidInitialJungleException("O número de jogadores não é válido", true, false);
         }
 
         if (!(jungleSize >= 2 * playersInfo.length)) {
-            throw new InvalidInitialJungleException("Não existem pelo menos duas posições para se jogar no mapa",true,
+            throw new InvalidInitialJungleException("Não existem pelo menos duas posições para se jogar no mapa", true,
                     false);
         }
 
@@ -113,13 +113,13 @@ public class GameManager {
                 if (!resultado.contains(Integer.parseInt(dadosJogador[0]))) {
                     resultado.add(Integer.parseInt(dadosJogador[0]));
                 } else {
-                    throw new InvalidInitialJungleException("Id de jogador inválido",true,false);
+                    throw new InvalidInitialJungleException("Id de jogador inválido", true, false);
                 }
             } catch (NumberFormatException e) {
-                throw new InvalidInitialJungleException("Id de jogador inválido",true,false);
+                throw new InvalidInitialJungleException("Id de jogador inválido", true, false);
             }
             if (dadosJogador[1] == null || dadosJogador[1].equals("")) {
-                throw new InvalidInitialJungleException("Nome de jogador inválido",true,false);
+                throw new InvalidInitialJungleException("Nome de jogador inválido", true, false);
             }
 
             boolean existeEspecie = false; // verificação final para ver se tem ou não uma especie válida
@@ -130,7 +130,7 @@ public class GameManager {
                 }
             }
             if (!existeEspecie) {
-                throw new InvalidInitialJungleException("Não existe espécie válida",true,false);
+                throw new InvalidInitialJungleException("Não existe espécie válida", true, false);
             }
 
             Especie especie;
@@ -149,10 +149,10 @@ public class GameManager {
             } else if (idEspecie == 'P') {
                 especie = new Passaro();
 
-            } else if (idEspecie == 'L'){
+            } else if (idEspecie == 'L') {
                 especie = new Leao();
 
-            }else{
+            } else {
                 especie = new Unicornio();
             }
 
@@ -187,7 +187,7 @@ public class GameManager {
 
 
                 if (dadosAlimentos[0] == null) {
-                    throw new InvalidInitialJungleException("O id do tipo de alimento é inválido",false,true);
+                    throw new InvalidInitialJungleException("O id do tipo de alimento é inválido", false, true);
                 }
 
                 boolean existeAlimento = false; // verifica se existe comida válida
@@ -199,7 +199,7 @@ public class GameManager {
                     }
                 }
                 if (!existeAlimento) {
-                    throw new InvalidInitialJungleException("Não existe comida válida",false,true);
+                    throw new InvalidInitialJungleException("Não existe comida válida", false, true);
                 }
                 try {
                     if (Integer.parseInt(dadosAlimentos[1]) > 1 && Integer.parseInt(dadosAlimentos[1]) < jungleSize) {
@@ -230,11 +230,11 @@ public class GameManager {
 
                     } else {
                         throw new InvalidInitialJungleException("O alimento não está posicionado dentro " +
-                                "dos limites do terreno",false,true);
+                                "dos limites do terreno", false, true);
                     }
                 } catch (NumberFormatException e) {
                     throw new InvalidInitialJungleException("O alimento não está posicionado dentro " +
-                            "dos limites do terreno",false,true);
+                            "dos limites do terreno", false, true);
                 }
             }
         }
@@ -386,10 +386,10 @@ public class GameManager {
                     "Apanhou " + alimentoCasaAtual.buscarNomeAlimento());
         } else {
 
-            if(jogadorAtual.buscarEspecie().eMitologico()){
+            if (jogadorAtual.buscarEspecie().eMitologico()) {
 
 
-                if(alimentoCasaAtual == null){
+                if (alimentoCasaAtual == null) {
                     jogadorAtual.adicionaEnergiaUnicornios();
                     return new MovementResult(MovementResultCode.VALID_MOVEMENT, null);
                 }
@@ -408,21 +408,21 @@ public class GameManager {
 
         //System.out.println(jogoAcabado);
 
-        if(jogoAcabado == 3){
+        if (jogoAcabado == 3) {
 
             int metade;
 
-            if(mapa.buscarTamanhoMapa() % 2 == 0){
-                metade = mapa.buscarTamanhoMapa()/2;
-            }else {
-                metade = mapa.buscarTamanhoMapa()/2 + 1;
+            if (mapa.buscarTamanhoMapa() % 2 == 0) {
+                metade = mapa.buscarTamanhoMapa() / 2;
+            } else {
+                metade = mapa.buscarTamanhoMapa() / 2 + 1;
             }
 
             jogador = mapa.buscarCasa(metade).buscarJogadores().get(0);
 
-            for(int i = 0; i < mapa.buscarCasa(metade).buscarJogadores().size(); i++){
+            for (int i = 0; i < mapa.buscarCasa(metade).buscarJogadores().size(); i++) {
 
-                if(mapa.buscarCasa(metade).buscarJogadores().get(i).buscarEnergia() > jogador.buscarEnergia() ){
+                if (mapa.buscarCasa(metade).buscarJogadores().get(i).buscarEnergia() > jogador.buscarEnergia()) {
 
                     jogador = mapa.buscarCasa(metade).buscarJogadores().get(i);
                 }
@@ -486,7 +486,51 @@ public class GameManager {
         ArrayList<String> resultado = new ArrayList<>();
         int posicaoChegada = 1;
 
-        if (jogadores.get(0).buscarPosicaoAtual() - jogadores.get(1).buscarPosicaoAtual() > mapa.buscarTamanhoMapa()/2) {
+        if (jogoAcabado() == 3) {
+
+            int metade;
+
+            if (mapa.buscarTamanhoMapa() % 2 == 0) {
+                metade = mapa.buscarTamanhoMapa() / 2;
+            } else {
+                metade = mapa.buscarTamanhoMapa() / 2 + 1;
+            }
+
+            Jogador jogador = jogadores.get(0);
+
+            for (Jogador jogadorAtual : mapa.buscarCasa(metade).buscarJogadores()) {
+
+                if (jogadorAtual.buscarEnergia() > jogador.buscarEnergia()) {
+                    jogador = jogadorAtual;
+                }
+            }
+
+            String res = "#" + posicaoChegada + " " + jogador.buscarNome() + ", " +
+                    jogador.buscarNomeEspecie() + ", " + jogador.buscarPosicaoAtual() +
+                    ", " + jogador.buscarPosicaoPercorrida() + ", " + jogador.buscarSomarComida();
+            resultado.add(res);
+            posicaoChegada += 1;
+
+            for (int i = jogadores.get(1).buscarPosicaoAtual() - 1; i > 0; i--) {
+                ArrayList<Jogador> jogadores = mapa.buscarCasa(i).ordernarIds();
+
+                for (Jogador jogadorAtual : jogadores) {
+
+                    if (jogadorAtual.buscarId() != jogador.buscarId()) {
+                        String nomeJogador = jogadorAtual.buscarNomeJogador();
+                        String nomeEspecie = jogadorAtual.buscarNomeEspecie();
+                        int posicaoNoMapa = jogadorAtual.buscarPosicaoAtual();
+
+                        res = "#" + posicaoChegada + " " + nomeJogador + ", " + nomeEspecie + ", " + posicaoNoMapa +
+                                ", " + jogador.buscarPosicaoPercorrida() + ", " + jogador.buscarSomarComida();
+                        resultado.add(res);
+                        posicaoChegada += 1;
+                    }
+
+                }
+            }
+
+        } else if (jogadores.get(0).buscarPosicaoAtual() - jogadores.get(1).buscarPosicaoAtual() > mapa.buscarTamanhoMapa() / 2) {
 
 
             String res = "#" + posicaoChegada + " " + jogadores.get(1).buscarNome() + ", " +
@@ -496,7 +540,7 @@ public class GameManager {
             posicaoChegada += 1;
 
             res = "#" + posicaoChegada + " " + jogadores.get(0).buscarNome() + ", " +
-                    jogadores.get(0).buscarNomeEspecie()+ ", " + jogadores.get(0).buscarPosicaoAtual() +
+                    jogadores.get(0).buscarNomeEspecie() + ", " + jogadores.get(0).buscarPosicaoAtual() +
                     ", " + jogadores.get(0).buscarPosicaoPercorrida() + ", " + jogadores.get(0).buscarSomarComida();
             resultado.add(res);
             posicaoChegada += 1;
@@ -515,6 +559,7 @@ public class GameManager {
                     posicaoChegada += 1;
                 }
             }
+
         } else {
 
             for (int i = mapa.buscarTamanhoMapa(); i > 0; i--) {
@@ -750,7 +795,7 @@ public class GameManager {
         return resultado;
     }
 
-    void ordenarJogadoresPorPosicao(){
+    void ordenarJogadoresPorPosicao() {
         //https://www.geeksforgeeks.org/sorting-in-java/--
         for (int i = 0; i < jogadores.size(); i++) {
 
@@ -823,14 +868,14 @@ public class GameManager {
         int metade;
 
 
-        if(mapa.buscarTamanhoMapa() % 2 == 0){
-            metade = mapa.buscarTamanhoMapa()/2;
-        }else {
-            metade = mapa.buscarTamanhoMapa()/2 + 1;
+        if (mapa.buscarTamanhoMapa() % 2 == 0) {
+            metade = mapa.buscarTamanhoMapa() / 2;
+        } else {
+            metade = mapa.buscarTamanhoMapa() / 2 + 1;
         }
 
 
-        if(mapa.buscarCasa(metade).buscarJogadores().size() > 1){
+        if (mapa.buscarCasa(metade).buscarJogadores().size() > 1) {
 
             for (Jogador jogadore : jogadores) {
 
