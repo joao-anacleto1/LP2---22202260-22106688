@@ -557,10 +557,7 @@ public class GameManager {
                     }
                 }
             }
-
-
-
-
+            
         }
 
         else {
